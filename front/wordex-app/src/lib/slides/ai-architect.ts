@@ -97,7 +97,7 @@ export class AIPresentationArchitect {
 
     try {
         const response = await this.callAI(prompt);
-        let pureJson = response.content.replace(/```json/g, "").replace(/```/g, "").trim();
+        const pureJson = response.content.replace(/```json/g, "").replace(/```/g, "").trim();
         return JSON.parse(pureJson);
     } catch(err) {
         console.error("AI Structure Generation Failed:", err);
@@ -128,7 +128,7 @@ export class AIPresentationArchitect {
 
     try {
         const response = await this.callAI(prompt);
-        let pureJson = response.content.replace(/```json/g, "").replace(/```/g, "").trim();
+        const pureJson = response.content.replace(/```json/g, "").replace(/```/g, "").trim();
         return JSON.parse(pureJson);
     } catch(err) {
         return {

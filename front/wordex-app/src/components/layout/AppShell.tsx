@@ -67,10 +67,10 @@ export default function AppShell({
   }, [showToast]);
 
   return (
-    <div className="flex bg-surface text-foreground min-h-screen overflow-hidden font-body selection:bg-primary-light selection:text-primary">
+    <div className="flex bg-surface text-foreground min-h-screen overflow-hidden font-body selection:bg-[#ffdcc2] selection:text-primary">
       
       {/* ── Top Navigation Shell (The Floating Horizon) ───────────────────────── */}
-      <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-3 max-w-7xl mx-auto rounded-3xl mt-4 mx-4 bg-surface/60 backdrop-blur-3xl shadow-[0_30px_60px_rgba(28,28,26,0.04)] border border-outline-variant/10">
+      <nav className="app-top-nav fixed top-0 z-50 flex items-center justify-between px-6 py-3 rounded-3xl mt-4 bg-surface/60 backdrop-blur-3xl shadow-[0_30px_60px_rgba(28,28,26,0.04)] border border-outline-variant/10">
         <div className="flex items-center gap-8">
           <Link href="/dashboard" className="text-xl font-black tracking-tighter text-primary hover:opacity-80 transition-opacity">
             {title}
@@ -145,7 +145,7 @@ export default function AppShell({
         className={`flex items-center gap-3 px-4 py-3 rounded-2xl group transition-all duration-300 font-black uppercase tracking-[0.15em] text-[10px]
                   ${active
                     ? "bg-linear-to-tr from-primary to-primary-container text-white shadow-[0_10px_20px_rgba(137,77,13,0.25)] scale-[1.02] is-active"
-                    : "text-on-surface-variant hover:text-primary hover:bg-white/60 hover:translate-x-1"
+                    : "text-[#524439] hover:text-primary hover:bg-white/60 hover:translate-x-1"
                   } ${collapsed ? "justify-center px-0" : ""}`}
               >
                 <span
@@ -173,7 +173,7 @@ export default function AppShell({
                 className={`flex items-center gap-3 px-4 py-3 rounded-2xl group transition-all duration-300 font-black uppercase tracking-[0.15em] text-[10px]
                   ${active
                     ? "bg-linear-to-tr from-primary to-primary-container text-white shadow-[0_10px_20px_rgba(137,77,13,0.25)]"
-                    : "text-on-surface-variant hover:text-primary hover:bg-white/60 hover:translate-x-1"
+                    : "text-[#524439] hover:text-primary hover:bg-white/60 hover:translate-x-1"
                   } ${collapsed ? "justify-center px-0" : ""}`}
               >
                 <span className="material-symbols-outlined text-[20px] transition-transform group-hover:scale-110">{item.icon}</span>
@@ -209,7 +209,8 @@ export default function AppShell({
       <div className="fixed top-[-20%] right-[-10%] w-[50%] h-[50%] bg-primary/5 rounded-full blur-[160px] pointer-events-none -z-10 animate-pulse" />
       <div className="fixed bottom-[-10%] left-[-5%] w-[40%] h-[40%] bg-tertiary/5 rounded-full blur-[140px] pointer-events-none -z-10" />
       
-      <style jsx>{`
+      <style dangerouslySetInnerHTML={{ __html: `
+        .app-top-nav { left: 1rem; right: 1rem; max-width: calc(100% - 2rem); }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         
@@ -218,9 +219,9 @@ export default function AppShell({
           background-size: 100% 4px;
         }
 
-        :global(.fill-icon) { font-variation-settings: 'FILL' 1; }
+        .fill-icon { font-variation-settings: 'FILL' 1; }
         .is-active .material-symbols-outlined { font-variation-settings: 'FILL' 1; }
-      `}</style>
+      ` }} />
     </div>
   );
 }

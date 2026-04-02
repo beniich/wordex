@@ -55,7 +55,7 @@ export function useAdvancedSheetEngine(sheetId: string) {
     if (sheetId && hfInst.current) {
        loadSheetData(sheetId);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+     
   }, [sheetId]);
 
   // ── Real-time Remote Sync ──────────────────────────────────────────────────

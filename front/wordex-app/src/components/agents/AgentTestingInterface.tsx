@@ -28,7 +28,7 @@ export function AgentTestingInterface() {
   return (
     <div className="agent-testing-interface min-h-screen flex flex-col font-manrope">
       {/* Header */}
-      <div className="interface-header bg-gradient-to-r from-primary to-[#C9A56B] shadow-2xl py-8 px-12 z-10">
+      <div className="interface-header bg-linear-to-r from-primary to-[#C9A56B] shadow-2xl py-8 px-12 z-10">
         <div className="header-content flex justify-between items-center">
             <div>
               <p className="text-xs text-outline leading-relaxed mb-6 italic opacity-70">&quot;The Multi-Agent Collaborative Workshop&quot;</p>
@@ -97,7 +97,7 @@ export function AgentTestingInterface() {
         )}
       </div>
 
-      <style jsx>{`
+      <style dangerouslySetInnerHTML={{ __html: `
         @keyframes pulse {
           0% { opacity: 1; transform: scale(1); }
           50% { opacity: 0.5; transform: scale(1.1); }
@@ -106,7 +106,7 @@ export function AgentTestingInterface() {
         .pulse {
           animation: pulse 2s infinite ease-in-out;
         }
-      `}</style>
+      ` }} />
     </div>
   );
 }

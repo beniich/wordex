@@ -66,7 +66,7 @@ export default function DashboardPage() {
       // Refresh storage stats
       const stats = await workspaces.getStorage();
       setStorageStats(stats);
-    } catch (err) {
+    } catch {
       showToast("Vaulting failed. Storage limit reached or connection lost.", "error");
     } finally {
       setIsImporting(false);
@@ -117,7 +117,7 @@ export default function DashboardPage() {
                     const ws = await workspaces.create(name, slug);
                     showToast("New Atelier commissioned", "success");
                     router.push(`/workspace/${ws.id}`);
-                  } catch (e) {
+                  } catch {
                     showToast("Commissioning failed", "error");
                   }
                 }}
@@ -234,9 +234,9 @@ export default function DashboardPage() {
                 
                 {[
                   { icon: "dashboard_customize", label: "Control Tower", href: "/dashboard/bi" },
-                  { icon: "bolt",        label: "Shortcuts" },
+                  { icon: "bolt",        label: "Shortcuts", href: "#" },
                 ].map((action) => (
-                  <Link key={action.label} href={(action as any).href || "#"} className="flex flex-col items-center justify-center gap-3 p-4 bg-surface rounded-2xl hover:bg-orange-50 hover:border-primary/30 border border-transparent shadow-[0_2px_10px_rgba(0,0,0,0.02)] transition-all group" title={action.label}>
+                  <Link key={action.label} href={action.href} className="flex flex-col items-center justify-center gap-3 p-4 bg-surface rounded-2xl hover:bg-orange-50 hover:border-primary/30 border border-transparent shadow-[0_2px_10px_rgba(0,0,0,0.02)] transition-all group" title={action.label}>
                     <div className="w-10 h-10 rounded-full bg-[#f0ede9] text-[#524439] flex items-center justify-center group-hover:bg-primary-container group-hover:text-white transition-colors">
                       <span className="material-symbols-outlined text-[20px]">{action.icon}</span>
                     </div>

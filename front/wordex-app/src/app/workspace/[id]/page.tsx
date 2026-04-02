@@ -249,7 +249,7 @@ export default function WorkspacePage() {
       setReplyContent("");
       setReplyingTo(null);
       showToast("Reply vaulted", "success");
-    } catch (e) {
+    } catch {
       showToast("Failed to archive reply", "error");
     }
   };
@@ -369,7 +369,7 @@ export default function WorkspacePage() {
                   setAllDocs([...allDocs, newDoc]);
                   setCurrentDoc(newDoc);
                   showToast("New masterpiece archived", "success");
-                } catch (e) {
+                } catch {
                    showToast("Failed to create archive", "error");
                 }
               }}
@@ -386,7 +386,7 @@ export default function WorkspacePage() {
           
           {/* Floating Toolbar */}
           <div className="sticky top-28 z-40 flex justify-center mb-12">
-            <div className="bg-[#31302e]/95 backdrop-blur-xl px-3 py-1.5 rounded-2x flex items-center gap-1 shadow-2xl border border-white/5 mx-auto">
+            <div className="bg-[#31302e]/95 backdrop-blur-xl px-3 py-1.5 rounded-2xl flex items-center gap-1 shadow-2xl border border-white/5 mx-auto">
               <button 
                 onClick={() => editor?.chain().focus().toggleBold().run()}
                 className={`p-2 rounded-lg transition-colors ${editor?.isActive('bold') ? 'bg-white/20 text-white shadow-inner' : 'text-white/50 hover:text-white'}`}>

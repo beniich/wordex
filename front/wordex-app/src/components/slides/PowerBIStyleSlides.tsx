@@ -303,7 +303,7 @@ export function PowerBIStyleSlides({ presentationId }: { presentationId: string 
           </div>
       </div>
 
-      <style jsx>{`
+      <style dangerouslySetInnerHTML={{ __html: `
         .sable-theme {
           background: linear-gradient(135deg, #F5F1E6 0%, #E8E2D0 100%);
           color: #2D2D2D;
@@ -369,7 +369,7 @@ export function PowerBIStyleSlides({ presentationId }: { presentationId: string 
           background: #DCC6A0;
           border-radius: 10px;
         }
-      `}</style>
+      ` }} />
     </div>
   );
 }
@@ -399,7 +399,7 @@ function SortableSlideItem({ slide, index, isSelected, onSelect }: {
         } ${isDragging ? 'dragging' : ''}`}
       onClick={onSelect}
     >
-      <style jsx>{`
+      <style dangerouslySetInnerHTML={{ __html: `
         .sortable-slide {
           transform: ${CSS.Transform.toString(transform)};
           transition: ${transition};
@@ -408,7 +408,7 @@ function SortableSlideItem({ slide, index, isSelected, onSelect }: {
         .dragging {
           opacity: 0.5;
         }
-      `}</style>
+      ` }} />
       <div className="flex items-start gap-3">
         <div 
           className="mt-1 text-[10px] font-bold text-[#A67B5B]/40 group-hover:text-[#A67B5B] transition-colors cursor-grab active:cursor-grabbing p-1"

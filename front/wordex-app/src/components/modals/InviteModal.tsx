@@ -119,13 +119,13 @@ export default function InviteModal({ workspaceId, isOpen, onClose }: InviteModa
                 </div>
               ))
             ) : query.length > 2 ? (
-              <p className="text-center py-8 text-xs font-bold text-[#857467] uppercase tracking-widest italic opacity-60">
+              <p className="text-center py-8 text-xs font-bold text-outline uppercase tracking-widest italic opacity-60">
                 No matching artisans found
               </p>
             ) : (
               <div className="text-center py-8 opacity-40">
-                <span className="material-symbols-outlined text-4xl text-[#857467]/30">group</span>
-                <p className="mt-2 text-xs font-bold text-[#857467] uppercase tracking-widest">Awaiting input</p>
+                <span className="material-symbols-outlined text-4xl text-outline/30">group</span>
+                <p className="mt-2 text-xs font-bold text-outline uppercase tracking-widest">Awaiting input</p>
               </div>
             )}
           </div>
@@ -143,10 +143,10 @@ export default function InviteModal({ workspaceId, isOpen, onClose }: InviteModa
         </div>
       </div>
 
-      <style jsx>{`
+      <style dangerouslySetInnerHTML={{ __html: `
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-      `}</style>
+      ` }} />
     </div>
   );
 }

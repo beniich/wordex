@@ -3,7 +3,7 @@ import { useMultiAgent } from '@/hooks/use-multi-agent';
 
 export function AgentWorkflowPanel() {
   const [workflowType, setWorkflowType] = useState<'industrial' | 'maintenance'>('industrial');
-  const [sampleData, setSampleData] = useState({
+  const [sampleData] = useState({
     machines: [
       { name: "M1", trs: 78, oee: 65, availability: 85, performance: 82, quality: 92 },
       { name: "M2", trs: 82, oee: 71, availability: 88, performance: 85, quality: 95 },
@@ -12,7 +12,7 @@ export function AgentWorkflowPanel() {
     timeframe: "Semaine dernière"
   });
   const [isRunning, setIsRunning] = useState(false);
-  const [workflowResult, setWorkflowResult] = useState<any>(null);
+  const [workflowResult, setWorkflowResult] = useState<Record<string, unknown> | null>(null);
   const { runIndustrialAnalysis } = useMultiAgent();
 
   const runWorkflow = async () => {
@@ -32,7 +32,7 @@ export function AgentWorkflowPanel() {
   return (
     <div className="workflow-panel">
       <div className="workflow-controls border-r border-[#DCC6A0]/30 pr-6">
-        <h3>🧪 Scénarios d'Analyse</h3>
+        <h3>🧪 Scénarios d&apos;Analyse</h3>
         
         <div className="workflow-selector my-6 flex flex-col gap-3">
           <button 
@@ -52,7 +52,7 @@ export function AgentWorkflowPanel() {
         </div>
 
         <div className="sample-data mb-6">
-          <h4 className="text-[11px] uppercase tracking-widest font-black text-outline mb-2">Données d'Exemple</h4>
+          <h4 className="text-[11px] uppercase tracking-widest font-black text-outline mb-2">Données d&apos;Exemple</h4>
           <pre className="bg-[#f8f8f8] p-3 rounded-lg text-[10px] font-mono leading-relaxed max-height-[200px] overflow-auto border border-outline-variant/10">
             {JSON.stringify(sampleData, null, 2)}
           </pre>
@@ -61,7 +61,7 @@ export function AgentWorkflowPanel() {
         <button 
           onClick={runWorkflow}
           disabled={isRunning}
-          className="run-workflow-btn w-full py-4 bg-gradient-to-r from-[#A67B5B] to-[#C9A56B] text-white font-black uppercase tracking-[0.2em] rounded-xl shadow-lg hover:brightness-110 active:scale-95 transition-all text-xs"
+          className="run-workflow-btn w-full py-4 bg-linear-to-r from-[#A67B5B] to-[#C9A56B] text-white font-black uppercase tracking-[0.2em] rounded-xl shadow-lg hover:brightness-110 active:scale-95 transition-all text-xs"
         >
           {isRunning ? '⏳ Exécution en cours...' : '🚀 Lancer l\'Analyse Multi-Agents'}
         </button>
@@ -76,7 +76,7 @@ export function AgentWorkflowPanel() {
         {workflowResult ? (
           <div className="results-content space-y-6">
             <div className="phases-timeline space-y-4">
-              {workflowResult.result?.phases?.map((phase: any, index: number) => (
+              {(workflowResult.result as { phases?: Array<{ agent: string, tokens?: number, output: string }> })?.phases?.map((phase, index: number) => (
                 <div key={index} className="phase-card bg-white p-5 rounded-2xl border border-outline-variant/20 shadow-sm hover:shadow-md transition-shadow">
                   <div className="phase-header flex items-center justify-between mb-4 border-b border-outline-variant/10 pb-2">
                     <div className="flex items-center gap-3">
@@ -98,13 +98,13 @@ export function AgentWorkflowPanel() {
               ))}
             </div>
             
-            {workflowResult.result?.summary && (
+            {(workflowResult.result as { summary?: { total_tokens: number } })?.summary && (
               <div className="summary-card bg-inverse-surface text-inverse-on-surface p-6 rounded-2xl shadow-xl mt-8">
-                <h4 className="text-[10px] uppercase font-black tracking-[0.3em] mb-4 opacity-70">📈 Résumé de l'Exécution</h4>
+                <h4 className="text-[10px] uppercase font-black tracking-[0.3em] mb-4 opacity-70">📈 Résumé de l&apos;Exécution</h4>
                 <div className="flex gap-12">
                   <div className="stat-item">
                     <p className="text-[9px] uppercase tracking-widest opacity-50 mb-1">Total Tokens</p>
-                    <p className="text-xl font-black">{workflowResult.result.summary.total_tokens}</p>
+                    <p className="text-xl font-black">{(workflowResult.result as { summary?: { total_tokens: number } })?.summary?.total_tokens}</p>
                   </div>
                   <div className="stat-item">
                     <p className="text-[9px] uppercase tracking-widest opacity-50 mb-1">Agents Actifs</p>
@@ -133,7 +133,7 @@ export function AgentWorkflowPanel() {
         )}
       </div>
 
-      <style jsx>{`
+      <style dangerouslySetInnerHTML={{ __html: `
         .workflow-panel {
           display: flex;
           gap: 24px;
@@ -142,7 +142,7 @@ export function AgentWorkflowPanel() {
         .workflow-controls {
           width: 380px;
         }
-      `}</style>
+      ` }} />
     </div>
   );
 }

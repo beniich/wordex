@@ -150,7 +150,7 @@ export function AgentChatPanel({ selectedAgent, onAgentChange }: { selectedAgent
         </div>
       </div>
 
-      <style jsx>{`
+      <style dangerouslySetInnerHTML={{ __html: `
         .agent-chat-panel {
           display: flex;
           gap: 20px;
@@ -330,7 +330,7 @@ export function AgentChatPanel({ selectedAgent, onAgentChange }: { selectedAgent
         .cuivre-light {
           background: #FCF9F5;
         }
-      `}</style>
+      ` }} />
     </div>
   );
 }

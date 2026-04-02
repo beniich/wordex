@@ -34,7 +34,7 @@ export function DashboardLayout() {
         </main>
       </div>
 
-      <style jsx global>{`
+      <style dangerouslySetInnerHTML={{ __html: `
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         @keyframes fadeIn {
@@ -44,7 +44,7 @@ export function DashboardLayout() {
         .animate-fade-in {
            animation: fadeIn 0.5s ease-out forwards;
         }
-      `}</style>
+      ` }} />
     </div>
   );
 }

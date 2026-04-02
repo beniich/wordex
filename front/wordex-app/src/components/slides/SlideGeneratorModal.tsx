@@ -33,7 +33,7 @@ export const SlideGeneratorModal: React.FC<SlideGeneratorModalProps> = ({ isOpen
               title="Fermer"
               aria-label="Fermer"
               onClick={onClose}
-              className="text-[#857467] hover:text-[#f4ece3] transition-colors p-2"
+              className="text-outline hover:text-[#f4ece3] transition-colors p-2"
               disabled={isGenerating}
             >
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -44,7 +44,7 @@ export const SlideGeneratorModal: React.FC<SlideGeneratorModalProps> = ({ isOpen
 
           {/* Body */}
           <div className="p-6 space-y-6">
-            <p className="text-sm text-[#857467]">
+            <p className="text-sm text-outline">
               Décrivez ce que vous souhaitez présenter. L&apos;agent designer s&apos;occupe de structurer le pitch deck complet, d&apos;écrire le contenu et de choisir les meilleures mises en page.
             </p>
 
@@ -96,7 +96,7 @@ export const SlideGeneratorModal: React.FC<SlideGeneratorModalProps> = ({ isOpen
                     className={`px-3 py-2 rounded-lg text-[10px] font-bold uppercase tracking-widest transition-all border
                       ${theme === t 
                         ? 'bg-[#c17a3a] border-[#c17a3a] text-white shadow-lg shadow-[#c17a3a]/20 scale-105' 
-                        : 'bg-black/20 border-[#c17a3a]/20 text-[#857467] hover:border-[#c17a3a]/50'
+                        : 'bg-black/20 border-[#c17a3a]/20 text-outline hover:border-[#c17a3a]/50'
                       }`}
                   >
                     {t}

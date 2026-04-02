@@ -380,13 +380,13 @@ export default function FloatingAIChat({ defaultAgent = "general", contextData, 
           )}
         </div>
       )}
-      <style jsx>{`
+      <style dangerouslySetInnerHTML={{ __html: `
         .agent-bg-gradient { background: linear-gradient(135deg, ${agentCfg.color}, ${DESIGN_TOKENS.colors.primaryContainer}); }
         .chat-container-bg { background: rgba(252, 249, 245, 0.95); font-family: 'Manrope', sans-serif; }
         .fill-icon { font-variation-settings: 'FILL' 1; }
         .agent-tint-bg { background: ${agentCfg.color}15; }
         .agent-text { color: ${agentCfg.color}; }
-      `}</style>
+      ` }} />
     </>
   );
 }

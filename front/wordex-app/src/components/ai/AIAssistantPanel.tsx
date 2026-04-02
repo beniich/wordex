@@ -56,11 +56,10 @@ export default function AIAssistantPanel({
 
       // Auto-scroll
       setTimeout(() => endRef.current?.scrollIntoView({ behavior: "smooth" }), 50);
-    } catch (err: unknown) {
-      const message = err instanceof Error ? err.message : "Unknown error";
+    } catch {
       setMessages((p) => [
         ...p,
-        { role: "assistant", content: `⚠️ Could not reach the AI service: ${message}` },
+        { role: "assistant", content: `⚠️ Could not reach the AI service.` },
       ]);
     } finally {
       setLoading(false);
@@ -74,7 +73,7 @@ export default function AIAssistantPanel({
       const res = await ai.summarize("Summarize the current document.", "paragraph");
       setMessages((p) => [...p, { role: "assistant", content: `📄 **Summary:**\n\n${res.summary}` }]);
       setTimeout(() => endRef.current?.scrollIntoView({ behavior: "smooth" }), 50);
-    } catch (err: unknown) {
+    } catch {
       setMessages((p) => [
         ...p,
         { role: "assistant", content: "⚠️ Summary not available yet (backend service starting up)." },
@@ -85,18 +84,18 @@ export default function AIAssistantPanel({
   };
 
   return (
-    <div className="h-full flex flex-col bg-slate-900/60 border-l border-white/10 backdrop-blur-xl w-80 flex-shrink-0">
+    <div className="h-full flex flex-col bg-surface/90 border-l border-outline-variant/30 backdrop-blur-xl w-80 flex-shrink-0 text-foreground">
       {/* Header */}
-      <div className="h-14 border-b border-white/10 flex items-center justify-between px-4 bg-slate-900/80 flex-shrink-0">
-        <span className="font-semibold text-white flex items-center gap-2 text-sm">
-          <Sparkles size={15} className="text-indigo-400" />
+      <div className="h-14 border-b border-outline-variant/30 flex items-center justify-between px-4 bg-surface-container-low flex-shrink-0">
+        <span className="font-bold text-[#1c1c1a] flex items-center gap-2 text-sm uppercase tracking-widest">
+          <Sparkles size={15} className="text-primary" />
           AI Assistant
         </span>
         {onClose && (
           <button
             onClick={onClose}
             aria-label="Close AI panel"
-            className="p-1 hover:bg-white/10 rounded text-slate-400 hover:text-white transition-colors"
+            className="p-1 hover:bg-outline-variant/20 rounded text-outline hover:text-primary transition-colors"
           >
             <X size={15} />
           </button>
@@ -105,17 +104,17 @@ export default function AIAssistantPanel({
 
       {/* Quick actions */}
       {docId && (
-        <div className="px-4 pt-3 pb-2 border-b border-white/5 flex gap-2 flex-shrink-0">
+        <div className="px-4 pt-3 pb-2 border-b border-outline-variant/20 flex gap-2 flex-shrink-0">
           <button
             onClick={handleSummarize}
             disabled={loading}
-            className="flex-1 text-xs py-1.5 rounded-lg bg-indigo-600/20 text-indigo-400 hover:bg-indigo-600/30 transition-colors disabled:opacity-50"
+            className="flex-1 text-xs py-1.5 rounded-lg bg-primary/10 text-primary font-bold hover:bg-primary/20 transition-colors disabled:opacity-50"
           >
             Summarize
           </button>
           <button
             onClick={() => setInput("Translate the selected text to French:")}
-            className="flex-1 text-xs py-1.5 rounded-lg bg-white/5 text-slate-400 hover:bg-white/10 hover:text-white transition-colors"
+            className="flex-1 text-xs py-1.5 rounded-lg bg-surface-container text-outline font-bold hover:bg-outline-variant/20 hover:text-foreground transition-colors"
           >
             Translate
           </button>
@@ -123,27 +122,27 @@ export default function AIAssistantPanel({
       )}
 
       {/* Messages */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-4 scrollbar-thin scrollbar-track-transparent scrollbar-thumb-white/10">
+      <div className="flex-1 overflow-y-auto p-4 space-y-4 scrollbar-thin scrollbar-track-transparent scrollbar-thumb-outline-variant/30">
         {messages.map((msg, idx) => (
           <div key={idx} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
             {msg.role === "assistant" && (
-              <div className="w-6 h-6 rounded-full bg-indigo-600/40 flex items-center justify-center flex-shrink-0 mr-2 mt-0.5">
-                <Sparkles size={10} className="text-indigo-400" />
+              <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mr-2 mt-0.5 border border-primary/20">
+                <Sparkles size={10} className="text-primary" />
               </div>
             )}
             <div
               className={[
                 "max-w-[85%] rounded-xl px-3 py-2.5 text-sm leading-relaxed",
                 msg.role === "user"
-                  ? "bg-indigo-600/30 text-white ml-auto"
-                  : "bg-white/5 border border-white/5 text-slate-300",
+                  ? "bg-primary text-white ml-auto shadow-md"
+                  : "bg-surface-container border border-outline-variant/30 text-foreground",
               ].join(" ")}
             >
               <p className="whitespace-pre-wrap">{msg.content}</p>
               {msg.role === "assistant" && onInsert && (
                 <button
                   onClick={() => onInsert(msg.content)}
-                  className="mt-2 text-xs text-indigo-400 hover:text-indigo-300 transition-colors"
+                  className="mt-2 text-xs text-primary font-bold hover:brightness-110 transition-colors uppercase tracking-widest"
                 >
                   + Insert in document
                 </button>
@@ -152,8 +151,8 @@ export default function AIAssistantPanel({
           </div>
         ))}
         {loading && (
-          <div className="flex items-center gap-2 text-slate-500 text-sm">
-            <Loader2 size={13} className="animate-spin" />
+          <div className="flex items-center gap-2 text-outline text-sm font-bold">
+            <Loader2 size={13} className="animate-spin text-primary" />
             Thinking...
           </div>
         )}
@@ -161,7 +160,7 @@ export default function AIAssistantPanel({
       </div>
 
       {/* Input */}
-      <div className="p-4 border-t border-white/10 bg-slate-900/80 flex-shrink-0">
+      <div className="p-4 border-t border-outline-variant/30 bg-surface-container-low flex-shrink-0">
         <div className="relative">
           <input
             type="text"
@@ -170,13 +169,13 @@ export default function AIAssistantPanel({
             onKeyDown={(e) => e.key === "Enter" && !e.shiftKey && sendMessage()}
             placeholder="Ask AI to write or edit..."
             aria-label="AI prompt input"
-            className="w-full bg-slate-950 border border-white/10 rounded-full py-2.5 pl-4 pr-10 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/50 transition-all"
+            className="w-full bg-surface border border-outline-variant/40 rounded-full py-2.5 pl-4 pr-10 text-sm text-foreground placeholder-outline focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/50 transition-all font-medium"
           />
           <button
             onClick={sendMessage}
             disabled={!input.trim() || loading}
             aria-label="Send message"
-            className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 text-slate-400 hover:text-indigo-400 disabled:opacity-30 transition-colors"
+            className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 text-outline hover:text-primary disabled:opacity-30 transition-colors"
           >
             <Send size={14} />
           </button>

@@ -251,7 +251,7 @@ export function ExcelStyleSheet({ sheetId }: { sheetId: string }) {
       )}
 
       {/* Styles CSS intégrés pour le thème Sable & Cuivre */}
-      <style jsx>{`
+      <style dangerouslySetInnerHTML={{ __html: `
         .sable-theme {
           background: linear-gradient(135deg, #F5F1E6 0%, #E8E2D0 100%);
           color: #2D2D2D;
@@ -340,7 +340,7 @@ export function ExcelStyleSheet({ sheetId }: { sheetId: string }) {
           box-shadow: inset 0 0 0 2px #A67B5B;
           z-index: 2;
         }
-      `}</style>
+      ` }} />
     </div>
   );
 }

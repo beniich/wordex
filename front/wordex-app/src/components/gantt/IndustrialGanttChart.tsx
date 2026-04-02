@@ -229,7 +229,7 @@ export function IndustrialGanttChart({ sheetId }: IndustrialGanttChartProps) {
          </div>
       </footer>
 
-      <style jsx>{`
+      <style dangerouslySetInnerHTML={{ __html: `
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         .custom-scrollbar::-webkit-scrollbar { width: 4px; height: 4px; }
@@ -248,7 +248,7 @@ export function IndustrialGanttChart({ sheetId }: IndustrialGanttChartProps) {
         .gantt-bar.is-milestone { height: 16px; width: 16px; overflow: visible; }
         .progress-fill { width: var(--progress); }
         .milestone-label { left: var(--left); }
-      `}</style>
+      ` }} />
     </div>
   );
 }

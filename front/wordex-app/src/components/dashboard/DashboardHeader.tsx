@@ -13,7 +13,7 @@ interface DashboardHeaderProps {
 
 export function DashboardHeader({ activeView, onViewChange, isEditing, onEditToggle }: DashboardHeaderProps) {
   const handleSeed = async () => {
-    const workspaceId = window.location.pathname.split('/')[2] || 'demo-ws';
+    const workspaceId = typeof window !== 'undefined' ? (window.location.pathname.split('/')[2] || 'demo-ws') : 'demo-ws';
     try {
       const res = await dashboard.seedDemo(workspaceId);
       // alert(`${res.machine_count} machines seeded! Please refresh.`);
@@ -68,7 +68,7 @@ export function DashboardHeader({ activeView, onViewChange, isEditing, onEditTog
           {isEditing ? 'Editing Mode' : 'Lock Layout'}
         </button>
         
-        <Link href={`/workspace/${window.location.pathname.split('/')[2] || 'demo-ws'}`} className="p-2.5 rounded-xl bg-[#FCF9F5] border border-[#DCC6A0]/40 text-primary hover:scale-110 transition-transform active:scale-90 shadow-sm" title="Return to Workspace">
+        <Link href={`/workspace/${typeof window !== 'undefined' ? (window.location.pathname.split('/')[2] || 'demo-ws') : 'demo-ws'}`} className="p-2.5 rounded-xl bg-[#FCF9F5] border border-[#DCC6A0]/40 text-primary hover:scale-110 transition-transform active:scale-90 shadow-sm" title="Return to Workspace">
           <span className="material-symbols-outlined text-[20px]">home</span>
         </Link>
       </div>
