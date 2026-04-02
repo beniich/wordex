@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Collaborative Pulse | Aether Suite</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "outline-variant": "#d8c3b4",
+              "on-primary-fixed-variant": "#6d3a00",
+              "inverse-surface": "#31302e",
+              "surface-tint": "#8c4f10",
+              "primary": "#894d0d",
+              "surface-container-highest": "#e5e2de",
+              "on-secondary-fixed": "#2d1602",
+              "tertiary": "#006576",
+              "primary-fixed": "#ffdcc2",
+              "on-secondary": "#ffffff",
+              "surface-container-low": "#f6f3ef",
+              "on-tertiary-fixed-variant": "#004e5b",
+              "on-primary-fixed": "#2e1500",
+              "primary-container": "#a76526",
+              "surface-container-high": "#ebe8e4",
+              "on-tertiary-container": "#f9fdff",
+              "inverse-on-surface": "#f3f0ec",
+              "secondary-fixed-dim": "#eabe9c",
+              "tertiary-fixed-dim": "#74d4ea",
+              "tertiary-container": "#008094",
+              "surface": "#fcf9f5",
+              "on-secondary-container": "#79583c",
+              "secondary-container": "#ffd1ae",
+              "on-primary-container": "#fffbff",
+              "on-error-container": "#93000a",
+              "tertiary-fixed": "#a8edff",
+              "on-surface-variant": "#524439",
+              "on-background": "#1c1c1a",
+              "error": "#ba1a1a",
+              "secondary-fixed": "#ffdcc2",
+              "on-secondary-fixed-variant": "#5e4026",
+              "on-tertiary-fixed": "#001f26",
+              "inverse-primary": "#ffb77b",
+              "surface-variant": "#e5e2de",
+              "surface-container": "#f0ede9",
+              "outline": "#857467",
+              "on-primary": "#ffffff",
+              "primary-fixed-dim": "#ffb77b",
+              "background": "#fcf9f5",
+              "on-tertiary": "#ffffff",
+              "error-container": "#ffdad6",
+              "secondary": "#79573c",
+              "surface-bright": "#fcf9f5",
+              "on-error": "#ffffff",
+              "surface-dim": "#dcdad6",
+              "surface-container-lowest": "#ffffff",
+              "on-surface": "#1c1c1a"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Manrope"],
+              "label": ["Manrope"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .pulse-ring {
+            animation: pulse-ring 3s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+        }
+        @keyframes pulse-ring {
+            0% { transform: scale(.33); opacity: 1; }
+            80%, 100% { transform: scale(1.5); opacity: 0; }
+        }
+        .glow-copper {
+            box-shadow: 0 0 20px rgba(184, 115, 51, 0.25);
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopNavBar (Shared Component) -->
+<nav class="fixed top-0 left-0 right-0 z-50 flex justify-between items-center px-8 py-3 max-w-7xl mx-auto bg-[#fcf9f5]/80 dark:bg-[#31302e]/80 backdrop-blur-3xl rounded-2xl mt-4 mx-4 border border-white/20 dark:border-[#B87333]/10 shadow-[0_20px_40px_rgba(28,28,26,0.04)] font-manrope tracking-tight font-medium">
+<div class="flex items-center gap-8">
+<span class="text-2xl font-bold tracking-tighter text-[#894d0d] dark:text-[#B87333]">Aether Suite</span>
+<div class="hidden md:flex gap-6">
+<a class="text-stone-500 dark:text-stone-400 hover:bg-[#f6f3ef] dark:hover:bg-white/5 transition-all px-3 py-1 rounded-lg" href="#">Workspace</a>
+<a class="text-[#894d0d] dark:text-[#B87333] font-bold border-b-2 border-[#894d0d] px-3 py-1" href="#">Collaborative Pulse</a>
+<a class="text-stone-500 dark:text-stone-400 hover:bg-[#f6f3ef] dark:hover:bg-white/5 transition-all px-3 py-1 rounded-lg" href="#">Treasury</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative group hidden sm:block">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-stone-400">search</span>
+<input class="bg-surface-container-low border-none rounded-full py-2 pl-10 pr-4 w-64 focus:ring-2 focus:ring-primary/20 text-sm" placeholder="Search signals..." type="text"/>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-2 text-stone-500 hover:bg-[#f6f3ef] rounded-full transition-all">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 text-stone-500 hover:bg-[#f6f3ef] rounded-full transition-all">
+<span class="material-symbols-outlined">grid_view</span>
+</button>
+<div class="h-8 w-8 rounded-full bg-surface-container-highest overflow-hidden border border-outline-variant/30">
+<img alt="User Avatar" class="w-full h-full object-cover" data-alt="portrait of a professional creative in a bright studio, soft natural lighting, high-end editorial style" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBrkVpxXrQ2FAU9PWQHNNsJRdaLEjTTUPlvNQWDB1Z6asXolAh6u-VMK3XFYikc83-11332slc_-hZQ1U-qhal869B911eh-nkSz-CR7YKBKltnq_P9pplnXtPtk3ixOhhj5uuYexEBWLvRV1sWu9328-DXEA_eDl5jqisqu5yRCPekxEVppy4s8Ae06pGHyvhIjnIpTzS-Xkx06XWFOnam12ib-JMY3Z58MJ-OgpuYL7pVZymQC5zjBF21ggyvNarBOfeEQdej-V0"/>
+</div>
+</div>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="pt-28 px-4 pb-12 max-w-7xl mx-auto grid grid-cols-12 gap-6">
+<!-- Hero Metrics Section -->
+<header class="col-span-12 mb-8 flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div>
+<span class="text-primary font-label uppercase tracking-widest text-xs font-bold mb-2 block">Live Ecosystem Presence</span>
+<h1 class="text-4xl md:text-5xl font-black tracking-tighter text-on-surface leading-none">Collaborative Pulse</h1>
+<p class="text-on-surface-variant mt-4 max-w-xl text-lg font-light leading-relaxed">
+                    Witness the synchronous evolution of the Atelier. Real-time telemetry from global nodes, mapping every creative spark as it happens.
+                </p>
+</div>
+<div class="flex gap-4">
+<div class="bg-surface-container-low p-6 rounded-3xl min-w-[200px] relative overflow-hidden group">
+<div class="absolute -right-4 -top-4 w-24 h-24 bg-primary/5 rounded-full blur-2xl group-hover:bg-primary/10 transition-colors"></div>
+<span class="text-xs font-label uppercase tracking-widest text-on-surface-variant block mb-1">Collaborateurs en ligne</span>
+<div class="flex items-baseline gap-2">
+<span class="text-3xl font-black text-primary">1,284</span>
+<div class="h-2 w-2 rounded-full bg-primary pulse-ring"></div>
+</div>
+</div>
+<div class="bg-inverse-surface p-6 rounded-3xl min-w-[200px] relative overflow-hidden">
+<div class="absolute -right-4 -top-4 w-24 h-24 bg-tertiary/10 rounded-full blur-2xl"></div>
+<span class="text-xs font-label uppercase tracking-widest text-stone-400 block mb-1">Modifications par seconde</span>
+<div class="flex items-baseline gap-2">
+<span class="text-3xl font-black text-tertiary-fixed">42.8</span>
+<span class="material-symbols-outlined text-tertiary-fixed text-sm" style="font-variation-settings: 'FILL' 1;">speed</span>
+</div>
+</div>
+</div>
+</header>
+<!-- Live Activity Bento Grid -->
+<!-- Left Column: Global Map -->
+<section class="col-span-12 lg:col-span-8 h-[600px] bg-surface-container-high rounded-[2.5rem] relative overflow-hidden border border-outline-variant/10 shadow-sm">
+<div class="absolute inset-0 z-0">
+<img class="w-full h-full object-cover opacity-60 mix-blend-luminosity" data-alt="stylized abstract world map with glowing dots and light trails, copper and deep teal accents on a warm sand background" data-location="Global" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBie1_ii6vmCpQ5WAAtJ9aZOANoycY82d3mFl9y1Fu1dx5xteQuW0I6FKYrctsisetf6fFSaAMNdKuWOY_U9fXGf5ChSS3UY4eirg50vTbo0gB1HSyZqQ3m55EOgF_kemJqr3dh-3xUtkTOSF497dbfzPooB5SftspE_8e5-8j3oqWQNUsvndXXCpKHgEqKixcYZ771qoki3JNvR9nVGQOycf_iWeMzBtwRXnY9MqWoo_85PK-I-eVBEwAd1D0umbLfo12Yk7X5yWY"/>
+</div>
+<!-- Map Overlays -->
+<div class="absolute inset-0 bg-gradient-to-t from-surface via-transparent to-transparent opacity-40"></div>
+<div class="absolute top-8 left-8 z-10 flex items-center gap-3 bg-surface/90 backdrop-blur-md px-4 py-2 rounded-full border border-outline-variant/20">
+<span class="relative flex h-3 w-3">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-3 w-3 bg-primary"></span>
+</span>
+<span class="text-xs font-bold tracking-tight">Active Nodes: 12 Global Regions</span>
+</div>
+<!-- Global Node Pointers -->
+<div class="absolute top-1/3 left-1/4 z-10">
+<div class="relative">
+<div class="h-4 w-4 bg-primary rounded-full pulse-ring absolute"></div>
+<div class="ml-6 -mt-2 bg-surface-container-lowest/90 backdrop-blur-xl p-2 rounded-xl shadow-xl border border-white/50 w-32">
+<p class="text-[10px] font-bold uppercase tracking-wider text-primary">Paris Node</p>
+<p class="text-xs text-on-surface font-semibold">142 Actifs</p>
+</div>
+</div>
+</div>
+<div class="absolute bottom-1/4 right-1/3 z-10">
+<div class="relative">
+<div class="h-4 w-4 bg-tertiary rounded-full pulse-ring absolute"></div>
+<div class="ml-6 -mt-2 bg-surface-container-lowest/90 backdrop-blur-xl p-2 rounded-xl shadow-xl border border-white/50 w-32">
+<p class="text-[10px] font-bold uppercase tracking-wider text-tertiary">Tokyo Node</p>
+<p class="text-xs text-on-surface font-semibold">389 Actifs</p>
+</div>
+</div>
+</div>
+<!-- Map Controls -->
+<div class="absolute bottom-8 left-8 flex gap-2 z-10">
+<button class="bg-surface-container-lowest/80 backdrop-blur-md p-3 rounded-2xl hover:bg-surface transition-all border border-outline-variant/20 shadow-lg">
+<span class="material-symbols-outlined">add</span>
+</button>
+<button class="bg-surface-container-lowest/80 backdrop-blur-md p-3 rounded-2xl hover:bg-surface transition-all border border-outline-variant/20 shadow-lg">
+<span class="material-symbols-outlined">remove</span>
+</button>
+<button class="bg-surface-container-lowest/80 backdrop-blur-md p-3 rounded-2xl hover:bg-surface transition-all border border-outline-variant/20 shadow-lg">
+<span class="material-symbols-outlined">my_location</span>
+</button>
+</div>
+</section>
+<!-- Right Column: Pulse List -->
+<section class="col-span-12 lg:col-span-4 flex flex-col gap-6">
+<div class="bg-surface-container-low rounded-[2.5rem] p-8 flex-1 border border-outline-variant/10">
+<div class="flex items-center justify-between mb-8">
+<h3 class="text-xl font-bold tracking-tight">Activity Stream</h3>
+<span class="text-xs font-label text-stone-400 bg-white/50 px-2 py-1 rounded-md">LIVE</span>
+</div>
+<div class="space-y-6">
+<!-- Activity Item 1: Word -->
+<div class="flex gap-4 items-start group">
+<div class="h-10 w-10 shrink-0 rounded-2xl bg-[#2b579a] flex items-center justify-center text-white shadow-lg">
+<span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">description</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-center mb-1">
+<span class="text-sm font-bold text-on-surface">Elena Vance</span>
+<span class="text-[10px] text-stone-400">Just now</span>
+</div>
+<p class="text-sm text-on-surface-variant">Editing <span class="text-primary font-semibold">Q4 Strategy.docx</span></p>
+<div class="mt-2 flex -space-x-2">
+<div class="w-5 h-5 rounded-full border-2 border-surface-container-low bg-stone-200"></div>
+<div class="w-5 h-5 rounded-full border-2 border-surface-container-low bg-stone-300"></div>
+<span class="pl-3 text-[10px] text-stone-400 self-center">+3 others</span>
+</div>
+</div>
+</div>
+<!-- Activity Item 2: Excel -->
+<div class="flex gap-4 items-start">
+<div class="h-10 w-10 shrink-0 rounded-2xl bg-[#217346] flex items-center justify-center text-white shadow-lg">
+<span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">table_chart</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-center mb-1">
+<span class="text-sm font-bold text-on-surface">Julian Mars</span>
+<span class="text-[10px] text-stone-400">2m ago</span>
+</div>
+<p class="text-sm text-on-surface-variant">Updating <span class="text-primary font-semibold">Revenue_Model_V2.xlsx</span></p>
+<div class="mt-2 h-1.5 w-full bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-[#217346] w-3/4 rounded-full"></div>
+</div>
+</div>
+</div>
+<!-- Activity Item 3: BI -->
+<div class="flex gap-4 items-start">
+<div class="h-10 w-10 shrink-0 rounded-2xl bg-[#f2c811] flex items-center justify-center text-on-surface shadow-lg">
+<span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">insights</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-center mb-1">
+<span class="text-sm font-bold text-on-surface">Sarah Connor</span>
+<span class="text-[10px] text-stone-400">5m ago</span>
+</div>
+<p class="text-sm text-on-surface-variant">Publishing <span class="text-primary font-semibold">Market_Share_Dashboard</span></p>
+<div class="mt-2 flex gap-1">
+<span class="bg-tertiary/10 text-tertiary text-[10px] font-bold px-2 py-0.5 rounded-full">ANALYTICS</span>
+<span class="bg-primary/10 text-primary text-[10px] font-bold px-2 py-0.5 rounded-full">URGENT</span>
+</div>
+</div>
+</div>
+<!-- Activity Item 4: General -->
+<div class="flex gap-4 items-start opacity-60">
+<div class="h-10 w-10 shrink-0 rounded-2xl bg-surface-container-highest flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined text-xl">folder_shared</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-center mb-1">
+<span class="text-sm font-bold text-on-surface">Alex River</span>
+<span class="text-[10px] text-stone-400">12m ago</span>
+</div>
+<p class="text-sm text-on-surface-variant">Created new folder <span class="text-stone-500 font-semibold italic">Assets/Renderings</span></p>
+</div>
+</div>
+</div>
+<button class="w-full mt-12 py-4 bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-bold rounded-2xl transition-all border border-outline-variant/10">
+                    View Full History
+                </button>
+</div>
+<div class="bg-primary p-8 rounded-[2.5rem] text-white shadow-xl glow-copper relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-6 opacity-20 group-hover:opacity-40 transition-opacity">
+<span class="material-symbols-outlined text-6xl">flare</span>
+</div>
+<h4 class="text-lg font-bold mb-2">Pulse Mode Active</h4>
+<p class="text-white/80 text-sm leading-relaxed mb-6">You are currently broadcasting your status to the Paris and London nodes.</p>
+<div class="flex items-center gap-3">
+<div class="flex -space-x-2">
+<img class="w-8 h-8 rounded-full border-2 border-primary" data-alt="close up of creative professional with soft features" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBq-TVSiFseFEKq1nRVy2QjgHl4G2nlLb515FfMvXWOzJRrkBR1L5vHB5V0eSBjE51gq7Ezuor-km54u0TeyCFyA2ZKp9avSUH2VOyyw2AZsfvHO1kh_YT-WortzGPBZUiqGFX9kVAalCtM1lNj3GeKd1_2FRjNux6-feyT7QYkMRA7kGNGVUuGkd05GkH8HgrMlkBSPGZTNsBMbn1KTS9C7Kturpbl8u4O0vGuD3chLVQoV1w-B-LXlElEsO91FSBbZ0pS73YXkqs"/>
+<img class="w-8 h-8 rounded-full border-2 border-primary" data-alt="close up of creative professional with focused expression" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQ7Yqmwj5VXMgRo5eJxkXrecT9iBeLcZrgWawZ4KYYMFmbxWmVlEm4EPOILbg0zJ53VhYNa12o5GEyRgIdFTflawNyGjLggmnfkeSeMrSdzlpojynV0fIK6OmB9X1_6E1giK7ztp5uABNUp1id2TGRjiSOgEeNQowTnSLazLBEitq4MZXJSnfm4AH3f1UY4bC8c--_KKqa7vWoQ2eQut-95bBgj8fWupuHpQHmiOk47VLzc7_bO4laB4hwqe8Hd1IHT7bOsK0Rt6Y"/>
+</div>
+<span class="text-xs font-semibold">12 peers nearby</span>
+</div>
+</div>
+</section>
+<!-- Bottom Detail Section: Orbital Activity -->
+<section class="col-span-12 grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+<div class="bg-surface-container-lowest p-8 rounded-[2rem] shadow-sm border border-outline-variant/10">
+<div class="flex items-center gap-4 mb-6">
+<div class="p-3 bg-primary/10 rounded-2xl">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">hub</span>
+</div>
+<h5 class="font-bold">Inter-Node Latency</h5>
+</div>
+<div class="space-y-4">
+<div class="flex justify-between items-end">
+<span class="text-xs text-stone-400 font-label tracking-widest uppercase">EU-East</span>
+<span class="text-sm font-bold text-on-surface">12ms</span>
+</div>
+<div class="h-1 w-full bg-surface-container-low rounded-full overflow-hidden">
+<div class="h-full bg-primary w-1/12"></div>
+</div>
+<div class="flex justify-between items-end">
+<span class="text-xs text-stone-400 font-label tracking-widest uppercase">Asia-South</span>
+<span class="text-sm font-bold text-on-surface">148ms</span>
+</div>
+<div class="h-1 w-full bg-surface-container-low rounded-full overflow-hidden">
+<div class="h-full bg-primary w-2/3"></div>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-8 rounded-[2rem] shadow-sm border border-outline-variant/10 relative overflow-hidden">
+<div class="flex items-center gap-4 mb-6">
+<div class="p-3 bg-tertiary/10 rounded-2xl">
+<span class="material-symbols-outlined text-tertiary" style="font-variation-settings: 'FILL' 1;">all_inclusive</span>
+</div>
+<h5 class="font-bold">Collaboration Health</h5>
+</div>
+<div class="flex items-center justify-center py-4">
+<div class="relative h-24 w-24">
+<svg class="h-full w-full" viewbox="0 0 36 36">
+<path class="text-surface-container-low stroke-current" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke-width="3"></path>
+<path class="text-tertiary stroke-current" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke-dasharray="85, 100" stroke-linecap="round" stroke-width="3"></path>
+</svg>
+<div class="absolute inset-0 flex items-center justify-center">
+<span class="text-xl font-black text-on-surface">85%</span>
+</div>
+</div>
+</div>
+<p class="text-center text-xs text-on-surface-variant px-4">Co-editing efficiency is 12% higher than last week's average.</p>
+</div>
+<div class="bg-inverse-surface p-8 rounded-[2rem] shadow-xl text-white relative overflow-hidden">
+<div class="flex items-center gap-4 mb-6">
+<div class="p-3 bg-white/10 rounded-2xl">
+<span class="material-symbols-outlined text-white" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+</div>
+<h5 class="font-bold">Next Sync Cycle</h5>
+</div>
+<div class="flex flex-col items-center justify-center py-2">
+<span class="text-5xl font-black tracking-tighter text-primary-fixed">04:22</span>
+<span class="text-[10px] font-label uppercase tracking-[0.2em] text-stone-400 mt-2">Minutes to major node refresh</span>
+</div>
+<div class="mt-8 flex gap-1 justify-center">
+<div class="w-1.5 h-1.5 rounded-full bg-primary-fixed animate-pulse"></div>
+<div class="w-1.5 h-1.5 rounded-full bg-white/20"></div>
+<div class="w-1.5 h-1.5 rounded-full bg-white/20"></div>
+</div>
+</div>
+</section>
+</main>
+<!-- SideNavBar (Mobile Bottom Shell Implementation) -->
+<nav class="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-[#fcf9f5] border-t border-outline-variant/10 flex justify-around items-center p-4">
+<button class="flex flex-col items-center gap-1 text-stone-500">
+<span class="material-symbols-outlined">space_dashboard</span>
+<span class="text-[10px] font-bold uppercase tracking-tighter">Workspace</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">monitoring</span>
+<span class="text-[10px] font-bold uppercase tracking-tighter">Pulse</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-stone-500">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+<span class="text-[10px] font-bold uppercase tracking-tighter">Treasury</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-stone-500">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-[10px] font-bold uppercase tracking-tighter">Admin</span>
+</button>
+</nav>
+<!-- SideNavBar (Desktop Shell Implementation) -->
+<aside class="hidden xl:flex fixed left-0 top-0 bottom-0 w-72 flex-col p-6 z-40 bg-[#fcf9f5] dark:bg-[#31302e] h-[calc(100vh-2rem)] m-4 rounded-3xl shadow-2xl shadow-black/5">
+<div class="flex items-center gap-4 mb-12 px-4">
+<div class="h-10 w-10 bg-primary rounded-xl flex items-center justify-center shadow-lg">
+<span class="material-symbols-outlined text-white">flare</span>
+</div>
+<div>
+<p class="text-xl font-black text-[#894d0d] leading-none">Aether</p>
+<p class="text-[10px] font-semibold uppercase tracking-widest text-stone-400">Celestial Atelier</p>
+</div>
+</div>
+<nav class="flex-1 space-y-2">
+<a class="flex items-center gap-4 px-4 py-3 text-stone-500 dark:text-stone-400 hover:bg-[#e5e2de] dark:hover:bg-white/10 rounded-xl transition-all font-manrope text-sm font-semibold uppercase tracking-widest" href="#">
+<span class="material-symbols-outlined">space_dashboard</span>
+                Workspace
+            </a>
+<a class="flex items-center gap-4 px-4 py-3 bg-gradient-to-tr from-[#894d0d] to-[#a76526] text-white rounded-xl shadow-[0_0_20px_rgba(184,115,51,0.4)] transition-all font-manrope text-sm font-semibold uppercase tracking-widest" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">monitoring</span>
+                Analytics
+            </a>
+<a class="flex items-center gap-4 px-4 py-3 text-stone-500 dark:text-stone-400 hover:bg-[#e5e2de] dark:hover:bg-white/10 rounded-xl transition-all font-manrope text-sm font-semibold uppercase tracking-widest" href="#">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+                Treasury
+            </a>
+<a class="flex items-center gap-4 px-4 py-3 text-stone-500 dark:text-stone-400 hover:bg-[#e5e2de] dark:hover:bg-white/10 rounded-xl transition-all font-manrope text-sm font-semibold uppercase tracking-widest" href="#">
+<span class="material-symbols-outlined">hub</span>
+                Team
+            </a>
+</nav>
+<div class="mt-auto pt-8 border-t border-outline-variant/10 space-y-2">
+<button class="w-full flex items-center gap-4 px-4 py-3 text-stone-500 hover:bg-[#e5e2de] rounded-xl transition-all font-manrope text-sm font-semibold uppercase tracking-widest">
+<span class="material-symbols-outlined">settings</span>
+                Settings
+            </button>
+<button class="w-full flex items-center gap-4 px-4 py-3 text-stone-500 hover:bg-[#e5e2de] rounded-xl transition-all font-manrope text-sm font-semibold uppercase tracking-widest">
+<span class="material-symbols-outlined">help_center</span>
+                Support
+            </button>
+</div>
+</aside>
+</body></html>

@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Data Export &amp; Backup Scheduler | Aether Suite</title>
+<!-- Google Fonts: Manrope -->
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "secondary-fixed": "#ffdcc2",
+              "on-tertiary-fixed-variant": "#004e5b",
+              "background": "#fcf9f5",
+              "on-secondary": "#ffffff",
+              "on-secondary-fixed": "#2d1602",
+              "inverse-surface": "#31302e",
+              "surface-dim": "#dcdad6",
+              "on-primary-container": "#fffbff",
+              "surface-container-high": "#ebe8e4",
+              "on-error-container": "#93000a",
+              "surface": "#fcf9f5",
+              "on-surface-variant": "#524439",
+              "on-surface": "#1c1c1a",
+              "surface-tint": "#8c4f10",
+              "on-primary": "#ffffff",
+              "secondary-fixed-dim": "#eabe9c",
+              "on-tertiary": "#ffffff",
+              "surface-container": "#f0ede9",
+              "primary": "#894d0d",
+              "surface-container-low": "#f6f3ef",
+              "inverse-primary": "#ffb77b",
+              "error": "#ba1a1a",
+              "on-error": "#ffffff",
+              "outline-variant": "#d8c3b4",
+              "on-background": "#1c1c1a",
+              "on-tertiary-container": "#f9fdff",
+              "outline": "#857467",
+              "secondary": "#79573c",
+              "tertiary-fixed-dim": "#74d4ea",
+              "surface-container-highest": "#e5e2de",
+              "on-secondary-fixed-variant": "#5e4026",
+              "surface-variant": "#e5e2de",
+              "error-container": "#ffdad6",
+              "tertiary-container": "#008094",
+              "surface-container-lowest": "#ffffff",
+              "surface-bright": "#fcf9f5",
+              "tertiary-fixed": "#a8edff",
+              "on-primary-fixed-variant": "#6d3a00",
+              "on-primary-fixed": "#2e1500",
+              "on-tertiary-fixed": "#001f26",
+              "on-secondary-container": "#79583c",
+              "inverse-on-surface": "#f3f0ec",
+              "primary-container": "#a76526",
+              "primary-fixed-dim": "#ffb77b",
+              "primary-fixed": "#ffdcc2",
+              "tertiary": "#006576",
+              "secondary-container": "#ffd1ae"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Manrope"],
+              "label": ["Manrope"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .glass-panel {
+        background: rgba(255, 255, 255, 0.6);
+        backdrop-filter: blur(30px);
+      }
+      .copper-glow:hover {
+        box-shadow: 0 0 20px rgba(184, 115, 51, 0.4);
+      }
+      body {
+        font-family: 'Manrope', sans-serif;
+      }
+    </style>
+</head>
+<body class="bg-background text-on-surface min-h-screen">
+<!-- Top Navigation (Authority: JSON/Design System) -->
+<header class="sticky top-0 z-50 flex items-center justify-between px-8 py-3 w-auto bg-[#fcf9f5]/80 dark:bg-[#31302e]/80 backdrop-blur-2xl rounded-2xl mt-4 mx-6 shadow-[0_20px_40px_rgba(28,28,26,0.04)]">
+<div class="flex items-center gap-8">
+<span class="text-2xl font-bold tracking-tighter text-[#894d0d] dark:text-[#b87333]">Aether Suite</span>
+<nav class="hidden md:flex gap-6">
+<a class="text-[#79573c] dark:text-[#a76526] hover:bg-[#e5e2de]/40 transition-all duration-500 px-3 py-1 rounded-lg" href="#">Sheets</a>
+<a class="text-[#79573c] dark:text-[#a76526] hover:bg-[#e5e2de]/40 transition-all duration-500 px-3 py-1 rounded-lg" href="#">Slides</a>
+<a class="text-[#79573c] dark:text-[#a76526] hover:bg-[#e5e2de]/40 transition-all duration-500 px-3 py-1 rounded-lg" href="#">Analytics</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined p-2 rounded-full text-secondary hover:bg-surface-container-high transition-all">notifications</button>
+<button class="material-symbols-outlined p-2 rounded-full text-secondary hover:bg-surface-container-high transition-all">settings</button>
+<div class="w-10 h-10 rounded-full bg-surface-container-highest overflow-hidden">
+<img alt="User profile avatar" data-alt="minimalist avatar of a person with professional attire on a soft warm sand background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuArKvXo0n7ujHesYGXRetiC-HrmxfwIKOZSuNE52pBQ-NKO71Y0X0vcg1ieH4jxv940VHQvUZk8qK3W8r-XF8Fg7ARJLfUsLAhSO2_2DpyEVy3tIZ_wvQc1A6kyBFw3V5vb0HTtTFXmU8rVp1xM5x9bNiZJCPOYMNdXjCYQQOrXd-jSRKEQsEBT0s3lDC2EGysHKl6GFsTOKRRnFrJqiKpp7r2EvrLqocnSfOuVs_o6vCBe_XDUapkyikjT6RA0BnzcO9yTjFzUaoM"/>
+</div>
+</div>
+</header>
+<main class="max-w-[1440px] mx-auto px-8 pt-12 pb-24 grid grid-cols-12 gap-12">
+<!-- Left Sidebar: Context & Health -->
+<aside class="col-span-12 lg:col-span-4 space-y-8">
+<div class="space-y-2">
+<span class="font-label text-xs tracking-widest uppercase text-secondary opacity-60">System Security</span>
+<h1 class="font-headline text-4xl font-extrabold text-primary tracking-tight">Data Governance</h1>
+<p class="text-body-lg text-on-surface-variant leading-relaxed">Secure your intellectual property with automated high-frequency backups to private cloud infrastructure.</p>
+</div>
+<!-- Last Backup Status Card -->
+<div class="bg-surface-container-low rounded-3xl p-8 relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-[120px]" style="font-variation-settings: 'FILL' 1;">cloud_done</span>
+</div>
+<div class="relative z-10 space-y-6">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-primary text-3xl">verified_user</span>
+<span class="bg-primary/10 text-primary text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest border border-primary/20">Successful</span>
+</div>
+<div>
+<h3 class="text-label text-xs uppercase tracking-widest text-on-surface-variant mb-1">Last Backup Status</h3>
+<p class="text-headline text-2xl font-bold">14 May 2024, 03:00 AM</p>
+</div>
+<div class="pt-4 flex items-center gap-4">
+<div class="flex -space-x-2">
+<div class="w-8 h-8 rounded-full border-2 border-surface bg-tertiary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-xs text-tertiary">database</span>
+</div>
+<div class="w-8 h-8 rounded-full border-2 border-surface bg-primary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-xs text-primary">description</span>
+</div>
+</div>
+<span class="text-sm font-medium text-on-surface-variant">4.2 GB Transferred to MinIO</span>
+</div>
+</div>
+</div>
+<!-- Storage Info -->
+<div class="border-t border-outline-variant/20 pt-8">
+<h4 class="text-sm font-bold text-on-surface mb-4">Destination Target</h4>
+<div class="flex items-center gap-4 bg-surface-container-lowest p-4 rounded-2xl">
+<div class="w-12 h-12 rounded-xl bg-inverse-surface flex items-center justify-center">
+<span class="material-symbols-outlined text-background">storage</span>
+</div>
+<div>
+<p class="font-bold text-sm">s3://aether-vault-primary</p>
+<p class="text-xs text-on-surface-variant">Region: us-east-1 (MinIO Enterprise)</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Right Content: The Scheduler Form -->
+<section class="col-span-12 lg:col-span-8 space-y-10">
+<!-- Bento Grid Form Sections -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Frequency Selection -->
+<div class="bg-surface-container-lowest p-8 rounded-3xl shadow-[0_20px_40px_rgba(28,28,26,0.02)] border border-outline-variant/10">
+<div class="flex items-center gap-3 mb-8">
+<span class="material-symbols-outlined text-primary">event_repeat</span>
+<h3 class="font-headline text-xl font-bold">Frequency</h3>
+</div>
+<div class="space-y-3">
+<label class="flex items-center justify-between p-4 rounded-2xl bg-surface-container-low cursor-pointer hover:bg-surface-container-high transition-colors border-2 border-transparent">
+<div class="flex items-center gap-3">
+<input checked="" class="text-primary focus:ring-primary h-4 w-4" name="freq" type="radio"/>
+<span class="font-medium">Daily</span>
+</div>
+<span class="text-xs text-on-surface-variant font-medium">03:00 UTC</span>
+</label>
+<label class="flex items-center justify-between p-4 rounded-2xl bg-surface-container-low cursor-pointer hover:bg-surface-container-high transition-colors border-2 border-transparent">
+<div class="flex items-center gap-3">
+<input class="text-primary focus:ring-primary h-4 w-4" name="freq" type="radio"/>
+<span class="font-medium">Weekly</span>
+</div>
+<span class="text-xs text-on-surface-variant font-medium">Sun Night</span>
+</label>
+</div>
+</div>
+<!-- Export Format -->
+<div class="bg-surface-container-lowest p-8 rounded-3xl shadow-[0_20px_40px_rgba(28,28,26,0.02)] border border-outline-variant/10">
+<div class="flex items-center gap-3 mb-8">
+<span class="material-symbols-outlined text-primary">file_export</span>
+<h3 class="font-headline text-xl font-bold">Export Format</h3>
+</div>
+<div class="grid grid-cols-3 gap-3">
+<button class="flex flex-col items-center justify-center p-4 rounded-2xl bg-surface-container-low hover:bg-primary/5 transition-all border-2 border-primary">
+<span class="font-bold text-primary">JSON</span>
+<span class="text-[10px] uppercase tracking-tighter opacity-60">Schema</span>
+</button>
+<button class="flex flex-col items-center justify-center p-4 rounded-2xl bg-surface-container-low hover:bg-surface-container-high transition-all border-2 border-transparent">
+<span class="font-bold">XLSX</span>
+<span class="text-[10px] uppercase tracking-tighter opacity-60">Spread</span>
+</button>
+<button class="flex flex-col items-center justify-center p-4 rounded-2xl bg-surface-container-low hover:bg-surface-container-high transition-all border-2 border-transparent">
+<span class="font-bold">PDF</span>
+<span class="text-[10px] uppercase tracking-tighter opacity-60">Report</span>
+</button>
+</div>
+</div>
+<!-- Detailed Controls -->
+<div class="md:col-span-2 bg-inverse-surface p-10 rounded-3xl shadow-xl text-background">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-8">
+<div class="space-y-4 max-w-md">
+<h3 class="text-2xl font-bold">Configuration Details</h3>
+<p class="text-background/60 text-sm leading-relaxed">
+                Aether Suite can maintain a full historical snapshot of your data models. This increases backup size but ensures total audit compliance.
+              </p>
+</div>
+<div class="space-y-6 min-w-[280px]">
+<div class="flex items-center justify-between group">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary-fixed-dim">history</span>
+<span class="font-medium">Include Versions</span>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox" value=""/>
+<div class="w-11 h-6 bg-background/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-container"></div>
+</label>
+</div>
+<div class="flex items-center justify-between group">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary-fixed-dim">lock_person</span>
+<span class="font-medium">Encrypted at Rest</span>
+</div>
+<span class="text-xs uppercase font-bold tracking-widest text-primary-fixed-dim">Mandatory</span>
+</div>
+</div>
+</div>
+</div>
+<!-- S3 Connection Settings -->
+<div class="md:col-span-2 bg-surface-container-low p-8 rounded-3xl border border-outline-variant/10">
+<div class="flex items-center justify-between mb-6">
+<h3 class="font-headline text-xl font-bold">Bucket Configuration</h3>
+<button class="text-sm text-primary font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">link</span> Test Connection
+            </button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="space-y-2">
+<label class="text-xs font-bold uppercase tracking-widest text-on-surface-variant ml-1">Endpoint URL</label>
+<input class="w-full bg-surface-container-lowest border-none rounded-xl p-4 focus:ring-2 focus:ring-primary transition-all text-sm font-medium" type="text" value="https://minio.corp.aether.suite"/>
+</div>
+<div class="space-y-2">
+<label class="text-xs font-bold uppercase tracking-widest text-on-surface-variant ml-1">Bucket Name</label>
+<input class="w-full bg-surface-container-lowest border-none rounded-xl p-4 focus:ring-2 focus:ring-primary transition-all text-sm font-medium" type="text" value="aether-vault-primary"/>
+</div>
+</div>
+</div>
+</div>
+<!-- Action Footer -->
+<div class="flex items-center justify-end gap-6 pt-6">
+<button class="px-8 py-4 rounded-2xl font-bold text-on-surface-variant hover:bg-surface-container-high transition-all">
+          Discard Changes
+        </button>
+<button class="px-10 py-4 bg-gradient-to-r from-primary to-primary-container text-on-primary rounded-2xl font-bold shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all copper-glow">
+          Save Schedule
+        </button>
+</div>
+</section>
+</main>
+<!-- Visual Accent Elements -->
+<div class="fixed -bottom-24 -left-24 w-96 h-96 bg-primary/5 rounded-full blur-[100px] pointer-events-none"></div>
+<div class="fixed top-1/2 -right-24 w-64 h-64 bg-tertiary/5 rounded-full blur-[80px] pointer-events-none"></div>
+</body></html>

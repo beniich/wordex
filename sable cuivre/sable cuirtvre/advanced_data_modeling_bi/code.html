@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Aether Analytics | Data Modeling Workspace</title>
+<!-- Google Fonts: Manrope -->
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "secondary-fixed": "#ffdcc2",
+              "on-tertiary-fixed-variant": "#004e5b",
+              "background": "#fcf9f5",
+              "on-secondary": "#ffffff",
+              "on-secondary-fixed": "#2d1602",
+              "inverse-surface": "#31302e",
+              "surface-dim": "#dcdad6",
+              "on-primary-container": "#fffbff",
+              "surface-container-high": "#ebe8e4",
+              "on-error-container": "#93000a",
+              "surface": "#fcf9f5",
+              "on-surface-variant": "#524439",
+              "on-surface": "#1c1c1a",
+              "surface-tint": "#8c4f10",
+              "on-primary": "#ffffff",
+              "secondary-fixed-dim": "#eabe9c",
+              "on-tertiary": "#ffffff",
+              "surface-container": "#f0ede9",
+              "primary": "#894d0d",
+              "surface-container-low": "#f6f3ef",
+              "inverse-primary": "#ffb77b",
+              "error": "#ba1a1a",
+              "on-error": "#ffffff",
+              "outline-variant": "#d8c3b4",
+              "on-background": "#1c1c1a",
+              "on-tertiary-container": "#f9fdff",
+              "outline": "#857467",
+              "secondary": "#79573c",
+              "tertiary-fixed-dim": "#74d4ea",
+              "surface-container-highest": "#e5e2de",
+              "on-secondary-fixed-variant": "#5e4026",
+              "surface-variant": "#e5e2de",
+              "error-container": "#ffdad6",
+              "tertiary-container": "#008094",
+              "surface-container-lowest": "#ffffff",
+              "surface-bright": "#fcf9f5",
+              "tertiary-fixed": "#a8edff",
+              "on-primary-fixed-variant": "#6d3a00",
+              "on-primary-fixed": "#2e1500",
+              "on-tertiary-fixed": "#001f26",
+              "on-secondary-container": "#79583c",
+              "inverse-on-surface": "#f3f0ec",
+              "primary-container": "#a76526",
+              "primary-fixed-dim": "#ffb77b",
+              "primary-fixed": "#ffdcc2",
+              "tertiary": "#006576",
+              "secondary-container": "#ffd1ae"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Manrope"],
+              "label": ["Manrope"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .canvas-grid {
+            background-image: radial-gradient(#d8c3b4 0.5px, transparent 0.5px);
+            background-size: 24px 24px;
+        }
+        .glass-node {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(137, 77, 13, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-background font-body text-on-background antialiased selection:bg-secondary-fixed overflow-hidden flex h-screen">
+<!-- Sidebar Navigation (SideNavBar Anchor) -->
+<aside class="fixed left-0 top-0 h-full flex flex-col p-6 space-y-8 bg-[#fcf9f5] dark:bg-[#31302e] h-screen w-72 flex flex-col border-r-0 bg-gradient-to-b from-[#fcf9f5] to-[#f6f3ef] dark:from-[#31302e] dark:to-[#1c1c1a] z-50">
+<div class="flex items-center space-x-3 mb-6">
+<div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined text-white" data-icon="auto_awesome">auto_awesome</span>
+</div>
+<div>
+<h1 class="text-[#894d0d] font-bold text-lg leading-none">Celestial Atelier</h1>
+<p class="font-['Manrope'] font-medium tracking-wide uppercase text-[0.75rem] text-[#79573c] mt-1">Premium Tier</p>
+</div>
+</div>
+<nav class="flex-1 space-y-2">
+<!-- Workspace: Inactive -->
+<a class="flex items-center space-x-4 p-3 font-['Manrope'] font-medium tracking-wide uppercase text-[0.75rem] text-[#79573c] dark:text-[#d8c3b4] opacity-70 hover:translate-x-1 hover:text-[#894d0d] dark:hover:text-[#ffffff] transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="grid_view">grid_view</span>
+<span>Workspace</span>
+</a>
+<!-- Analytics: Active -->
+<a class="flex items-center space-x-4 p-3 font-['Manrope'] font-medium tracking-wide uppercase text-[0.75rem] bg-[#e5e2de] dark:bg-[#b87333]/20 text-[#894d0d] dark:text-[#ffffff] rounded-lg shadow-[0_0_15px_rgba(184,115,51,0.15)]" href="#">
+<span class="material-symbols-outlined" data-icon="insights">insights</span>
+<span>Analytics</span>
+</a>
+<!-- Treasury -->
+<a class="flex items-center space-x-4 p-3 font-['Manrope'] font-medium tracking-wide uppercase text-[0.75rem] text-[#79573c] dark:text-[#d8c3b4] opacity-70 hover:translate-x-1 hover:text-[#894d0d] dark:hover:text-[#ffffff] transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="account_balance">account_balance</span>
+<span>Treasury</span>
+</a>
+<!-- Team -->
+<a class="flex items-center space-x-4 p-3 font-['Manrope'] font-medium tracking-wide uppercase text-[0.75rem] text-[#79573c] dark:text-[#d8c3b4] opacity-70 hover:translate-x-1 hover:text-[#894d0d] dark:hover:text-[#ffffff] transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span>Team</span>
+</a>
+</nav>
+<div class="pt-6 border-t border-outline-variant/10 space-y-2">
+<a class="flex items-center space-x-4 p-3 font-['Manrope'] font-medium tracking-wide uppercase text-[0.75rem] text-[#79573c] opacity-70 hover:translate-x-1 hover:text-[#894d0d] transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+<span>Help</span>
+</a>
+<a class="flex items-center space-x-4 p-3 font-['Manrope'] font-medium tracking-wide uppercase text-[0.75rem] text-[#79573c] opacity-70 hover:translate-x-1 hover:text-[#894d0d] transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="archive">archive</span>
+<span>Archive</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 ml-72 flex flex-col relative overflow-hidden">
+<!-- Top Navigation Bar (TopNavBar Anchor) -->
+<header class="sticky top-0 z-50 flex items-center justify-between px-8 py-3 w-auto bg-[#fcf9f5]/80 dark:bg-[#31302e]/80 backdrop-blur-2xl rounded-2xl mt-4 mx-6 bg-[#f6f3ef] dark:bg-[#31302e] shadow-[0_20px_40px_rgba(28,28,26,0.04)] font-['Manrope'] antialiased text-body-lg leading-relaxed">
+<div class="flex items-center space-x-8">
+<span class="text-2xl font-bold tracking-tighter text-[#894d0d] dark:text-[#b87333]">Aether Suite</span>
+<nav class="hidden md:flex items-center space-x-6">
+<a class="text-[#79573c] dark:text-[#a76526] hover:bg-[#e5e2de]/40 transition-all duration-500 px-3 py-1 rounded-lg" href="#">Sheets</a>
+<a class="text-[#79573c] dark:text-[#a76526] hover:bg-[#e5e2de]/40 transition-all duration-500 px-3 py-1 rounded-lg" href="#">Slides</a>
+<a class="text-[#894d0d] dark:text-[#b87333] font-bold border-b-2 border-[#894d0d] px-3 py-1" href="#">Analytics</a>
+</nav>
+</div>
+<div class="flex items-center space-x-4">
+<div class="relative group">
+<span class="material-symbols-outlined text-secondary p-2 hover:bg-[#e5e2de]/40 rounded-full cursor-pointer transition-all duration-500" data-icon="notifications">notifications</span>
+</div>
+<div class="relative group">
+<span class="material-symbols-outlined text-secondary p-2 hover:bg-[#e5e2de]/40 rounded-full cursor-pointer transition-all duration-500" data-icon="settings">settings</span>
+</div>
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary/20 shadow-md">
+<img alt="User profile avatar" class="w-full h-full object-cover" data-alt="close-up portrait of a professional man with a friendly expression in a modern office setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDLGMwRdeqNVGPJSAuxr7W9cmSzka6HeP2AInWpbZWwy9fFwWLQhPKGagAicmbelWBy1hz8zrKM7VyUNuPqvob10CueZx8garFFJUL76ITOpub5QPbM5otRvS5A8FwkK84DvLNmdVnkUdP-v3ycbD0Q3OAN0vZ3hKTSBw1mYs9dtiz9Aml0OuHBAPnnGkId4ME_th6ihVSmcv8YRLjHGANflr9Un5Ikt2AcrX4ZxwZrbuCUDM9Wi6pgxke6XhZVmmRbvEQFZ7iR7sM"/>
+</div>
+</div>
+</header>
+<!-- Modeling Workspace -->
+<section class="flex-1 flex overflow-hidden p-6 gap-6">
+<!-- Left: Transformations Panel -->
+<aside class="w-80 flex flex-col gap-6">
+<div class="bg-surface-container-lowest/80 backdrop-blur-xl rounded-2xl p-6 shadow-sm border border-outline-variant/10">
+<h3 class="text-label-md font-bold text-primary mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-[1.2rem]" data-icon="magic_button">magic_button</span>
+                        TRANSFORMATIONS
+                    </h3>
+<div class="space-y-4">
+<button class="w-full flex items-center justify-between p-4 rounded-xl bg-surface-container hover:bg-surface-container-highest transition-all duration-300 group">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="filter_alt">filter_alt</span>
+<span class="text-body-lg font-medium">Filter</span>
+</div>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary transition-colors" data-icon="add">add</span>
+</button>
+<button class="w-full flex items-center justify-between p-4 rounded-xl bg-surface-container hover:bg-surface-container-highest transition-all duration-300 group">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="account_tree">account_tree</span>
+<span class="text-body-lg font-medium">Group By</span>
+</div>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary transition-colors" data-icon="add">add</span>
+</button>
+<button class="w-full flex items-center justify-between p-4 rounded-xl bg-surface-container hover:bg-surface-container-highest transition-all duration-300 group">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="pivot_table_chart">pivot_table_chart</span>
+<span class="text-body-lg font-medium">Pivot</span>
+</div>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary transition-colors" data-icon="add">add</span>
+</button>
+<button class="w-full flex items-center justify-between p-4 rounded-xl bg-surface-container hover:bg-surface-container-highest transition-all duration-300 group">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="merge">merge</span>
+<span class="text-body-lg font-medium">Custom Join</span>
+</div>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary transition-colors" data-icon="add">add</span>
+</button>
+</div>
+</div>
+<div class="flex-1 bg-surface-container-lowest/80 backdrop-blur-xl rounded-2xl p-6 shadow-sm border border-outline-variant/10 overflow-y-auto">
+<h3 class="text-label-md font-bold text-secondary mb-4 uppercase tracking-widest">Active Sources</h3>
+<div class="space-y-3">
+<div class="flex items-center gap-3 p-3 rounded-lg bg-surface-container-low border border-primary/5">
+<div class="w-8 h-8 rounded bg-primary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-[1.2rem]" data-icon="database">database</span>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-sm font-semibold truncate">PostgreSQL_Production</p>
+<p class="text-xs text-outline italic">Cloud Instance</p>
+</div>
+</div>
+<div class="flex items-center gap-3 p-3 rounded-lg bg-surface-container-low border border-primary/5">
+<div class="w-8 h-8 rounded bg-tertiary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-tertiary text-[1.2rem]" data-icon="description">description</span>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-sm font-semibold truncate">Sales_Q4_Report.csv</p>
+<p class="text-xs text-outline italic">Local File</p>
+</div>
+</div>
+<div class="flex items-center gap-3 p-3 rounded-lg bg-surface-container-low border border-primary/5">
+<div class="w-8 h-8 rounded bg-secondary-container/30 flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary text-[1.2rem]" data-icon="cloud">cloud</span>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-sm font-semibold truncate">MinIO_Archival</p>
+<p class="text-xs text-outline italic">S3 Compatible</p>
+</div>
+</div>
+</div>
+</div>
+</aside>
+<!-- Middle: Canvas Editor -->
+<div class="flex-1 flex flex-col gap-6">
+<!-- Node Editor Canvas -->
+<div class="flex-1 bg-surface-container-low rounded-3xl relative canvas-grid overflow-hidden group shadow-inner">
+<!-- Canvas Toolbar -->
+<div class="absolute top-4 left-1/2 -translate-x-1/2 bg-inverse-surface text-on-primary-container px-4 py-2 rounded-full flex items-center gap-6 shadow-2xl z-20">
+<button class="hover:text-primary transition-colors"><span class="material-symbols-outlined" data-icon="pan_tool">pan_tool</span></button>
+<button class="text-primary"><span class="material-symbols-outlined" data-icon="near_me">near_me</span></button>
+<div class="w-[1px] h-4 bg-outline/20"></div>
+<button class="hover:text-primary transition-colors"><span class="material-symbols-outlined" data-icon="zoom_in">zoom_in</span></button>
+<span class="text-xs font-mono">100%</span>
+<button class="hover:text-primary transition-colors"><span class="material-symbols-outlined" data-icon="zoom_out">zoom_out</span></button>
+</div>
+<!-- Nodes Visualization -->
+<svg class="absolute inset-0 pointer-events-none w-full h-full z-0">
+<defs>
+<marker id="arrowhead" markerheight="7" markerwidth="10" orient="auto" refx="0" refy="3.5">
+<polygon fill="#894d0d" points="0 0, 10 3.5, 0 7"></polygon>
+</marker>
+</defs>
+<!-- Node Connections -->
+<path d="M 280 180 Q 400 180 440 250" fill="none" marker-end="url(#arrowhead)" stroke="#894d0d" stroke-dasharray="4" stroke-width="2"></path>
+<path d="M 280 340 Q 400 340 440 290" fill="none" marker-end="url(#arrowhead)" stroke="#894d0d" stroke-dasharray="4" stroke-width="2"></path>
+<path d="M 620 270 L 700 270" fill="none" marker-end="url(#arrowhead)" stroke="#894d0d" stroke-width="2"></path>
+</svg>
+<!-- Table Node 1 -->
+<div class="glass-node absolute top-24 left-12 w-56 rounded-xl shadow-xl z-10 p-1">
+<div class="bg-primary text-white px-3 py-2 rounded-t-lg flex items-center justify-between">
+<span class="text-xs font-bold uppercase tracking-tighter">users_metadata</span>
+<span class="material-symbols-outlined text-[1rem]" data-icon="settings">settings</span>
+</div>
+<div class="p-3 space-y-2">
+<div class="flex justify-between items-center text-xs">
+<span class="font-mono text-secondary">uuid</span>
+<span class="text-[0.6rem] text-outline px-1 rounded border border-outline/20">PK</span>
+</div>
+<div class="flex justify-between items-center text-xs">
+<span class="font-mono text-on-surface">email</span>
+<span class="text-[0.6rem] text-outline">STR</span>
+</div>
+<div class="flex justify-between items-center text-xs">
+<span class="font-mono text-on-surface">created_at</span>
+<span class="text-[0.6rem] text-outline">DATE</span>
+</div>
+</div>
+</div>
+<!-- Table Node 2 -->
+<div class="glass-node absolute bottom-32 left-12 w-56 rounded-xl shadow-xl z-10 p-1">
+<div class="bg-tertiary text-white px-3 py-2 rounded-t-lg flex items-center justify-between">
+<span class="text-xs font-bold uppercase tracking-tighter">transaction_logs</span>
+<span class="material-symbols-outlined text-[1rem]" data-icon="description">description</span>
+</div>
+<div class="p-3 space-y-2">
+<div class="flex justify-between items-center text-xs">
+<span class="font-mono text-on-surface">tx_id</span>
+<span class="text-[0.6rem] text-outline">PK</span>
+</div>
+<div class="flex justify-between items-center text-xs">
+<span class="font-mono text-secondary">user_id</span>
+<span class="text-[0.6rem] text-outline px-1 rounded border border-outline/20">FK</span>
+</div>
+<div class="flex justify-between items-center text-xs">
+<span class="font-mono text-on-surface">amount</span>
+<span class="text-[0.6rem] text-outline">FLOAT</span>
+</div>
+</div>
+</div>
+<!-- Join Node -->
+<div class="absolute top-[45%] left-[55%] -translate-x-1/2 -translate-y-1/2 bg-white rounded-full w-24 h-24 shadow-2xl flex items-center justify-center border-4 border-primary z-10">
+<div class="text-center">
+<span class="material-symbols-outlined text-primary text-3xl" data-icon="join_inner">join_inner</span>
+<p class="text-[0.6rem] font-bold uppercase text-primary">Inner Join</p>
+</div>
+</div>
+<!-- Output Node -->
+<div class="glass-node absolute top-[40%] right-12 w-64 rounded-xl shadow-2xl z-10 p-1 border-2 border-primary/20">
+<div class="bg-gradient-to-r from-primary to-primary-container text-white px-3 py-2 rounded-t-lg flex items-center justify-between">
+<span class="text-xs font-bold uppercase tracking-widest">RESULT_MODEL</span>
+<span class="material-symbols-outlined text-[1rem]" data-icon="auto_fix">auto_fix</span>
+</div>
+<div class="p-4 space-y-3 bg-white/50">
+<div class="h-2 w-full bg-outline-variant/30 rounded-full"></div>
+<div class="h-2 w-3/4 bg-outline-variant/30 rounded-full"></div>
+<div class="h-2 w-5/6 bg-outline-variant/30 rounded-full"></div>
+<div class="pt-2 border-t border-outline-variant/20 flex justify-between">
+<span class="text-[0.65rem] font-mono">Row Count:</span>
+<span class="text-[0.65rem] font-mono text-primary font-bold">128,431</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom: Schema Preview -->
+<div class="h-64 bg-inverse-surface rounded-3xl p-6 shadow-2xl flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-4">
+<h4 class="text-surface-container-highest font-bold text-sm tracking-widest uppercase">Schema Preview</h4>
+<div class="flex gap-2">
+<span class="px-2 py-0.5 rounded bg-tertiary/20 text-tertiary-fixed text-[0.6rem] font-bold">SQL VALID</span>
+<span class="px-2 py-0.5 rounded bg-primary/20 text-primary-fixed text-[0.6rem] font-bold">OPTIMIZED</span>
+</div>
+</div>
+<div class="flex gap-2">
+<button class="bg-primary hover:bg-primary-container text-white px-4 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-2">
+<span class="material-symbols-outlined text-[1rem]" data-icon="play_arrow">play_arrow</span>
+                                Execute Model
+                            </button>
+<button class="bg-white/10 hover:bg-white/20 text-white px-4 py-1.5 rounded-lg text-xs font-bold transition-all">
+                                Export Schema
+                            </button>
+</div>
+</div>
+<div class="flex-1 bg-[#1c1c1a] rounded-xl overflow-hidden border border-white/5 font-mono text-xs flex">
+<!-- Code Panel -->
+<div class="flex-1 p-4 text-surface-dim overflow-y-auto leading-relaxed">
+<div class="flex gap-4">
+<span class="text-outline/40">01</span>
+<span><span class="text-primary-fixed">SELECT</span> u.email, t.amount, t.created_at</span>
+</div>
+<div class="flex gap-4">
+<span class="text-outline/40">02</span>
+<span><span class="text-primary-fixed">FROM</span> production.users_metadata u</span>
+</div>
+<div class="flex gap-4">
+<span class="text-outline/40">03</span>
+<span><span class="text-primary-fixed">INNER JOIN</span> logs.transaction_logs t</span>
+</div>
+<div class="flex gap-4">
+<span class="text-outline/40">04</span>
+<span><span class="text-primary-fixed">ON</span> u.uuid = t.user_id</span>
+</div>
+<div class="flex gap-4">
+<span class="text-outline/40">05</span>
+<span><span class="text-primary-fixed">WHERE</span> t.amount &gt; <span class="text-tertiary-fixed">100.00</span></span>
+</div>
+<div class="flex gap-4">
+<span class="text-outline/40">06</span>
+<span><span class="text-primary-fixed">ORDER BY</span> t.created_at <span class="text-primary-fixed">DESC</span>;</span>
+</div>
+</div>
+<!-- Result Panel -->
+<div class="w-1/3 border-l border-white/5 p-4 overflow-y-auto bg-black/20">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-primary text-[1rem]" data-icon="table_rows">table_rows</span>
+<span class="text-outline text-[0.65rem] uppercase font-bold">Data Preview</span>
+</div>
+<table class="w-full text-left text-[0.6rem]">
+<thead class="text-outline border-b border-white/5">
+<tr>
+<th class="pb-2">email</th>
+<th class="pb-2">amount</th>
+</tr>
+</thead>
+<tbody class="text-surface-dim">
+<tr>
+<td class="py-1">alex@ateli...</td>
+<td class="py-1 text-primary-fixed">$249.00</td>
+</tr>
+<tr>
+<td class="py-1">j.doe@corp...</td>
+<td class="py-1 text-primary-fixed">$1,105.20</td>
+</tr>
+<tr>
+<td class="py-1">sarah.w@mi...</td>
+<td class="py-1 text-primary-fixed">$45.50</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Contextual FAB (Only for main workspace actions) -->
+<div class="fixed bottom-10 right-10 flex flex-col items-end gap-4 z-[60]">
+<button class="w-14 h-14 rounded-full bg-primary text-white shadow-[0_10px_30px_rgba(137,77,13,0.4)] flex items-center justify-center hover:scale-105 active:scale-95 transition-all group overflow-hidden">
+<span class="material-symbols-outlined text-2xl group-hover:rotate-90 transition-transform duration-500" data-icon="add">add</span>
+<div class="absolute right-full mr-4 bg-inverse-surface text-white text-[0.7rem] font-bold uppercase py-1 px-3 rounded-md opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap tracking-widest shadow-xl">
+                New Source
+            </div>
+</button>
+</div>
+</body></html>

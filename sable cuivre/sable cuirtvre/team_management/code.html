@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Team Management | Sable &amp; Cuivre</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "tertiary": "#006576",
+                        "on-surface": "#1c1c1a",
+                        "on-tertiary-fixed-variant": "#004e5b",
+                        "tertiary-container": "#008094",
+                        "on-primary-fixed": "#2e1500",
+                        "on-tertiary-fixed": "#001f26",
+                        "background": "#fcf9f5",
+                        "secondary": "#79573c",
+                        "secondary-fixed-dim": "#eabe9c",
+                        "outline-variant": "#d8c3b4",
+                        "tertiary-fixed-dim": "#74d4ea",
+                        "surface-container-highest": "#e5e2de",
+                        "surface-container": "#f0ede9",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed": "#ffdcc2",
+                        "primary-fixed": "#ffdcc2",
+                        "surface-container-low": "#f6f3ef",
+                        "on-tertiary": "#ffffff",
+                        "outline": "#857467",
+                        "on-primary-fixed-variant": "#6d3a00",
+                        "inverse-primary": "#ffb77b",
+                        "on-error": "#ffffff",
+                        "surface-container-high": "#ebe8e4",
+                        "on-tertiary-container": "#f9fdff",
+                        "on-primary-container": "#fffbff",
+                        "error": "#ba1a1a",
+                        "surface": "#fcf9f5",
+                        "secondary-container": "#ffd1ae",
+                        "primary": "#894d0d",
+                        "primary-container": "#a76526",
+                        "surface-bright": "#fcf9f5",
+                        "tertiary-fixed": "#a8edff",
+                        "inverse-surface": "#31302e",
+                        "surface-variant": "#e5e2de",
+                        "on-surface-variant": "#524439",
+                        "surface-tint": "#8c4f10",
+                        "primary-fixed-dim": "#ffb77b",
+                        "on-primary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "surface-dim": "#dcdad6",
+                        "on-error-container": "#93000a",
+                        "on-secondary-fixed": "#2d1602",
+                        "on-background": "#1c1c1a",
+                        "on-secondary-fixed-variant": "#5e4026",
+                        "on-secondary-container": "#79583c",
+                        "inverse-on-surface": "#f3f0ec"
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(30px);
+        }
+        .copper-gradient {
+            background: linear-gradient(45deg, #894d0d 0%, #a76526 100%);
+        }
+        .ghost-border {
+            border: 1px solid rgba(216, 195, 180, 0.15);
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface antialiased">
+<!-- Sidebar Navigation -->
+<aside class="h-screen w-72 fixed left-0 top-0 z-50 bg-[#fcf9f5] dark:bg-[#1c1c1a] shadow-[40px_0_80px_rgba(28,28,26,0.02)] flex flex-col py-10 pl-8 h-full">
+<div class="mb-12 flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg copper-gradient flex items-center justify-center text-white shadow-lg">
+<span class="material-symbols-outlined">architecture</span>
+</div>
+<div>
+<h2 class="text-lg font-extrabold uppercase tracking-widest text-[#894d0d] dark:text-[#B87333]">Atelier Nord</h2>
+<p class="text-[10px] uppercase tracking-[0.2em] text-stone-400 font-bold">Premium Tier</p>
+</div>
+</div>
+<nav class="flex-1 space-y-2">
+<a class="flex items-center gap-4 py-3 px-6 text-stone-400 dark:text-stone-500 hover:text-[#79573c] hover:translate-x-1 transition-all duration-300 ease-out font-['Manrope'] antialiased" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-sm font-medium">Workspace</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-6 text-stone-400 dark:text-stone-500 hover:text-[#79573c] hover:translate-x-1 transition-all duration-300 ease-out font-['Manrope'] antialiased" href="#">
+<span class="material-symbols-outlined">insights</span>
+<span class="text-sm font-medium">Analytics</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-6 text-stone-400 dark:text-stone-500 hover:text-[#79573c] hover:translate-x-1 transition-all duration-300 ease-out font-['Manrope'] antialiased" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="text-sm font-medium">Treasury</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-6 text-stone-400 dark:text-stone-500 hover:text-[#79573c] hover:translate-x-1 transition-all duration-300 ease-out font-['Manrope'] antialiased" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="text-sm font-medium">Archives</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-6 text-[#894d0d] dark:text-[#B87333] bg-[#f6f3ef] dark:bg-[#31302e] rounded-l-full font-semibold font-['Manrope'] antialiased" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="text-sm">Team</span>
+</a>
+</nav>
+<div class="mt-auto pr-8">
+<button class="w-full copper-gradient text-white py-4 rounded-xl font-bold text-sm tracking-widest uppercase shadow-lg shadow-primary/20 hover:scale-105 active:scale-95 transition-all">
+                New Project
+            </button>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-72 min-h-screen relative p-12">
+<!-- Header Section -->
+<header class="mb-16 flex justify-between items-end">
+<div class="max-w-2xl">
+<span class="text-[10px] uppercase tracking-[0.3em] text-secondary font-bold mb-4 block">Organization Control</span>
+<h1 class="text-5xl font-extrabold tracking-tight text-on-surface mb-6">Team Management</h1>
+<p class="text-lg text-stone-500 leading-relaxed font-light">
+                    Orchestrate your collective of artisans and managers. Control access levels across the entire platform with copper-grade precision.
+                </p>
+</div>
+<div class="flex gap-4">
+<div class="flex -space-x-3">
+<img class="w-12 h-12 rounded-full border-4 border-surface object-cover" data-alt="portrait of a confident female executive with soft studio lighting and professional attire" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD6cqDnBODPU4n2MrBAwnV_XVZf9rWQ4m89iSfsTV467Tszc_i9fdAiy7TWRkzheMro8wKWJ7CXl53F95xs-x9BtVDqBNn5XR9hoPye8tHCoHhr25dDz01bjFixpG-wi2xkuHmXvPQSdpYCwPBM-atrrPopFYWbb0j4mEZ8Vtnbl2HjVZH39uKYx4nepb-2v1Jzs5BDByxi61w5y7t-AIjHe7qQCBCkBT3KdR7luLRFNbuU4ExhYNdvv3WwLZB1eSuPM6CuSW8WyXk"/>
+<img class="w-12 h-12 rounded-full border-4 border-surface object-cover" data-alt="close-up portrait of a creative professional male in a minimal workspace with warm natural light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4RpajJlVFb3cQXPTb4o5YeF2vTmUS5UfheSKxtxxhiV1xzatdpiG6mK-1r8Utk2-9etjMr7PclK6Q_Obl84QWx0hSL1xsX476dOKvj6TOPwJQeycntyk3GgsseL7FzBYaikV24JUxcrXVPgu_t1CB7LlIxZ90QsVfQ1-DzbK-hejUQ_Pp-urxz2wJmWIqGMOxL7DCCR7dr0-Prjg1eXTQ7IycqlQLsdyCZLtKxKnrbU9dlNRzsD_7JioQbYB47tA40uPKtAaJ3KE"/>
+<div class="w-12 h-12 rounded-full border-4 border-surface bg-surface-container-highest flex items-center justify-center text-xs font-bold text-secondary">+12</div>
+</div>
+</div>
+</header>
+<!-- Stats Bento Grid -->
+<section class="grid grid-cols-12 gap-8 mb-12">
+<div class="col-span-4 glass-card ghost-border rounded-2xl p-8 shadow-sm">
+<div class="flex justify-between items-start mb-6">
+<span class="material-symbols-outlined text-tertiary">person_add</span>
+<span class="text-[10px] font-bold text-stone-400">ACTIVE SEATS</span>
+</div>
+<div class="text-4xl font-extrabold text-on-surface mb-2">48 / 50</div>
+<div class="h-1.5 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full copper-gradient w-[96%]"></div>
+</div>
+</div>
+<div class="col-span-4 glass-card ghost-border rounded-2xl p-8 shadow-sm">
+<div class="flex justify-between items-start mb-6">
+<span class="material-symbols-outlined text-tertiary">verified_user</span>
+<span class="text-[10px] font-bold text-stone-400">SECURITY SCORE</span>
+</div>
+<div class="text-4xl font-extrabold text-on-surface mb-2">94%</div>
+<p class="text-xs text-stone-500">2FA enabled for 45 members</p>
+</div>
+<div class="col-span-4 bg-inverse-surface rounded-2xl p-8 shadow-2xl relative overflow-hidden group">
+<div class="relative z-10 h-full flex flex-col justify-between">
+<div>
+<span class="text-[10px] font-bold text-surface-container-highest tracking-widest">INVITE MEMBER</span>
+<h3 class="text-2xl font-bold text-white mt-2 leading-tight">Scale your<br/>atelier workflow.</h3>
+</div>
+<button class="bg-white text-on-surface py-3 px-6 rounded-lg font-bold text-sm self-start transition-transform group-hover:scale-105 active:scale-95">
+                        Launch Invite Modal
+                    </button>
+</div>
+<div class="absolute -right-10 -bottom-10 w-40 h-40 copper-gradient opacity-20 rounded-full blur-3xl"></div>
+</div>
+</section>
+<!-- Team Table Area -->
+<div class="surface-container-low rounded-3xl p-1 overflow-hidden">
+<div class="bg-white rounded-[22px] overflow-hidden">
+<table class="w-full text-left border-separate border-spacing-0">
+<thead>
+<tr class="bg-surface-container-low">
+<th class="py-6 px-8 text-[10px] font-bold uppercase tracking-widest text-stone-500">Member</th>
+<th class="py-6 px-8 text-[10px] font-bold uppercase tracking-widest text-stone-500">Access Level</th>
+<th class="py-6 px-8 text-[10px] font-bold uppercase tracking-widest text-stone-500">Status</th>
+<th class="py-6 px-8 text-[10px] font-bold uppercase tracking-widest text-stone-500">Last Active</th>
+<th class="py-6 px-8 text-[10px] font-bold uppercase tracking-widest text-stone-500">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-lowest transition-colors group">
+<td class="py-6 px-8">
+<div class="flex items-center gap-4">
+<img class="w-10 h-10 rounded-lg object-cover" data-alt="professional portrait of a man with minimalist aesthetic and neutral tones in a modern office" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDrzbIQtVxGc2oLFq6ErxDBKz5mg8hZCo5YQV7onYv8r7mEuPavdA7Av3sJmbkBWBFrNWD7iM5HnIWqaTYow3C12maTdFlw4h8JScj_rlRBiCHik9FgjiPWNWNu_EqPTyC1MPEmV4e1iGVMw5MDlXVNfvOtpUn4Y1D5yGMe_awIP-F0aa1WTfsX9uSmz_nY40ZLKEO_FUWvmDWDLfQitS-OqImvWuo7E29FS78dQeXVznhUAZoJ8g-UjwfOxAUPHkILlMrSQ3Xu8F0"/>
+<div>
+<p class="font-bold text-on-surface">Julian Thorne</p>
+<p class="text-xs text-stone-400">julian@atelier.com</p>
+</div>
+</div>
+</td>
+<td class="py-6 px-8">
+<span class="px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-widest bg-primary-container/10 text-primary border border-primary/20">Lead Architect</span>
+</td>
+<td class="py-6 px-8">
+<div class="flex items-center gap-2">
+<div class="w-1.5 h-1.5 rounded-full bg-emerald-500"></div>
+<span class="text-sm font-medium text-stone-600">Active</span>
+</div>
+</td>
+<td class="py-6 px-8 text-sm text-stone-500">2 hours ago</td>
+<td class="py-6 px-8">
+<button class="text-stone-300 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_horiz</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-lowest transition-colors group">
+<td class="py-6 px-8">
+<div class="flex items-center gap-4">
+<img class="w-10 h-10 rounded-lg object-cover" data-alt="editorial style portrait of a creative woman with artistic lighting and soft shadows" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBa2h8__HC2o79HtbAp491zkh7qtIefZUxEi47DTNpaumHGHipcseHI4oIOmYDndEXkaNCF6YUk6MrZn0xS2Q5v-uhytBUSTJEf1GIDDmaJHkvhlddQYUl8ODvjDZ6x04lJipB1h8by23TA693-DMzEQhv5KUJN5ksCDDRhI1TOfMU4L6FK6jPy8nld7LW_StdVS-MaCvPgwadEef8F3p7BGZog-PGGIIEcJzKjostJavrfDpFqA_LRFwzIOssGqoc77-TMUOln2mM"/>
+<div>
+<p class="font-bold text-on-surface">Elena Vance</p>
+<p class="text-xs text-stone-400">elena.v@atelier.com</p>
+</div>
+</div>
+</td>
+<td class="py-6 px-8">
+<span class="px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-widest bg-secondary-container/20 text-secondary border border-secondary/20">Content Strategist</span>
+</td>
+<td class="py-6 px-8">
+<div class="flex items-center gap-2">
+<div class="w-1.5 h-1.5 rounded-full bg-emerald-500"></div>
+<span class="text-sm font-medium text-stone-600">Active</span>
+</div>
+</td>
+<td class="py-6 px-8 text-sm text-stone-500">Just now</td>
+<td class="py-6 px-8">
+<button class="text-stone-300 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_horiz</span>
+</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-lowest transition-colors group">
+<td class="py-6 px-8">
+<div class="flex items-center gap-4">
+<img class="w-10 h-10 rounded-lg object-cover" data-alt="close-up portrait of a male designer with focused expression and high-end lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAXpNaTTy0swMTXcID6SVw5z2lDcKgVkd4hmAaxAQ7f6n2_kkmM9d0zm_x8OGka6_2BNadwsQmSGiM8OTHGqvC5XiH43iUPuby-SPVTFKgll3U03rDF4GJDT2YkHLUUrF_0PsqjHIXmj3erBNzaL1wZhrINFGbmNCbILXP-bzwdEVQ-MtYqPZtzrkG_04hy3nnb1EGeCropVPe-dSF-GkGcB_r-FgcZ2tLmHiV7DmeDcC-uFaKtiDC8OYkEJg5qEA9rdtLQu3-CirQ"/>
+<div>
+<p class="font-bold text-on-surface">Marcus Chen</p>
+<p class="text-xs text-stone-400">m.chen@atelier.com</p>
+</div>
+</div>
+</td>
+<td class="py-6 px-8">
+<span class="px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-widest bg-tertiary-container/10 text-tertiary border border-tertiary/20">Dev Ops</span>
+</td>
+<td class="py-6 px-8">
+<div class="flex items-center gap-2">
+<div class="w-1.5 h-1.5 rounded-full bg-stone-300"></div>
+<span class="text-sm font-medium text-stone-400">Away</span>
+</div>
+</td>
+<td class="py-6 px-8 text-sm text-stone-500">3 days ago</td>
+<td class="py-6 px-8">
+<button class="text-stone-300 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_horiz</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</main>
+<!-- Invite Modal (Floating Over Content) -->
+<div class="fixed inset-0 z-[100] flex items-center justify-center bg-inverse-surface/40 backdrop-blur-md">
+<div class="w-full max-w-xl glass-card rounded-[2.5rem] shadow-2xl overflow-hidden relative border border-white/20">
+<div class="p-12">
+<div class="flex justify-between items-start mb-10">
+<div>
+<h2 class="text-3xl font-extrabold text-on-surface tracking-tight mb-2">Invite Artisan</h2>
+<p class="text-stone-500 text-sm">Grant access to the Atelier Nord environment.</p>
+</div>
+<button class="w-10 h-10 rounded-full surface-container-highest flex items-center justify-center text-stone-500 hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<form class="space-y-8">
+<div>
+<label class="block text-[10px] font-bold uppercase tracking-widest text-secondary mb-3">Email Address</label>
+<input class="w-full bg-surface-container-low border-none rounded-xl py-4 px-6 text-on-surface placeholder:text-stone-400 focus:ring-2 focus:ring-primary/20 transition-all" placeholder="artisan@atelier-nord.com" type="email"/>
+</div>
+<div class="grid grid-cols-2 gap-6">
+<div>
+<label class="block text-[10px] font-bold uppercase tracking-widest text-secondary mb-3">Role Designation</label>
+<div class="relative">
+<select class="w-full bg-surface-container-low border-none rounded-xl py-4 px-6 appearance-none text-on-surface focus:ring-2 focus:ring-primary/20">
+<option>Standard Editor</option>
+<option>Lead Designer</option>
+<option>Administrator</option>
+<option>Viewer</option>
+</select>
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-stone-400">expand_more</span>
+</div>
+</div>
+<div>
+<label class="block text-[10px] font-bold uppercase tracking-widest text-secondary mb-3">Workspace</label>
+<div class="relative">
+<select class="w-full bg-surface-container-low border-none rounded-xl py-4 px-6 appearance-none text-on-surface focus:ring-2 focus:ring-primary/20">
+<option>Global Production</option>
+<option>Archive Beta</option>
+<option>Treasury HQ</option>
+</select>
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-stone-400">expand_more</span>
+</div>
+</div>
+</div>
+<div class="pt-4 flex gap-4">
+<button class="flex-1 py-4 px-8 rounded-xl font-bold text-sm tracking-widest uppercase border border-outline-variant text-stone-600 hover:bg-surface-container-low transition-colors" type="button">
+                            Cancel
+                        </button>
+<button class="flex-[2] copper-gradient text-white py-4 px-8 rounded-xl font-bold text-sm tracking-widest uppercase shadow-xl shadow-primary/30 hover:shadow-primary/40 transition-all" type="submit">
+                            Send Invitation
+                        </button>
+</div>
+</form>
+</div>
+<!-- Decorative Light Leak -->
+<div class="absolute -top-24 -left-24 w-64 h-64 bg-primary/10 blur-[100px] rounded-full pointer-events-none"></div>
+</div>
+</div>
+</body></html>

@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Architect Editor - Document Workspace</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "error-container": "#ffdad6",
+              "on-background": "#131b2e",
+              "on-tertiary-fixed": "#00201d",
+              "on-secondary": "#ffffff",
+              "secondary-fixed": "#d5e3fc",
+              "primary": "#3a388b",
+              "surface-container-lowest": "#ffffff",
+              "surface-dim": "#d2d9f4",
+              "on-surface": "#131b2e",
+              "on-tertiary-container": "#78e4d6",
+              "surface-variant": "#dae2fd",
+              "outline-variant": "#c5c5d4",
+              "on-tertiary-fixed-variant": "#005049",
+              "surface-container-highest": "#dae2fd",
+              "on-primary-container": "#d0cdff",
+              "tertiary": "#004c45",
+              "on-tertiary": "#ffffff",
+              "outline": "#757684",
+              "on-surface-variant": "#454652",
+              "secondary-fixed-dim": "#b9c7df",
+              "secondary-container": "#d5e3fc",
+              "secondary": "#515f74",
+              "primary-fixed": "#e2dfff",
+              "on-secondary-fixed-variant": "#3a485b",
+              "inverse-on-surface": "#eef0ff",
+              "on-secondary-fixed": "#0d1c2e",
+              "primary-container": "#5250a4",
+              "surface-bright": "#faf8ff",
+              "primary-fixed-dim": "#c3c0ff",
+              "on-primary": "#ffffff",
+              "on-secondary-container": "#57657a",
+              "on-primary-fixed": "#100563",
+              "on-error": "#ffffff",
+              "tertiary-fixed": "#89f5e7",
+              "surface": "#faf8ff",
+              "on-primary-fixed-variant": "#3e3c8f",
+              "on-error-container": "#93000a",
+              "tertiary-container": "#00665d",
+              "surface-container-high": "#e2e7ff",
+              "surface-container-low": "#f2f3ff",
+              "surface-tint": "#5654a8",
+              "background": "#faf8ff",
+              "inverse-primary": "#c3c0ff",
+              "surface-container": "#eaedff",
+              "inverse-surface": "#283044",
+              "error": "#ba1a1a",
+              "tertiary-fixed-dim": "#6bd8cb"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3 { font-family: 'Manrope', sans-serif; }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+        }
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #c5c5d4; border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface selection:bg-tertiary-fixed selection:text-on-tertiary-fixed">
+<aside class="h-screen w-64 fixed left-0 top-0 overflow-y-auto bg-surface-container-low border-r border-indigo-100/20 flex flex-col h-full py-8 px-4 z-50">
+<div class="mb-10 px-2 flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-primary-container flex items-center justify-center shadow-lg">
+<span class="material-symbols-outlined text-white" data-icon="architecture">architecture</span>
+</div>
+<div>
+<h2 class="text-lg font-black text-indigo-800 tracking-tight">Design Collective</h2>
+<p class="text-[0.6875rem] font-medium text-slate-500 uppercase tracking-wider">Pro Plan</p>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="group flex items-center gap-3 px-3 py-2.5 rounded-xl relative text-indigo-700 font-semibold before:content-[''] before:absolute before:left-0 before:w-1 before:h-6 before:bg-[#004c45] before:rounded-r-full transition-all scale-[0.98] active:translate-x-1" href="#">
+<span class="material-symbols-outlined" data-icon="grid_view">grid_view</span>
+<span class="font-['Inter'] text-[0.875rem] leading-relaxed">Workspace</span>
+</a>
+<a class="group flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-500 font-medium hover:text-indigo-600 hover:bg-indigo-50/50 transition-all scale-[0.98] active:translate-x-1" href="#">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+<span class="font-['Inter'] text-[0.875rem] leading-relaxed">Documents</span>
+</a>
+<a class="group flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-500 font-medium hover:text-indigo-600 hover:bg-indigo-50/50 transition-all scale-[0.98] active:translate-x-1" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="font-['Inter'] text-[0.875rem] leading-relaxed">Collaborators</span>
+</a>
+<a class="group flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-500 font-medium hover:text-indigo-600 hover:bg-indigo-50/50 transition-all scale-[0.98] active:translate-x-1" href="#">
+<span class="material-symbols-outlined" data-icon="insert_chart">insert_chart</span>
+<span class="font-['Inter'] text-[0.875rem] leading-relaxed">Analytics</span>
+</a>
+<a class="group flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-500 font-medium hover:text-indigo-600 hover:bg-indigo-50/50 transition-all scale-[0.98] active:translate-x-1" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span class="font-['Inter'] text-[0.875rem] leading-relaxed">Archive</span>
+</a>
+</nav>
+<div class="mt-auto space-y-1 pt-6 border-t border-outline-variant/20">
+<button class="w-full mb-4 py-3 bg-gradient-to-br from-primary to-primary-container text-white rounded-xl font-semibold text-sm shadow-sm flex items-center justify-center gap-2 hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined text-sm" data-icon="person_add">person_add</span>
+                Invite Member
+            </button>
+<a class="group flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-500 font-medium hover:text-indigo-600 hover:bg-indigo-50/50 transition-all scale-[0.98] active:translate-x-1" href="#">
+<span class="material-symbols-outlined" data-icon="contact_support">contact_support</span>
+<span class="font-['Inter'] text-[0.875rem] leading-relaxed">Support</span>
+</a>
+<a class="group flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-500 font-medium hover:text-indigo-600 hover:bg-indigo-50/50 transition-all scale-[0.98] active:translate-x-1" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-['Inter'] text-[0.875rem] leading-relaxed">Settings</span>
+</a>
+</div>
+</aside>
+<main class="ml-64 flex flex-col min-h-screen">
+<header class="w-full h-16 sticky top-0 z-40 bg-[#faf8ff] flex justify-between items-center px-6">
+<div class="flex items-center gap-4 flex-1">
+<div class="relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg" data-icon="search">search</span>
+<input class="w-full bg-surface-container-low border-none rounded-full py-2 pl-10 pr-4 text-sm focus:ring-2 focus:ring-primary/20 placeholder:text-slate-400" placeholder="Search across all documents..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 rounded-full text-slate-600 hover:bg-slate-100 transition-colors duration-200 scale-95 active:scale-90">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 rounded-full text-slate-600 hover:bg-slate-100 transition-colors duration-200 scale-95 active:scale-90">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<button class="p-2 rounded-full text-slate-600 hover:bg-slate-100 transition-colors duration-200 scale-95 active:scale-90">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+</button>
+<div class="h-8 w-8 rounded-full overflow-hidden ml-2 ring-2 ring-primary/10">
+<img alt="User Profile" class="h-full w-full object-cover" data-alt="close-up portrait of professional woman with thoughtful expression in modern office environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC7kXb9UIuMduch8OsBqJfhZmzp3kYVzquBMGrnNcrDQ1Pl7AIaB7ikXH79d8-Iv9SitUCkTkRDCmnmqa4APw2MTI3HwzNlnQLhtPykb8w_LrpUALEXggxQ-LbKLavgvW3zyH6tiI49Rs2yT1oebb1q7y5wwgQMLdsud1VM3LCCcuNTDeMYTw6mAFu2eytKzEx7oyNKru8zpONtCmV2KF6q6DJ7XMATsSUvLYnOf0C6gG7u5DcB31k_jUiQ0N4vbmRruu9Hqk5tSJw"/>
+</div>
+</div>
+</header>
+<div class="px-10 py-6 border-b border-indigo-50/30">
+<nav class="flex items-center text-xs font-medium text-slate-400 gap-2 mb-2">
+<a class="hover:text-primary flex items-center gap-1 transition-colors" href="#">
+<span class="material-symbols-outlined text-sm" data-icon="home">home</span>
+                    Workspace
+                </a>
+<span class="material-symbols-outlined text-[10px]" data-icon="chevron_right">chevron_right</span>
+<a class="hover:text-primary transition-colors" href="#">Design Docs</a>
+<span class="material-symbols-outlined text-[10px]" data-icon="chevron_right">chevron_right</span>
+<span class="text-primary font-semibold">Q3 Product Strategy</span>
+</nav>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-4">
+<button class="flex items-center gap-2 text-slate-500 hover:text-primary transition-colors text-sm font-semibold">
+<span class="material-symbols-outlined text-base" data-icon="arrow_back">arrow_back</span>
+                        Back to Workspace
+                    </button>
+<h1 class="text-2xl font-extrabold text-indigo-950 tracking-tight">Q3 Product Strategy</h1>
+</div>
+<div class="flex items-center gap-3">
+<span class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-tertiary-fixed text-on-tertiary-fixed text-[0.6875rem] font-bold">
+<span class="material-symbols-outlined text-[10px]" data-icon="fiber_manual_record" style="font-variation-settings: 'FILL' 1;">fiber_manual_record</span>
+                        Live Collaboration
+                    </span>
+<button class="bg-tertiary text-white px-5 py-2 rounded-xl text-sm font-semibold flex items-center gap-2 shadow-sm hover:bg-tertiary/90 transition-all">
+<span class="material-symbols-outlined text-base" data-icon="share">share</span>
+                        Share
+                    </button>
+</div>
+</div>
+</div>
+<div class="flex-1 flex overflow-hidden">
+<section class="flex-1 overflow-y-auto bg-surface-container-lowest p-12 custom-scrollbar">
+<div class="max-w-4xl mx-auto space-y-10">
+<div class="flex gap-4">
+<button class="p-2 rounded-md hover:bg-surface-container-low transition-colors"><span class="material-symbols-outlined" data-icon="format_bold">format_bold</span></button>
+<button class="p-2 rounded-md hover:bg-surface-container-low transition-colors"><span class="material-symbols-outlined" data-icon="format_italic">format_italic</span></button>
+<button class="p-2 rounded-md hover:bg-surface-container-low transition-colors"><span class="material-symbols-outlined" data-icon="format_underlined">format_underlined</span></button>
+<div class="w-px h-6 bg-outline-variant/30 self-center"></div>
+<button class="p-2 rounded-md hover:bg-surface-container-low transition-colors"><span class="material-symbols-outlined" data-icon="format_list_bulleted">format_list_bulleted</span></button>
+<button class="p-2 rounded-md hover:bg-surface-container-low transition-colors"><span class="material-symbols-outlined" data-icon="format_list_numbered">format_list_numbered</span></button>
+<div class="w-px h-6 bg-outline-variant/30 self-center"></div>
+<button class="p-2 rounded-md hover:bg-surface-container-low transition-colors"><span class="material-symbols-outlined" data-icon="image">image</span></button>
+<button class="p-2 rounded-md hover:bg-surface-container-low transition-colors"><span class="material-symbols-outlined" data-icon="link">link</span></button>
+</div>
+<div class="prose prose-slate max-w-none space-y-8">
+<h1 class="text-4xl font-extrabold text-on-surface tracking-tight leading-tight">Executive Summary: Architectural Refinement</h1>
+<p class="text-lg text-secondary leading-relaxed first-letter:text-5xl first-letter:font-bold first-letter:text-primary first-letter:mr-3 first-letter:float-left">
+                            Our primary objective for Q3 remains the absolute synthesis of editorial design with functional scalability. We are moving away from the paradigm of "Tools for Workers" toward "Platforms for Architects." This shift requires a surgical focus on our core interface surface logic.
+                        </p>
+<div class="grid grid-cols-2 gap-8 my-10">
+<div class="p-6 rounded-xl bg-surface-container-low border-l-4 border-primary">
+<h4 class="font-bold text-primary mb-2">Internal Velocity</h4>
+<p class="text-sm text-secondary">Targeting a 40% reduction in interaction latency across the document canvas by late August.</p>
+</div>
+<div class="p-6 rounded-xl bg-surface-container-low border-l-4 border-tertiary">
+<h4 class="font-bold text-tertiary mb-2">Design Precision</h4>
+<p class="text-sm text-secondary">Implementing the 'No-Line' rule globally to enhance visual cognitive load management.</p>
+</div>
+</div>
+<h2 class="text-2xl font-bold text-indigo-900">Key Strategic Pillars</h2>
+<ul class="space-y-4 text-on-surface-variant">
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="check_circle">check_circle</span>
+<div>
+<strong class="text-on-surface">Tonal Layering:</strong> We will replace traditional shadows with subtle background tonal shifts to define document hierarchy.
+                                </div>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="check_circle">check_circle</span>
+<div>
+<strong class="text-on-surface">Asymmetric Layouts:</strong> Utilizing whitespace as a primary navigation element rather than secondary margins.
+                                </div>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="check_circle">check_circle</span>
+<div>
+<strong class="text-on-surface">Ghost Interfaces:</strong> Floating toolbars that respond to gaze and intent rather than permanent screen real estate.
+                                </div>
+</li>
+</ul>
+<div class="relative w-full h-80 rounded-2xl overflow-hidden mt-12 group">
+<img alt="Office Visualization" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="minimalist architectural office with large windows overlooking a city at twilight with soft ambient lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCHo3JJpq_qm08Q2yyLs0FNh5_l192jWjfX2NukMnRkoYLXqYXvOHQ0kp0Rcu0w3bPBT6lYnZwHZDE-4rQqe7zgjBEuYSzr8l053ubXF9npg8wKN_ZC40kjS90Wbrantyx6cNK28jPofgseQMOTmSdoX40_CFo-hBDNCMaicXQ8uG_anGTUlZUFvfgVH-suHEMiJJ0eOdAaouv5ndtEnrGn5oI1HUy1dBf5uQ5bUZAeC7fTeFzVG7G0JvDffgJgJuvpyRZai8uStzw"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-8">
+<p class="text-white text-sm font-medium italic opacity-90">"Visualizing the new workspace paradigm through environmental context."</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<aside class="w-80 border-l border-indigo-100/20 bg-surface-container-low flex flex-col overflow-hidden">
+<div class="p-6 border-b border-indigo-50/50">
+<h3 class="text-sm font-bold text-indigo-950 uppercase tracking-widest flex items-center gap-2">
+<span class="material-symbols-outlined text-lg" data-icon="history">history</span>
+                        Version History
+                    </h3>
+</div>
+<div class="flex-1 overflow-y-auto p-4 custom-scrollbar space-y-4">
+<div class="p-4 rounded-xl bg-surface-container-highest border border-primary/20 cursor-pointer transition-all hover:ring-2 hover:ring-primary/10">
+<div class="flex justify-between items-start mb-2">
+<span class="text-xs font-bold text-primary">Current Version</span>
+<span class="text-[10px] font-bold text-primary px-2 py-0.5 rounded bg-primary-fixed">v4.2</span>
+</div>
+<p class="text-xs font-medium text-slate-500 mb-3">Today, 2:45 PM</p>
+<div class="flex items-center gap-2 mb-2">
+<img alt="Editor" class="w-5 h-5 rounded-full object-cover" data-alt="professional portrait of a creative director in a minimalist studio setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA1Ne_6Dts6zzTK_oGnZk1VCgJArhUcszPfmDid_M132zj8QFOCXvf2_nEm32AoNiL4iNInO36d5FzyYga14a-hFpyiN2uY1cS-cL3oM6Y-pV5AWQC2C-1iWRpMsNddYnTfYgnUKgAq0mQTrfakyUPeq0BBxig-ZuBnYUK8Dqw1PXQs0TJ1SG0xAYPpzabwVeuGN2gS8S9G37Kk7vo7jKtGWrzAHyOy6HdvEUGU-jGPbbZUh2O2ekYZTw0v6oZlTpMgRSigeAI0Vkc"/>
+<span class="text-xs text-on-surface font-semibold">Alex Rivera</span>
+</div>
+<p class="text-xs text-slate-500 italic">Adjusted executive summary tone and updated imagery references.</p>
+</div>
+<div class="p-4 rounded-xl bg-surface-container hover:bg-surface-container-high transition-colors cursor-pointer border border-transparent">
+<div class="flex justify-between items-start mb-2">
+<span class="text-xs font-bold text-slate-700">Previous Revision</span>
+<span class="text-[10px] font-bold text-slate-400 px-2 py-0.5 rounded bg-slate-200">v4.1</span>
+</div>
+<p class="text-xs font-medium text-slate-400 mb-3">Yesterday, 11:20 AM</p>
+<div class="flex items-center gap-2 mb-2">
+<img alt="Editor" class="w-5 h-5 rounded-full object-cover" data-alt="smiling woman professional with glasses in a bright workspace" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAqhgmKeZQA125U-IwG9NmdV5b_i9ECnMO9vANgHQdPxUTrd3ZvRdigzpmwq3aM5v428BG8hrkhxrhXis8nOaHSURnCaenqlP9wktloJxoy8GQykWofajYcEyfkVAlM7aBZWYt-tGQ81c_cDr4KAg25y2Na2kvKyTCejTl9cScCXSzunpJI4x8-nB6bg3DD7SfmehkXed7kJmnnGT0u0b2yH0XY_HD47M3lKbdoRNDYJWu9DF8r3TpWBv7JNlUBjQjQ6paKJobOFHY"/>
+<span class="text-xs text-on-surface font-semibold">Sarah Chen</span>
+</div>
+<p class="text-xs text-slate-500 italic">Added Strategic Pillars section and corrected formatting.</p>
+</div>
+<div class="p-4 rounded-xl bg-surface-container hover:bg-surface-container-high transition-colors cursor-pointer border border-transparent">
+<div class="flex justify-between items-start mb-2">
+<span class="text-xs font-bold text-slate-700">Initial Draft</span>
+<span class="text-[10px] font-bold text-slate-400 px-2 py-0.5 rounded bg-slate-200">v4.0</span>
+</div>
+<p class="text-xs font-medium text-slate-400 mb-3">July 18, 9:00 AM</p>
+<div class="flex items-center gap-2 mb-2">
+<img alt="Editor" class="w-5 h-5 rounded-full object-cover" data-alt="professional portrait of a creative director in a minimalist studio setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDhX6PPXOZ5_OgwKrCvwyvuK87cuCOi1jf8fN9FTrcJ6BbM_XbY_qcepOi61THNxdWfxpvZBj_T1252Kd_cPasna05sboYMmAPyCx-4npE19y-LLOPjmq8qHgKuKxrH1tmV6TWnNvRSkfy2YBG_yAObLSnAlPXKjIr31Ae-78g1xc5qHxSxae9z70oBGfMDgX81S_Cs5vgDvc84bBFVnGzfSH0vKyQSYEMXvC_b0_ZsIee2mz_-1KPWgxs-O56iKyUXaZJRx-ez27I"/>
+<span class="text-xs text-on-surface font-semibold">Alex Rivera</span>
+</div>
+<p class="text-xs text-slate-500 italic">Core structure outline and objective definition.</p>
+</div>
+</div>
+<div class="p-6 bg-surface-container-low border-t border-indigo-50/50">
+<button class="w-full flex items-center justify-center gap-2 py-3 border border-outline/20 rounded-xl text-xs font-bold text-slate-600 hover:bg-white hover:shadow-sm transition-all scale-95 active:scale-90">
+<span class="material-symbols-outlined text-base" data-icon="compare">compare</span>
+                        Compare Versions
+                    </button>
+</div>
+</aside>
+</div>
+</main>
+</body></html>

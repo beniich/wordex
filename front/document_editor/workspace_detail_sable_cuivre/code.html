@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Workspace Detail | Sable &amp; Cuivre</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "tertiary": "#006576",
+                        "on-surface": "#1c1c1a",
+                        "on-tertiary-fixed-variant": "#004e5b",
+                        "tertiary-container": "#008094",
+                        "on-primary-fixed": "#2e1500",
+                        "on-tertiary-fixed": "#001f26",
+                        "background": "#fcf9f5",
+                        "secondary": "#79573c",
+                        "secondary-fixed-dim": "#eabe9c",
+                        "outline-variant": "#d8c3b4",
+                        "tertiary-fixed-dim": "#74d4ea",
+                        "surface-container-highest": "#e5e2de",
+                        "surface-container": "#f0ede9",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed": "#ffdcc2",
+                        "primary-fixed": "#ffdcc2",
+                        "surface-container-low": "#f6f3ef",
+                        "on-tertiary": "#ffffff",
+                        "outline": "#857467",
+                        "on-primary-fixed-variant": "#6d3a00",
+                        "inverse-primary": "#ffb77b",
+                        "on-error": "#ffffff",
+                        "surface-container-high": "#ebe8e4",
+                        "on-tertiary-container": "#f9fdff",
+                        "on-primary-container": "#fffbff",
+                        "error": "#ba1a1a",
+                        "surface": "#fcf9f5",
+                        "secondary-container": "#ffd1ae",
+                        "primary-container": "#a76526",
+                        "surface-bright": "#fcf9f5",
+                        "tertiary-fixed": "#a8edff",
+                        "inverse-surface": "#31302e",
+                        "surface-variant": "#e5e2de",
+                        "on-surface-variant": "#524439",
+                        "surface-tint": "#8c4f10",
+                        "primary-fixed-dim": "#ffb77b",
+                        "on-primary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "surface-dim": "#dcdad6",
+                        "on-error-container": "#93000a",
+                        "on-secondary-fixed": "#2d1602",
+                        "on-background": "#1c1c1a",
+                        "on-secondary-fixed-variant": "#5e4026",
+                        "primary": "#894d0d",
+                        "on-secondary-container": "#79583c",
+                        "inverse-on-surface": "#f3f0ec"
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+        }
+        .copper-gradient {
+            background: linear-gradient(45deg, #894d0d 0%, #a76526 100%);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #d8c3b4;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- Sidebar Navigation Shell -->
+<nav class="h-screen w-72 fixed left-0 top-0 z-50 bg-[#fcf9f5] dark:bg-[#1c1c1a] shadow-[40px_0_80px_rgba(28,28,26,0.02)] flex flex-col py-10 pl-8 font-['Manrope'] antialiased">
+<div class="mb-12 flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg copper-gradient flex items-center justify-center text-white shadow-lg">
+<span class="material-symbols-outlined">diamond</span>
+</div>
+<div>
+<h2 class="text-lg font-extrabold uppercase tracking-widest text-[#894d0d] dark:text-[#B87333]">Atelier Nord</h2>
+<p class="text-[10px] uppercase tracking-[0.2em] text-stone-400 font-bold">Premium Tier</p>
+</div>
+</div>
+<div class="flex-1 space-y-2">
+<a class="group flex items-center gap-4 py-3 pl-4 text-[#894d0d] dark:text-[#B87333] bg-[#f6f3ef] dark:bg-[#31302e] rounded-l-full font-semibold transition-all duration-300 ease-out" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-sm">Workspace</span>
+</a>
+<a class="group flex items-center gap-4 py-3 pl-4 text-stone-400 dark:text-stone-500 hover:text-[#79573c] hover:translate-x-1 transition-all duration-300 ease-out" href="#">
+<span class="material-symbols-outlined">insights</span>
+<span class="text-sm">Analytics</span>
+</a>
+<a class="group flex items-center gap-4 py-3 pl-4 text-stone-400 dark:text-stone-500 hover:text-[#79573c] hover:translate-x-1 transition-all duration-300 ease-out" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="text-sm">Treasury</span>
+</a>
+<a class="group flex items-center gap-4 py-3 pl-4 text-stone-400 dark:text-stone-500 hover:text-[#79573c] hover:translate-x-1 transition-all duration-300 ease-out" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="text-sm">Archives</span>
+</a>
+<a class="group flex items-center gap-4 py-3 pl-4 text-stone-400 dark:text-stone-500 hover:text-[#79573c] hover:translate-x-1 transition-all duration-300 ease-out" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="text-sm">Team</span>
+</a>
+</div>
+<div class="mt-auto pr-8">
+<button class="w-full py-4 rounded-xl copper-gradient text-white text-sm font-bold tracking-tight shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all">
+                New Project
+            </button>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="ml-72 min-h-screen p-12">
+<!-- Glassmorphic Header -->
+<header class="fixed top-0 left-72 right-0 z-40 h-24 bg-[#fcf9f5]/80 backdrop-blur-2xl flex justify-between items-center px-12">
+<div class="flex items-center gap-4">
+<div class="text-sm font-label tracking-widest text-secondary uppercase opacity-60">Projects /</div>
+<h1 class="text-2xl font-headline font-extrabold tracking-tight text-on-surface">Maison de Soie</h1>
+<span class="px-2 py-0.5 bg-primary/10 text-primary text-[10px] font-bold rounded uppercase tracking-wider">Active</span>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative group">
+<span class="material-symbols-outlined text-secondary cursor-pointer hover:text-primary transition-colors">notifications</span>
+<span class="absolute -top-1 -right-1 w-2 h-2 bg-primary rounded-full ring-2 ring-surface"></span>
+</div>
+<span class="material-symbols-outlined text-secondary cursor-pointer hover:text-primary transition-colors">settings</span>
+<div class="h-10 w-10 rounded-full overflow-hidden border-2 border-surface-container-highest shadow-sm">
+<img class="w-full h-full object-cover" data-alt="Professional portrait of a design director in a minimalist studio setting with soft natural light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDwKXrKdrwZpz81hMEHEHW1JhLCDmNQlwqhOST4WMSzZi7syBtW_gLhwNocICc72dAk8C_Rx6QGX1BO7285QdQILt5ndkuVdAbgjFuCorxnq6tSVsIskp3Jugo6TQML4ApN1IUFbwnsMbfiQ_cL2Bk52X61Enhr_mFC3prTPjpy8Avw-jE7nwXRdnOW02S11fEYEHqkI97qhebwb4BisZ-zQROqLTI7qtFAE5IgIF04kS5sw4N8RITSFWi0v-wyw6Oy45P4TgxN7uU"/>
+</div>
+</div>
+<div class="absolute bottom-0 left-0 w-full h-[1px] bg-surface-container-low"></div>
+</header>
+<div class="mt-24 space-y-12">
+<!-- Hero Stats Bento -->
+<section class="grid grid-cols-12 gap-6">
+<div class="col-span-8 bg-surface-container-low rounded-3xl p-8 relative overflow-hidden group">
+<div class="relative z-10 h-full flex flex-col justify-between">
+<div>
+<span class="text-[10px] font-label font-bold uppercase tracking-[0.2em] text-tertiary">Operational Overview</span>
+<h3 class="text-3xl font-headline font-bold mt-2 text-on-surface">Atelier Performance</h3>
+</div>
+<div class="flex gap-12 mt-8">
+<div>
+<p class="text-4xl font-headline font-light text-primary">84%</p>
+<p class="text-xs font-label uppercase tracking-widest text-secondary mt-1">Efficiency Rate</p>
+</div>
+<div>
+<p class="text-4xl font-headline font-light text-tertiary">12</p>
+<p class="text-xs font-label uppercase tracking-widest text-secondary mt-1">Pending Reviews</p>
+</div>
+<div>
+<p class="text-4xl font-headline font-light text-on-surface">2.4k</p>
+<p class="text-xs font-label uppercase tracking-widest text-secondary mt-1">Total Assets</p>
+</div>
+</div>
+</div>
+<!-- Decorative Radial Glow -->
+<div class="absolute top-[-50%] right-[-10%] w-[400px] h-[400px] bg-primary/5 rounded-full blur-[100px] group-hover:bg-primary/10 transition-colors duration-700"></div>
+</div>
+<div class="col-span-4 bg-inverse-surface rounded-3xl p-8 text-surface flex flex-col justify-between shadow-2xl">
+<div class="flex justify-between items-start">
+<div class="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary-fixed-dim">auto_awesome</span>
+</div>
+<span class="material-symbols-outlined opacity-40">more_vert</span>
+</div>
+<div>
+<p class="text-surface/60 text-sm font-medium">Storage Utilization</p>
+<h4 class="text-2xl font-headline font-bold mt-1">42.8 GB <span class="text-sm font-normal opacity-40">/ 100GB</span></h4>
+<div class="h-1 w-full bg-white/10 rounded-full mt-4 overflow-hidden">
+<div class="h-full bg-primary w-[42.8%]"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Main Layout: Documents and Members -->
+<div class="grid grid-cols-12 gap-8">
+<!-- Documents Column -->
+<section class="col-span-8 space-y-6">
+<div class="flex justify-between items-end mb-2">
+<div>
+<h3 class="text-xl font-headline font-bold">Project Documents</h3>
+<p class="text-sm text-secondary/60">Manage shared blueprints and contracts</p>
+</div>
+<button class="flex items-center gap-2 text-primary font-bold text-sm hover:translate-x-1 transition-all">
+                            View All <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+<div class="space-y-4">
+<!-- Document Card -->
+<div class="bg-surface-container-lowest p-5 rounded-2xl flex items-center justify-between shadow-[0_10px_30px_rgba(28,28,26,0.03)] border border-outline-variant/5 group hover:bg-surface-container transition-all">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-xl bg-surface-container-low flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">description</span>
+</div>
+<div>
+<h4 class="font-bold text-on-surface">Design_Specification_v2.pdf</h4>
+<p class="text-xs text-secondary/60">Updated 2h ago by Julian • 1.4 MB</p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<button class="p-2 rounded-lg hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined text-secondary opacity-60">download</span>
+</button>
+<button class="p-2 rounded-lg hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined text-secondary opacity-60">share</span>
+</button>
+</div>
+</div>
+<!-- Document Card -->
+<div class="bg-surface-container-lowest p-5 rounded-2xl flex items-center justify-between shadow-[0_10px_30px_rgba(28,28,26,0.03)] border border-outline-variant/5 group hover:bg-surface-container transition-all">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-xl bg-surface-container-low flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined">table_chart</span>
+</div>
+<div>
+<h4 class="font-bold text-on-surface">Q4_Budget_Projection.xlsx</h4>
+<p class="text-xs text-secondary/60">Updated yesterday • 850 KB</p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<button class="p-2 rounded-lg hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined text-secondary opacity-60">download</span>
+</button>
+<button class="p-2 rounded-lg hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined text-secondary opacity-60">share</span>
+</button>
+</div>
+</div>
+<!-- Document Card -->
+<div class="bg-surface-container-lowest p-5 rounded-2xl flex items-center justify-between shadow-[0_10px_30px_rgba(28,28,26,0.03)] border border-outline-variant/5 group hover:bg-surface-container transition-all">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-xl bg-surface-container-low flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined">image</span>
+</div>
+<div>
+<h4 class="font-bold text-on-surface">Material_Moodboard_Concept.jpg</h4>
+<p class="text-xs text-secondary/60">Updated 3 days ago • 14.2 MB</p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<button class="p-2 rounded-lg hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined text-secondary opacity-60">download</span>
+</button>
+<button class="p-2 rounded-lg hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined text-secondary opacity-60">share</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Members Column -->
+<section class="col-span-4 space-y-6">
+<div class="flex justify-between items-end mb-2">
+<div>
+<h3 class="text-xl font-headline font-bold">Atelier Members</h3>
+<p class="text-sm text-secondary/60">Control access levels</p>
+</div>
+<button class="w-8 h-8 rounded-full bg-surface-container-high flex items-center justify-center hover:bg-primary hover:text-white transition-all">
+<span class="material-symbols-outlined text-sm">person_add</span>
+</button>
+</div>
+<div class="bg-surface-container-low rounded-3xl p-6 shadow-sm">
+<div class="space-y-6">
+<!-- Member Row -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="relative">
+<img class="w-10 h-10 rounded-full object-cover grayscale hover:grayscale-0 transition-all" data-alt="Portrait of a female professional with glasses in a minimalist workspace" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDOi8EdBnQFUGzYmnSs0E7ugeiKLrLo5BSTT1xwoM_5TxlpV3lEP7DbhB3QTCeHOSx0IPTb4pRU-AOAmEJlIpQ4ibX34X6E6hn1tPGHTBR-tZSiUZybbzzpjHY_NtlHxVy8memYtJ0bWSk5_JObk8sX9LpkZ_1IcB9Inzec2G_CF0-ULA6Y6isMBAziL3hRWcOwIftvAb-7hXzw-XLEmhkcgOBnKGgmqi8JD-4CjOaCh9T8MDWD9kv9dxsix_VyK28XcvnQfe3eDNI"/>
+<span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-500 rounded-full border-2 border-surface-container-low"></span>
+</div>
+<div>
+<h5 class="text-sm font-bold">Elena Thorne</h5>
+<p class="text-[10px] text-secondary/60 font-label uppercase tracking-wider">Owner</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-secondary/40 text-lg cursor-pointer">verified_user</span>
+</div>
+<!-- Member Row -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="relative">
+<img class="w-10 h-10 rounded-full object-cover" data-alt="Close-up of a smiling male designer with beard and warm indoor lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJ7zFJHYy36984_HdL_HYgvxhLJRo6lwCo3mh5dMsFhPgDwHUb6bSJW9cWrKCrldtjaRYumsm5guFW68PbsbP2hRDAink8PethppTk_EVuxc3znC9vNKfDIrgeZM-NhgMfRJjWDMGLuubnCP2BudXYez9ByA2gocRL2zoSWXm8Cmr_a-4k30DXTshSVq9QY7IWCg8XS0MJ27FNG-S2i0gWdzQ9y8rkNvuHT8JhN7Azcp-PG5KI73d8ZqHULM6pYzZg8mLtYN9YKJc"/>
+</div>
+<div>
+<h5 class="text-sm font-bold">Julian Vane</h5>
+<p class="text-[10px] text-secondary/60 font-label uppercase tracking-wider">Editor</p>
+</div>
+</div>
+<div class="relative">
+<select class="appearance-none bg-transparent border-none text-[10px] font-bold text-primary uppercase tracking-wider pr-6 focus:ring-0 cursor-pointer">
+<option>Editor</option>
+<option>Viewer</option>
+</select>
+<span class="material-symbols-outlined absolute right-0 top-1/2 -translate-y-1/2 text-sm pointer-events-none text-primary">expand_more</span>
+</div>
+</div>
+<!-- Member Row -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="relative">
+<img class="w-10 h-10 rounded-full object-cover" data-alt="Business professional woman in a grey suit looking directly at camera" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA2II9WmR0Ckl30U2n_I8I0K9Ier5Z3wKWynPUspONe5m04TS7FVjfzcnrDFv0C_oabYf8IbCjOyOSrB0RinsOTbYXsNyKbN3sJFzaQmZ_aRuJXeBjG1wMY7jBwA6_nWYmsAwyAPGn045Zo_mxrj99XFj9dimz2Hfh0uWrk7zdPGj9EsZaKjnjA1UdE35KN67ZLz2xOazkPbRH0ph4OdHfbOme7EicehkM1_rcL_eB1Ji_3ile3gbrxvAqG7oO12_zhiEQMzLYu8tU"/>
+</div>
+<div>
+<h5 class="text-sm font-bold">Sarah Chen</h5>
+<p class="text-[10px] text-secondary/60 font-label uppercase tracking-wider">Viewer</p>
+</div>
+</div>
+<div class="relative">
+<select class="appearance-none bg-transparent border-none text-[10px] font-bold text-primary uppercase tracking-wider pr-6 focus:ring-0 cursor-pointer">
+<option>Viewer</option>
+<option>Editor</option>
+</select>
+<span class="material-symbols-outlined absolute right-0 top-1/2 -translate-y-1/2 text-sm pointer-events-none text-primary">expand_more</span>
+</div>
+</div>
+</div>
+<div class="mt-8 pt-8 border-t border-outline-variant/20">
+<div class="flex items-center justify-between text-xs text-secondary mb-4">
+<span class="font-medium">Recent Activity</span>
+<span class="material-symbols-outlined text-sm">history</span>
+</div>
+<ul class="space-y-4">
+<li class="flex gap-3 items-start">
+<div class="w-1.5 h-1.5 rounded-full bg-primary mt-1.5"></div>
+<p class="text-[11px] leading-relaxed">Elena changed permissions for <span class="font-bold text-on-surface">Sarah Chen</span> to Viewer.</p>
+</li>
+<li class="flex gap-3 items-start opacity-60">
+<div class="w-1.5 h-1.5 rounded-full bg-secondary mt-1.5"></div>
+<p class="text-[11px] leading-relaxed">Julian uploaded <span class="font-bold">Design_Specification_v2.pdf</span></p>
+</li>
+</ul>
+</div>
+</div>
+</section>
+</div>
+<!-- Workspace Settings Section -->
+<section class="bg-surface-container-highest/30 rounded-3xl p-10">
+<div class="max-w-3xl">
+<h3 class="text-xl font-headline font-bold mb-6">General Settings</h3>
+<div class="grid grid-cols-2 gap-8">
+<div class="space-y-4">
+<label class="block">
+<span class="text-[10px] font-label font-bold uppercase tracking-widest text-secondary ml-1">Workspace Name</span>
+<input class="w-full mt-2 bg-surface-container-low border-none rounded-lg p-3 text-sm focus:bg-surface-container-highest focus:ring-1 focus:ring-primary/20 transition-all" type="text" value="Maison de Soie"/>
+</label>
+<label class="block">
+<span class="text-[10px] font-label font-bold uppercase tracking-widest text-secondary ml-1">Privacy Tier</span>
+<select class="w-full mt-2 bg-surface-container-low border-none rounded-lg p-3 text-sm focus:bg-surface-container-highest focus:ring-1 focus:ring-primary/20 transition-all">
+<option>Private Atelier</option>
+<option>Internal Team</option>
+<option>Public Archive</option>
+</select>
+</label>
+</div>
+<div class="flex flex-col justify-end gap-4">
+<div class="p-4 bg-primary/5 rounded-xl border border-primary/10">
+<p class="text-xs text-primary leading-relaxed">
+<span class="font-bold">Pro Tip:</span> Changing the privacy tier will notify all 12 members. Ensure your NDA documentation is up to date in the Archives.
+                                </p>
+</div>
+<button class="self-end px-8 py-3 bg-inverse-surface text-surface text-xs font-bold uppercase tracking-widest rounded-lg hover:bg-on-surface-variant transition-colors">
+                                Save Changes
+                            </button>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Floating Action Button -->
+<button class="fixed bottom-10 right-10 w-16 h-16 rounded-full copper-gradient text-white flex items-center justify-center shadow-2xl shadow-primary/40 hover:scale-110 active:scale-95 transition-all z-50 group">
+<span class="material-symbols-outlined text-3xl group-hover:rotate-90 transition-transform duration-500">add</span>
+</button>
+</body></html>

@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Aether Suite - Celestial Atelier</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "outline-variant": "#d8c3b4",
+              "on-primary-fixed-variant": "#6d3a00",
+              "inverse-surface": "#31302e",
+              "surface-tint": "#8c4f10",
+              "primary": "#894d0d",
+              "surface-container-highest": "#e5e2de",
+              "on-secondary-fixed": "#2d1602",
+              "tertiary": "#006576",
+              "primary-fixed": "#ffdcc2",
+              "on-secondary": "#ffffff",
+              "surface-container-low": "#f6f3ef",
+              "on-tertiary-fixed-variant": "#004e5b",
+              "on-primary-fixed": "#2e1500",
+              "primary-container": "#a76526",
+              "surface-container-high": "#ebe8e4",
+              "on-tertiary-container": "#f9fdff",
+              "inverse-on-surface": "#f3f0ec",
+              "secondary-fixed-dim": "#eabe9c",
+              "tertiary-fixed-dim": "#74d4ea",
+              "tertiary-container": "#008094",
+              "surface": "#fcf9f5",
+              "on-secondary-container": "#79583c",
+              "secondary-container": "#ffd1ae",
+              "on-primary-container": "#fffbff",
+              "on-error-container": "#93000a",
+              "tertiary-fixed": "#a8edff",
+              "on-surface-variant": "#524439",
+              "on-background": "#1c1c1a",
+              "error": "#ba1a1a",
+              "secondary-fixed": "#ffdcc2",
+              "on-secondary-fixed-variant": "#5e4026",
+              "on-tertiary-fixed": "#001f26",
+              "inverse-primary": "#ffb77b",
+              "surface-variant": "#e5e2de",
+              "surface-container": "#f0ede9",
+              "outline": "#857467",
+              "on-primary": "#ffffff",
+              "primary-fixed-dim": "#ffb77b",
+              "background": "#fcf9f5",
+              "on-tertiary": "#ffffff",
+              "error-container": "#ffdad6",
+              "secondary": "#79573c",
+              "surface-bright": "#fcf9f5",
+              "on-error": "#ffffff",
+              "surface-dim": "#dcdad6",
+              "surface-container-lowest": "#ffffff",
+              "on-surface": "#1c1c1a"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Manrope"],
+              "label": ["Manrope"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      body {
+        background-color: #fcf9f5;
+        font-family: 'Manrope', sans-serif;
+        color: #1c1c1a;
+      }
+      .glass-card {
+        background: rgba(255, 255, 255, 0.6);
+        backdrop-filter: blur(30px);
+        -webkit-backdrop-filter: blur(30px);
+      }
+      .copper-gradient {
+        background: linear-gradient(45deg, #894d0d 0%, #a76526 100%);
+      }
+      .copper-glow {
+        box-shadow: 0 0 20px rgba(184, 115, 51, 0.4);
+      }
+      .ghost-border {
+        border: 1px solid rgba(216, 195, 180, 0.15);
+      }
+      .ethereal-glow {
+        background: radial-gradient(circle at center, rgba(184, 115, 51, 0.1) 0%, transparent 70%);
+      }
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+    </style>
+</head>
+<body class="bg-surface selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- Top Navigation Bar -->
+<nav class="fixed top-0 left-0 right-0 z-50 flex justify-between items-center px-8 py-3 max-w-7xl mx-auto rounded-2xl mt-4 mx-4 bg-[#fcf9f5]/80 backdrop-blur-3xl border border-white/20 shadow-[0_20px_40px_rgba(28,28,26,0.04)] font-manrope tracking-tight font-medium">
+<div class="flex items-center gap-8">
+<span class="text-2xl font-bold tracking-tighter text-[#894d0d]">Aether Suite</span>
+<div class="hidden md:flex gap-6 items-center">
+<a class="text-[#894d0d] font-bold border-b-2 border-[#894d0d]" href="#">Workspace</a>
+<a class="text-stone-500 hover:bg-[#f6f3ef] transition-all px-3 py-1 rounded-lg" href="#">Analytics</a>
+<a class="text-stone-500 hover:bg-[#f6f3ef] transition-all px-3 py-1 rounded-lg" href="#">Treasury</a>
+<a class="text-stone-500 hover:bg-[#f6f3ef] transition-all px-3 py-1 rounded-lg" href="#">Team</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden sm:flex items-center bg-surface-container-low px-4 py-2 rounded-full border border-outline-variant/10">
+<span class="material-symbols-outlined text-stone-400 text-sm">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm w-32 placeholder-stone-400" placeholder="Explore Aether..." type="text"/>
+</div>
+<button class="p-2 text-stone-500 hover:bg-[#f6f3ef] rounded-full transition-all">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 text-stone-500 hover:bg-[#f6f3ef] rounded-full transition-all">
+<span class="material-symbols-outlined">grid_view</span>
+</button>
+<div class="h-10 w-10 rounded-full bg-surface-container-highest overflow-hidden border-2 border-primary/20">
+<img alt="User Avatar" class="w-full h-full object-cover" data-alt="Portrait of a modern professional with warm side lighting and a minimalist background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZchfTNiCzQqwLiqxcm4RpJmO7-v6JFaq_6fMYmSuRLc7h2bgcrcJ-b2nkVjf7guV-V3hWPC_-9aK8g-Ar5tBSVpdYn1mMbrr1zXwSN0fkpTBPRX-U0euxS9aXNpFNiYI55IyO26m540HA_L_d8tB8bEDACs5fZL2wjnj8CKAvoqwwn7a1jQR56vZWa28Dp76JU5gIWoWAtMeGHIKW1oQz4Fh0Zsulf4amYmvqJR0it3nn8Ft9hm6Qrd3pXvfT0PsoeIJk0akqtog"/>
+</div>
+</div>
+</nav>
+<!-- Hero Section -->
+<main class="relative min-h-screen pt-32 overflow-hidden">
+<!-- Background Accents -->
+<div class="absolute top-1/4 -left-20 w-96 h-96 ethereal-glow rounded-full blur-3xl opacity-60"></div>
+<div class="absolute bottom-1/4 -right-20 w-[500px] h-[500px] ethereal-glow rounded-full blur-3xl opacity-40"></div>
+<div class="max-w-7xl mx-auto px-8 grid lg:grid-cols-2 gap-12 items-center relative z-10">
+<div class="space-y-8">
+<div class="inline-flex items-center gap-2 px-4 py-1.5 bg-primary-fixed text-on-primary-fixed-variant rounded-full text-xs font-bold tracking-widest uppercase">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+</span>
+                    Orbital v2.0 Live
+                </div>
+<h1 class="text-6xl md:text-7xl font-bold tracking-tighter text-on-background leading-[0.9]">
+                    Design the <span class="text-primary italic">Infinite</span> <br/> Workspace.
+                </h1>
+<p class="text-lg text-on-surface-variant max-w-lg leading-relaxed">
+                    Aether Suite bridges the tactile soul of the physical world with the ethereal precision of high-tech digital environments. Curated for the modern atelier.
+                </p>
+<div class="flex flex-wrap gap-4 pt-4">
+<button class="copper-gradient copper-glow text-white px-8 py-4 rounded-xl font-bold transition-all scale-100 active:scale-95 flex items-center gap-3">
+                        Explore the Platform
+                        <span class="material-symbols-outlined">north_east</span>
+</button>
+<button class="glass-card ghost-border px-8 py-4 rounded-xl font-bold text-primary hover:bg-surface-container-high transition-all">
+                        View Showreel
+                    </button>
+</div>
+<div class="flex items-center gap-12 pt-8">
+<div>
+<div class="text-2xl font-black text-primary">12k+</div>
+<div class="text-xs uppercase tracking-widest text-stone-500 font-bold">Active Nodes</div>
+</div>
+<div>
+<div class="text-2xl font-black text-primary">0.4ms</div>
+<div class="text-xs uppercase tracking-widest text-stone-500 font-bold">Latency Rate</div>
+</div>
+<div>
+<div class="text-2xl font-black text-primary">∞</div>
+<div class="text-xs uppercase tracking-widest text-stone-500 font-bold">Scalability</div>
+</div>
+</div>
+</div>
+<!-- Floating Hero Element -->
+<div class="relative flex justify-center items-center">
+<div class="relative w-full aspect-square max-w-2xl">
+<!-- Glassmorphic Floating Panel -->
+<div class="absolute inset-0 bg-gradient-to-br from-primary/10 to-tertiary/5 rounded-[4rem] rotate-6 scale-95 blur-xl"></div>
+<div class="relative w-full h-full rounded-[3.5rem] overflow-hidden shadow-2xl bg-surface-container-low border border-white/40">
+<img alt="Astronaut in orbit" class="w-full h-full object-cover grayscale-[0.2] contrast-[1.1]" data-alt="Cinematic shot of a floating astronaut in white suit amidst golden dust particles and glowing orange data nodes in deep space" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBiawb0PouE8NM2nZQK7NulQeLy9rWDvVID473lUZBu4gTmSIBHfY7IftKLpswhcqpErvI037qvuBEd5QdJrjyDkYhnJaOsX78atq7DVGjttHE1Ett8jEOLlOtt1aPUNw0sZfWGJC4DNkxGUdVsPjnalwXC0MRC2_AtB5_t8UPmY9W37V0FG59sse6RVPT6gnqcjhNchqs5YRnzGfmJCeXlQ8QvLLqI_B2boUjCuTqBdPXO5tvZE9wD0mh3dQ7JcZ3etsvxbTY2kck"/>
+<!-- Floating Data Card UI overlay -->
+<div class="absolute bottom-8 left-8 right-8 glass-card ghost-border p-6 rounded-3xl flex flex-col gap-3">
+<div class="flex justify-between items-center">
+<span class="text-[10px] uppercase font-bold tracking-[0.2em] text-primary">Telemetry Sync</span>
+<span class="text-[10px] font-mono text-tertiary">98.4% STABLE</span>
+</div>
+<div class="h-1 bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[98%] copper-glow"></div>
+</div>
+<div class="flex gap-4">
+<div class="h-8 w-8 rounded-lg bg-inverse-surface flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-sm">rocket_launch</span>
+</div>
+<div class="flex-1">
+<div class="text-xs font-bold">Orbital Pathing System</div>
+<div class="text-[10px] text-stone-500 italic">Recalculating vectors in real-time...</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Decorative Floating Icons -->
+<div class="absolute -top-10 -right-10 w-24 h-24 bg-surface rounded-3xl shadow-xl flex items-center justify-center animate-bounce duration-[3000ms] border border-outline-variant/20">
+<span class="material-symbols-outlined text-primary text-3xl">hub</span>
+</div>
+<div class="absolute bottom-20 -left-12 w-20 h-20 bg-inverse-surface rounded-2xl shadow-xl flex items-center justify-center animate-pulse border border-white/10">
+<span class="material-symbols-outlined text-white text-3xl">analytics</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Core AI Engine Section (Bento Grid) -->
+<section class="py-32 relative">
+<div class="max-w-7xl mx-auto px-8">
+<div class="mb-16 text-center max-w-2xl mx-auto">
+<h2 class="text-4xl font-bold tracking-tight mb-4">Core AI Engine</h2>
+<p class="text-stone-500 leading-relaxed">The celestial machinery driving our most complex predictions. A synthesis of biological intuition and silicon precision.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6 h-auto md:h-[600px]">
+<!-- Main Bento Tile -->
+<div class="md:col-span-8 glass-card ghost-border rounded-[2.5rem] p-10 flex flex-col justify-between relative overflow-hidden">
+<div class="absolute top-0 right-0 w-1/2 h-full opacity-10 pointer-events-none">
+<img alt="Neural Network" class="w-full h-full object-cover" data-alt="Abstract 3D rendering of complex glowing copper neural network connections over a soft sand background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBkuKG4V06Csl1HwDyUHMRLgEPoIC1fMdtBOILrFjNwBd-c2m2cRu8zmuKx3ymawBJNWndpTx1DK8V9FTHJgzI9hdI4qUZNFRC-liDe08uxJFk7nx7-NC3SUdJg6QkQlH_LUBjCbR7956itMOi3q09W45Wr0oWJfeJmzXn4zrCqm6ynnFe9sabzpihx8JLrEXbSYXNuN3vRxNllYLBhVcXQ6pJHaJ0DMikXxTLBvif-5Q3158q8g5vPF1r-Iibip1TvLGjSjLbquJc"/>
+</div>
+<div class="relative z-10">
+<div class="w-14 h-14 bg-primary rounded-2xl flex items-center justify-center mb-6 copper-glow">
+<span class="material-symbols-outlined text-white text-3xl">psychology</span>
+</div>
+<h3 class="text-3xl font-bold mb-4">Deep Learning Synthesizer</h3>
+<p class="text-stone-500 max-w-md leading-relaxed">
+                            Processing multi-layered datasets through our proprietary transformer architecture. Experience pattern recognition that evolves with your workload.
+                        </p>
+</div>
+<div class="mt-8 flex gap-6">
+<div class="bg-surface-container-low p-4 rounded-2xl flex-1">
+<div class="text-xs font-bold uppercase tracking-widest text-primary mb-1">Efficiency</div>
+<div class="text-2xl font-bold">99.2%</div>
+</div>
+<div class="bg-surface-container-low p-4 rounded-2xl flex-1">
+<div class="text-xs font-bold uppercase tracking-widest text-primary mb-1">Adaptation</div>
+<div class="text-2xl font-bold">Instant</div>
+</div>
+</div>
+</div>
+<!-- Right Top Tile -->
+<div class="md:col-span-4 bg-inverse-surface rounded-[2.5rem] p-8 text-white flex flex-col justify-between relative overflow-hidden group">
+<div class="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div>
+<div class="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center mb-6 backdrop-blur-md">
+<span class="material-symbols-outlined text-white">share_reviews</span>
+</div>
+<h3 class="text-xl font-bold mb-2">Neural Networks</h3>
+<p class="text-stone-400 text-sm leading-relaxed">Cross-platform integration for decentralized intelligence processing.</p>
+</div>
+<div class="pt-8 flex justify-end">
+<span class="material-symbols-outlined text-primary text-4xl group-hover:translate-x-2 transition-transform">arrow_forward</span>
+</div>
+</div>
+<!-- Bottom Left Tile -->
+<div class="md:col-span-4 glass-card ghost-border rounded-[2.5rem] p-8 flex flex-col justify-between">
+<div>
+<div class="w-12 h-12 bg-surface-container-highest rounded-xl flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-primary">timeline</span>
+</div>
+<h3 class="text-xl font-bold mb-2">Predictive Modeling</h3>
+<p class="text-stone-500 text-sm leading-relaxed">Anticipate market shifts before they manifest in the stream.</p>
+</div>
+<div class="pt-8 h-16 w-full flex items-end gap-1">
+<div class="w-full bg-primary/20 h-4 rounded-t-sm"></div>
+<div class="w-full bg-primary/40 h-8 rounded-t-sm"></div>
+<div class="w-full bg-primary/20 h-6 rounded-t-sm"></div>
+<div class="w-full bg-primary/60 h-10 rounded-t-sm"></div>
+<div class="w-full bg-primary/30 h-7 rounded-t-sm"></div>
+<div class="w-full bg-primary/80 h-12 rounded-t-sm"></div>
+</div>
+</div>
+<!-- Bottom Right Tile -->
+<div class="md:col-span-8 bg-[#ebe8e4] rounded-[2.5rem] p-10 flex flex-col md:flex-row items-center gap-8 overflow-hidden">
+<div class="flex-1">
+<h3 class="text-2xl font-bold mb-3">Adaptive Core Velocity</h3>
+<p class="text-stone-600 text-sm leading-relaxed mb-6">Our engine automatically recalibrates its power distribution based on current active workspace demands.</p>
+<button class="text-primary font-bold text-sm flex items-center gap-2 group">
+                            Technical Documentation
+                            <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">east</span>
+</button>
+</div>
+<div class="w-full md:w-64 aspect-video rounded-2xl overflow-hidden shadow-lg border-4 border-white">
+<img alt="Tech components" class="w-full h-full object-cover" data-alt="High-end circuit board macro shot with glowing copper traces and minimalist architectural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBWTPEtn5H5weaaX8JyIN_rqh5jQ7fAJtZXjb9wcFxOeUBSFVMeLUENuGODeYD6UK3MBfCh431jR1-Exf3cbx_-1IuV3iIHHjNT7poXNDYNdCWQ-oO4jWrnf-0d85y5z7SgfbutVoIFCa6f_PWUuENAoejZTRezf2ziSKAZ1nVxCXevUqgqH5KfJvHXLvlhNrJIvKr6tiZEgeddOoxXgAyvPj3yScq8A-6qTYkk3jtxzs7a6rz8yspOwhwrWDkRm_xomTo4qqsftAg"/>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Visual Inspiration Block (CTA) -->
+<section class="py-32 bg-surface-container-low overflow-hidden relative">
+<div class="absolute inset-0 opacity-10">
+<div class="absolute top-0 left-0 w-full h-full" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAQiS7u4hrDHZ50jpgVYzUYqEQ_V-gyh96A2KBVOK1spaQd020DH_qDZ5NasuGkeZYtMQ3JFNAt-fYsZcIYxc5aK1BQJs9I84rrEIILEwI5BZm-PdwuoQv3H5dnW9SGbw-F2R9gk5KCXT-2Do-j4dAQHAlgV2xG3idZi--xMqLlY0ZGAK9hll-skC8uuosZyfA70IKWkUuQJIfFgGMBZef3rjIB_6QSiOun6WX2mS4KvYEHaXVE9iyT5tlnyyr3-SsxjstMz6oWMaQ');"></div>
+</div>
+<div class="max-w-7xl mx-auto px-8 relative z-10">
+<div class="glass-card rounded-[3.5rem] p-12 md:p-20 flex flex-col lg:flex-row items-center gap-16 shadow-2xl">
+<div class="flex-1 space-y-6">
+<h2 class="text-5xl font-bold tracking-tighter leading-tight">Master the <br/> <span class="text-primary">Ethereal Flux.</span></h2>
+<p class="text-lg text-on-surface-variant leading-relaxed">
+                        Aether Suite isn't just a tool; it's the next evolution of your creative and technical agency. Join the thousands of ateliers redefining the digital horizon.
+                    </p>
+<div class="flex gap-4">
+<button class="copper-gradient px-10 py-4 rounded-2xl text-white font-bold copper-glow transition-transform hover:scale-105">Get Early Access</button>
+<button class="bg-inverse-surface px-10 py-4 rounded-2xl text-white font-bold hover:bg-black transition-colors">Book Demo</button>
+</div>
+</div>
+<div class="w-full lg:w-1/3 grid grid-cols-2 gap-4">
+<div class="space-y-4">
+<div class="rounded-3xl overflow-hidden aspect-[3/4] shadow-lg transform translate-y-8">
+<img alt="Detail 1" class="w-full h-full object-cover" data-alt="Close-up of sleek futuristic microchip with copper highlights and soft atmospheric glow" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA2ShhynmFhyP09TOUdpGU2K77xlIsHIgRLA231m43rbZ_n6YQChdpFZ6n5xWK-x0z-83MlmxdDmL7Yl-iHZ4mUcujE6t-rdt6xu-ak6SQjPzWvowKANLrnfZgL4q9i3HRLQ92_9YxTTiZbWpqOgucPGoTsKGwwin3Vv_VkWNxQE6pJ8sjaJclwgcY543edd1pT7Rx6L8fqJFr3h75eFRhBaIwY2zfWpkmQIHcQOCE5v77kEqo1uY-7zfqogRSe67-K7keS3XdBDSE"/>
+</div>
+<div class="rounded-3xl overflow-hidden aspect-square shadow-lg">
+<img alt="Detail 2" class="w-full h-full object-cover" data-alt="Planet Earth at night from space with glowing data networks and golden city lights" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBnVwoRtymvB1dF3EjFMVAb2q471qFocXk8J4Ztnb4REjJ3EmFDDnBRANv58DtfOVg8kV4PVlwQVccO70Yn7DmvutG9_FGaliE4LGOHOWDIFzc78TBNjXG4ds6699BRNqSFu2zEHzzXr2sfnrqwYW0TsYK75mIF7rpIsv9bhB2pqHSeY4BiY7-UPtQhHXNlCDzMIqNuFxF1gUHC5us3sGGB7Lyarr39ksX12r7P4N6ciOAnOFnaJyW9d2_AWK21wN7Md4C3uPW2BZE"/>
+</div>
+</div>
+<div class="space-y-4">
+<div class="rounded-3xl overflow-hidden aspect-square shadow-lg">
+<img alt="Detail 3" class="w-full h-full object-cover" data-alt="Space shuttle wing reflecting golden hour sunlight with deep space background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQfC18VA4zOsApHsyV5mF1uHOuwmGxqYSZMReI0juOav_sPok62LRBHLENCzaIlYkORWaJ6Zq_MyxHO4k3KhvOT3n8GSHvHYOYEbNAP1CnAu74PO6bljCYMM6pWGn-lVDMP4CuRkxww9v-LFpFD8lJYPRaHyc-hdbKJuUWZx08PS5ZPpbI_bHXk47X8dQrPb0Br9E0Wa24bGDtOyOYrQ6OI4z-F1mMmunlPSAt4rrxF-BjnoA9jxURwWADnw2T9v7VCMuIQozRIV4"/>
+</div>
+<div class="rounded-3xl overflow-hidden aspect-[3/4] shadow-lg transform -translate-y-8">
+<img alt="Detail 4" class="w-full h-full object-cover" data-alt="Minimalist architectural space with warm sand-colored concrete walls and soft copper lighting accents" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCN10nqHw8YfEaG8yBB9ZXroB0cCHL5_eQDHcwcSnDC9964mW0FCeBdxxt_5RKG3yXMHaqQdYtvYaHVaAgoS73UXXy4QofBc88rOMK51WSQxOqVnHzDjs58ujWOBfduXiEpCHhUNWr08PJsuOZk6rFhysdGcHSJCR6p9itmarJC2ExZ7Avh8_FMueaquvVntSSiNeosYW4-j1OiX-CO145y2ENmyZtRCw64zEUN1Q_7p6-BvIM8DFkfgHdAKkQ2AJ8dFS-QODLPbL0"/>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="py-16 border-t border-outline-variant/10">
+<div class="max-w-7xl mx-auto px-8 grid md:grid-cols-4 gap-12">
+<div class="col-span-2 space-y-6">
+<span class="text-2xl font-black text-primary tracking-tighter">Aether Suite</span>
+<p class="text-stone-500 max-w-sm">Celestial atelier for the next generation of digital infrastructure. Built for scale, designed for soul.</p>
+<div class="flex gap-4">
+<a class="h-10 w-10 rounded-full bg-surface-container-high flex items-center justify-center text-stone-600 hover:bg-primary hover:text-white transition-all" href="#">
+<span class="material-symbols-outlined text-xl">language</span>
+</a>
+<a class="h-10 w-10 rounded-full bg-surface-container-high flex items-center justify-center text-stone-600 hover:bg-primary hover:text-white transition-all" href="#">
+<span class="material-symbols-outlined text-xl">account_balance_wallet</span>
+</a>
+</div>
+</div>
+<div class="space-y-4">
+<h4 class="font-bold uppercase tracking-widest text-xs text-primary">Platform</h4>
+<nav class="flex flex-col gap-2">
+<a class="text-stone-500 hover:text-primary transition-colors text-sm" href="#">Workspace Engine</a>
+<a class="text-stone-500 hover:text-primary transition-colors text-sm" href="#">Analytics Core</a>
+<a class="text-stone-500 hover:text-primary transition-colors text-sm" href="#">Neural Gateways</a>
+<a class="text-stone-500 hover:text-primary transition-colors text-sm" href="#">Marketplace</a>
+</nav>
+</div>
+<div class="space-y-4">
+<h4 class="font-bold uppercase tracking-widest text-xs text-primary">Resources</h4>
+<nav class="flex flex-col gap-2">
+<a class="text-stone-500 hover:text-primary transition-colors text-sm" href="#">Documentation</a>
+<a class="text-stone-500 hover:text-primary transition-colors text-sm" href="#">API Reference</a>
+<a class="text-stone-500 hover:text-primary transition-colors text-sm" href="#">Community Forum</a>
+<a class="text-stone-500 hover:text-primary transition-colors text-sm" href="#">Privacy Policy</a>
+</nav>
+</div>
+</div>
+<div class="max-w-7xl mx-auto px-8 pt-16 flex flex-col md:flex-row justify-between items-center text-stone-400 text-[10px] font-bold tracking-[0.2em] uppercase">
+<span>© 2024 Aether Suite Celestial Atelier</span>
+<span class="mt-4 md:mt-0">STATION ORBITAL-04 // ALL SYSTEMS NOMINAL</span>
+</div>
+</footer>
+</body></html>

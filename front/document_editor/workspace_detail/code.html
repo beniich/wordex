@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Editorial Precision | Production Workspace</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface": "#faf8ff",
+              "secondary": "#515f74",
+              "on-primary-fixed": "#100563",
+              "secondary-fixed": "#d5e3fc",
+              "on-tertiary-fixed": "#00201d",
+              "on-error-container": "#93000a",
+              "on-surface": "#131b2e",
+              "on-secondary": "#ffffff",
+              "error-container": "#ffdad6",
+              "outline-variant": "#c5c5d4",
+              "tertiary-container": "#00665d",
+              "background": "#faf8ff",
+              "on-primary-container": "#d0cdff",
+              "on-secondary-fixed": "#0d1c2e",
+              "on-tertiary-container": "#78e4d6",
+              "primary": "#3a388b",
+              "surface-tint": "#5654a8",
+              "on-secondary-container": "#57657a",
+              "surface-container-low": "#f2f3ff",
+              "tertiary": "#004c45",
+              "on-background": "#131b2e",
+              "surface-dim": "#d2d9f4",
+              "surface-container-high": "#e2e7ff",
+              "primary-container": "#5250a4",
+              "on-error": "#ffffff",
+              "on-tertiary": "#ffffff",
+              "error": "#ba1a1a",
+              "primary-fixed-dim": "#c3c0ff",
+              "surface-variant": "#dae2fd",
+              "on-tertiary-fixed-variant": "#005049",
+              "secondary-fixed-dim": "#b9c7df",
+              "surface-container-lowest": "#ffffff",
+              "surface-bright": "#faf8ff",
+              "primary-fixed": "#e2dfff",
+              "inverse-on-surface": "#eef0ff",
+              "on-primary-fixed-variant": "#3e3c8f",
+              "inverse-surface": "#283044",
+              "tertiary-fixed-dim": "#6bd8cb",
+              "secondary-container": "#d5e3fc",
+              "surface-container": "#eaedff",
+              "outline": "#757684",
+              "inverse-primary": "#c3c0ff",
+              "tertiary-fixed": "#89f5e7",
+              "surface-container-highest": "#dae2fd",
+              "on-surface-variant": "#454652",
+              "on-secondary-fixed-variant": "#3a485b",
+              "on-primary": "#ffffff"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        display: inline-block;
+        line-height: 1;
+        text-transform: none;
+        letter-spacing: normal;
+        word-wrap: normal;
+        white-space: nowrap;
+        direction: ltr;
+      }
+      .glass-effect {
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+      }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface antialiased">
+<!-- SideNavBar Shell -->
+<aside class="fixed left-0 top-0 h-full w-64 flex flex-col bg-slate-50 dark:bg-slate-900 border-r-0 z-50">
+<div class="p-6">
+<div class="flex items-center gap-3 mb-8">
+<div class="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-primary-container flex items-center justify-center text-white">
+<span class="material-symbols-outlined" data-icon="article">article</span>
+</div>
+<div>
+<h1 class="text-xl font-bold text-indigo-900 dark:text-indigo-100 font-headline leading-tight">Editorial Flow</h1>
+<p class="text-xs text-secondary font-medium">Production Workspace</p>
+</div>
+</div>
+<button class="w-full py-3 px-4 mb-8 bg-gradient-to-br from-primary to-primary-container text-white rounded-xl font-semibold text-sm shadow-lg shadow-primary/20 hover:scale-[0.98] transition-transform flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="add">add</span>
+                New Document
+            </button>
+<nav class="space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-indigo-700 dark:text-indigo-300 border-l-4 border-teal-600 dark:border-teal-400 bg-transparent font-['Manrope'] font-semibold text-sm" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+                    Dashboard
+                </a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-300 hover:bg-slate-200/50 transition-colors duration-200 font-['Manrope'] font-semibold text-sm" href="#">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+                    Documents
+                </a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-300 hover:bg-slate-200/50 transition-colors duration-200 font-['Manrope'] font-semibold text-sm" href="#">
+<span class="material-symbols-outlined" data-icon="folder">folder</span>
+                    Files
+                </a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-300 hover:bg-slate-200/50 transition-colors duration-200 font-['Manrope'] font-semibold text-sm" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+                    Settings
+                </a>
+</nav>
+</div>
+<div class="mt-auto p-6">
+<div class="p-4 bg-surface-container-high rounded-xl">
+<p class="text-[10px] uppercase tracking-wider text-secondary font-bold mb-2">Storage Usage</p>
+<div class="w-full bg-slate-300 rounded-full h-1.5 mb-2">
+<div class="bg-tertiary h-1.5 rounded-full" style="width: 65%"></div>
+</div>
+<p class="text-xs text-on-surface-variant font-medium">1.2GB of 2.0GB used</p>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-64 min-h-screen flex flex-col">
+<!-- TopNavBar Shell -->
+<header class="w-full h-16 sticky top-0 z-40 bg-white/80 dark:bg-slate-950/80 backdrop-blur-md border-b border-slate-200/20 flex items-center justify-between px-6 shadow-[0_4px_24px_-4px_rgba(19,27,46,0.06)]">
+<div class="flex items-center gap-6 flex-1">
+<span class="text-lg font-black text-slate-900 dark:text-white font-headline">Editorial Precision</span>
+<div class="relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-lg" data-icon="search">search</span>
+<input class="w-full bg-surface-container-low border-none rounded-lg py-2 pl-10 pr-4 text-sm focus:ring-2 focus:ring-primary/20 placeholder:text-outline" placeholder="Search workspace..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-slate-500 hover:bg-slate-50 rounded-lg transition-all">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 text-slate-500 hover:bg-slate-50 rounded-lg transition-all">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+</button>
+<div class="h-6 w-[1px] bg-outline-variant/30 mx-2"></div>
+<button class="px-4 py-2 bg-tertiary text-white rounded-lg text-sm font-medium hover:opacity-90 active:scale-95 transition-all">
+                    Share
+                </button>
+<img alt="User Avatar" class="w-8 h-8 rounded-full border border-outline-variant/20" data-alt="professional portrait of a man with short dark hair in a clean studio setting with soft natural light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCWTtnc2rejp5ZXz-d2zk2XC9eVGwNFqOQYl_Rsrd4eJBESachEzk_2F5ICSZctGzkgRAOlH8dWEHAwpr5tJW2FNT4EpwhdKTQooP0jfDI1FI5EbdAOLU7zxknr5-lvrt3sp6IB4A8bhx8LVmyLK39-smWjKxT5uiPdePfEre-0SE_NTppH88GRmkcBYa5TJaosE9nPkBnkkIoChb2dYV0W91f_fRrqRERr5vkROKt4Dv8M2PiGbyjqIqVHgpeJODi45mIvU4-gt9o"/>
+</div>
+</header>
+<!-- Workspace Detail Content -->
+<div class="p-10 flex gap-10">
+<!-- Canvas: Document List -->
+<div class="flex-1 space-y-10">
+<!-- Workspace Header -->
+<section>
+<nav class="flex items-center gap-2 text-xs font-medium text-on-surface-variant mb-4">
+<span class="hover:text-primary cursor-pointer">Workspaces</span>
+<span class="material-symbols-outlined text-[14px]" data-icon="chevron_right">chevron_right</span>
+<span class="text-primary font-semibold">Q3 Quarterly Reports</span>
+</nav>
+<div class="flex items-end justify-between">
+<div class="space-y-2">
+<h2 class="text-4xl font-extrabold font-headline tracking-tight text-on-surface">Q3 Quarterly Reports</h2>
+<p class="text-on-surface-variant max-w-2xl leading-relaxed">
+                                Production workspace for the 2023 Q3 financial and operational performance journals. All drafts must be finalized by EOM.
+                            </p>
+</div>
+<div class="flex -space-x-3 mb-1">
+<img class="w-10 h-10 rounded-full border-2 border-surface" data-alt="smiling woman with long brown hair in a business casual environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDu5dGthKLXdRlChdIkCS8oFoJBNPp90r2FRXqKYuWJYR7BtJ60kAsjg8N-IXFOEnUFULIbX03b64UGqBCMZqHt134eEmgN1IpnR0Gt0nsiBzxvdYcvep1B3E4xCG6-crOaVd7SMl7h342hUVbmoqHTJLUyGRinwangkKhL7VAZGDzfsMiDMtBKcKMI8Mt9w8BSnXiHK5RObVX0LPWwC4JbBkePh2TMj9cqTfvslRRDcTwh6H3uK0Tkd72vsU4WPDyOVTMfz_45wQ4"/>
+<img class="w-10 h-10 rounded-full border-2 border-surface" data-alt="portrait of a bearded man with glasses looking directly at the camera" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCwOKT7Qa8JV9wSL7e4P3naj0i8q_ZkwMEwF0iWLp52sQo2BtEfUB5DUCBAg5Aa-3CjcY3OmaLRHS0CfHuVjV8q6RNEztAO2Xh-tZpyl_qySwOYBYbozSCK0bisXN0v9pBuJm_Qbt3vECSwahblw21FNIJsaQmPOSWXl1vNAHDPy0W6UWQByeVThEEbB8Zt0laeOPZJPMM0omQRG6pAwXWRiAf7UFMmKLFCvZa1znwks0VLhh-TrvwoV_GC4EiVBiv9y0x80ilBM2o"/>
+<img class="w-10 h-10 rounded-full border-2 border-surface" data-alt="headshot of a young woman with blonde hair and a warm smile" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCfi46uZBcLEsSA8wqLvrm2_q-Nwreh8jH0k0bMvidQosI_PpH2Qi4zQRMA0DrZIu-8LmKeReaRgdu51M8GcCrxuLFmQUIqHHHO6lf4QMnyXK5qOY_RX-TWFbilIu6ttG6ipGdeRKrwIiPHXV-E8jzmEC4rh5nvQfY6rkUOcna-ff-PwjhVf6n6V37u7yvjUEQ2cWOaiRRA98Hg_cWq3p1J3k-00de2tfAtmTsnF9ZGPsZfQ8MLwGKCLg7rfJjnTwu37UPypTWW4jE"/>
+<div class="w-10 h-10 rounded-full border-2 border-surface bg-secondary-container flex items-center justify-center text-[10px] font-bold text-on-secondary-container">+12</div>
+</div>
+</div>
+</section>
+<!-- Document Table Section -->
+<section class="bg-surface-container-lowest rounded-xl overflow-hidden">
+<div class="px-6 py-4 flex items-center justify-between">
+<h3 class="font-headline font-bold text-lg text-on-surface">Documents</h3>
+<div class="flex items-center gap-2">
+<button class="p-2 text-secondary hover:bg-surface-container-high rounded-lg transition-colors">
+<span class="material-symbols-outlined" data-icon="filter_list">filter_list</span>
+</button>
+<button class="p-2 text-secondary hover:bg-surface-container-high rounded-lg transition-colors">
+<span class="material-symbols-outlined" data-icon="sort">sort</span>
+</button>
+</div>
+</div>
+<div class="w-full">
+<!-- Table Header -->
+<div class="grid grid-cols-[2fr_100px_1fr_1fr_120px] px-6 py-3 bg-surface-container-low text-[11px] font-bold uppercase tracking-widest text-on-surface-variant/70 border-b border-outline-variant/10">
+<div>Title</div>
+<div>Version</div>
+<div>Owner</div>
+<div>Date Created</div>
+<div class="text-right">Actions</div>
+</div>
+<!-- Table Rows -->
+<div class="divide-y divide-outline-variant/5">
+<!-- Row 1 -->
+<div class="grid grid-cols-[2fr_100px_1fr_1fr_120px] px-6 py-5 hover:bg-surface-container-highest transition-colors items-center group">
+<div class="flex items-center gap-3">
+<div class="w-10 h-12 bg-primary/5 rounded-lg flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+</div>
+<div>
+<p class="font-semibold text-on-surface">Financial Summary_v3</p>
+<p class="text-xs text-on-surface-variant">Modified 2h ago</p>
+</div>
+</div>
+<div>
+<span class="px-2.5 py-1 bg-secondary-container text-on-secondary-container rounded-full text-[10px] font-bold">v1.4</span>
+</div>
+<div class="flex items-center gap-2">
+<img class="w-6 h-6 rounded-full" data-alt="close up of a professional woman with a soft background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWzQAd2LIt1wtlhGdSCPh6zt1FhFnS6uhCbxAEyVnP2R01rREqW5DTiiR3zuRu_uvnmoYNYf8dNilmuM14aY-B7mZHmUN8iul9Q0uEjDg455LLMOb3oVBWIPmewYtVbaN5AJVpbVd_0-PMHkjbGkyIgkDmsqYHP0Jzp8RMIGtXMQ_nZjjPmg8NIUa26Xw9r6ahwBxrGx1db27TZgnsP4lnQHNBoQpiaCAvkrOMDDmDbNgSaB22tAkbUPijvTDpSt6yH154hxrCRC0"/>
+<span class="text-sm text-on-surface-variant">Sarah J.</span>
+</div>
+<div class="text-sm text-on-surface-variant font-medium">Oct 12, 2023</div>
+<div class="flex justify-end gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-1.5 text-secondary hover:text-primary"><span class="material-symbols-outlined text-[20px]" data-icon="edit">edit</span></button>
+<button class="p-1.5 text-secondary hover:text-primary"><span class="material-symbols-outlined text-[20px]" data-icon="history">history</span></button>
+<button class="p-1.5 text-secondary hover:text-error"><span class="material-symbols-outlined text-[20px]" data-icon="delete">delete</span></button>
+</div>
+</div>
+<!-- Row 2 -->
+<div class="grid grid-cols-[2fr_100px_1fr_1fr_120px] px-6 py-5 hover:bg-surface-container-highest transition-colors items-center group">
+<div class="flex items-center gap-3">
+<div class="w-10 h-12 bg-primary/5 rounded-lg flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+</div>
+<div>
+<p class="font-semibold text-on-surface">Market Trends Analysis</p>
+<p class="text-xs text-on-surface-variant">Modified 1d ago</p>
+</div>
+</div>
+<div>
+<span class="px-2.5 py-1 bg-secondary-container text-on-secondary-container rounded-full text-[10px] font-bold">v2.1</span>
+</div>
+<div class="flex items-center gap-2">
+<img class="w-6 h-6 rounded-full" data-alt="headshot of a man with a beard and clear glasses" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAvZrbx4AUlBysTwBm0hD2ovAqpQDxC_kDNWNlFJU2cZ1fYugLCdOw46JPxj4lrYODURdSfbx0Zk4NOPGITuRjyvVoFbAmExFmwfzGoH3ZjIY9UJH_ZA1rGUHPkP8x32FzkxzY2WNUxhnSCr29zrCLb3ENpmFKxpLpQRAHZT00v2fr2NTGr68tb96efJuDm68wEPFa9LO72kiK5AkhjoL6KTzfLjJmMtcTLPf3ZOWg4Y-fwLAetUZcU0LLUYdJ8O4KyfZ_w7puBP7M"/>
+<span class="text-sm text-on-surface-variant">Marcus L.</span>
+</div>
+<div class="text-sm text-on-surface-variant font-medium">Oct 08, 2023</div>
+<div class="flex justify-end gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-1.5 text-secondary hover:text-primary"><span class="material-symbols-outlined text-[20px]" data-icon="edit">edit</span></button>
+<button class="p-1.5 text-secondary hover:text-primary"><span class="material-symbols-outlined text-[20px]" data-icon="history">history</span></button>
+<button class="p-1.5 text-secondary hover:text-error"><span class="material-symbols-outlined text-[20px]" data-icon="delete">delete</span></button>
+</div>
+</div>
+<!-- Row 3 -->
+<div class="grid grid-cols-[2fr_100px_1fr_1fr_120px] px-6 py-5 hover:bg-surface-container-highest transition-colors items-center group border-b-0">
+<div class="flex items-center gap-3">
+<div class="w-10 h-12 bg-primary/5 rounded-lg flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined" data-icon="fact_check">fact_check</span>
+</div>
+<div>
+<p class="font-semibold text-on-surface">Legal Compliance Draft</p>
+<p class="text-xs text-on-surface-variant">Created 4d ago</p>
+</div>
+</div>
+<div>
+<span class="px-2.5 py-1 bg-secondary-container text-on-secondary-container rounded-full text-[10px] font-bold">v0.9</span>
+</div>
+<div class="flex items-center gap-2">
+<img class="w-6 h-6 rounded-full" data-alt="professional headshot of a woman with blond hair" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAkoP8n3Fm-iiyfrpVsP9EpTeKP55rRcL3Gj_WlGoDNU5gcwJQ7sO1Rvd9L49LDoVGq49xVZdtni5rBAdU8ETY1q-1828ntjr4uYAsAioXt07fK_w9TFky5Fwc0eZ6phAGuGbA6hFKMwawyw54zzZUMgm2h09EmKwiauyKVRHv2pKINDGnfpTZTj-uYcSX_rVBYG4SYp_jqhn2bfRKgGOk87NlW683h3epLtTBEKtZQurIpZP4QA_8VzZrd0h_RrfdIByXMgbK_RVg"/>
+<span class="text-sm text-on-surface-variant">Elena T.</span>
+</div>
+<div class="text-sm text-on-surface-variant font-medium">Oct 05, 2023</div>
+<div class="flex justify-end gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-1.5 text-secondary hover:text-primary"><span class="material-symbols-outlined text-[20px]" data-icon="edit">edit</span></button>
+<button class="p-1.5 text-secondary hover:text-primary"><span class="material-symbols-outlined text-[20px]" data-icon="history">history</span></button>
+<button class="p-1.5 text-secondary hover:text-error"><span class="material-symbols-outlined text-[20px]" data-icon="delete">delete</span></button>
+</div>
+</div>
+</div>
+</div>
+<div class="px-6 py-4 bg-surface-container-lowest border-t border-outline-variant/10 flex items-center justify-between">
+<p class="text-xs text-on-surface-variant font-medium">Showing 3 of 24 documents</p>
+<div class="flex gap-2">
+<button class="px-3 py-1.5 text-xs font-bold text-on-surface-variant hover:bg-surface-container-high rounded transition-colors">Previous</button>
+<button class="px-3 py-1.5 text-xs font-bold text-primary bg-primary-fixed rounded transition-colors">Next</button>
+</div>
+</div>
+</section>
+</div>
+<!-- Member Management Sidebar -->
+<aside class="w-80 space-y-8">
+<section class="bg-surface-container-low rounded-xl p-6">
+<div class="flex items-center justify-between mb-6">
+<h3 class="font-headline font-bold text-on-surface">Members</h3>
+<button class="p-1.5 text-primary hover:bg-primary/5 rounded-lg">
+<span class="material-symbols-outlined text-[20px]" data-icon="person_add">person_add</span>
+</button>
+</div>
+<div class="space-y-4">
+<!-- Owner -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<img class="w-9 h-9 rounded-full" data-alt="professional male portrait with short dark hair" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC7xN8O7pviRxc4cuO6mGnRiLucNYU46Hoe1z6k0QUtnkQ3Zpp2kC1gRIpGcaDdGFgVeIQWsC-mWSq73aD1nDq3jEkXBVsgvZA00Dkp4fLtINq_MRWQqbo9jlKSuZ6BAfRAfubU5qfWMsy2O6njPca9AKkwSg18Ox2pDPxnA_yWKQIcav-BhESHq8BedDneB_gKMtrpjErZFQ85oqUtlVZzBUvym90b1loo_yw0kWSN4HrcCXyEYV4euqxHc6750k4yQIb0VZV9y-o"/>
+<div>
+<p class="text-sm font-bold text-on-surface">You</p>
+<p class="text-[10px] text-on-surface-variant font-medium">Active now</p>
+</div>
+</div>
+<span class="text-[10px] px-2 py-0.5 bg-tertiary-fixed text-on-tertiary-fixed-variant rounded font-bold uppercase tracking-wide">Owner</span>
+</div>
+<!-- Editor -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<img class="w-9 h-9 rounded-full" data-alt="smiling woman in office attire" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAP_Boyf1Dkf-jX-YkFmbpjXUxeHzcURFC8pbnt7tm_rJbqMMM4yK7CVBg99EWuoyyxv9XndlEThlIlQfn_DTSCOUmpfOGzYHO_e9LBwmTgJDvdULkBReo64XViuhQYGJarurO1l9yh4inA4MS6LjJrS0tMUm6RxBQkQu-1kjojsgy8zondiccDEH_iqxUZUYCm7gxDmURCz7M1X-vTK8DdWqPRqUebhJasvyXfaELAjXaPPHbrzamHKtTDBS-M4eThsfhy2YUK9-8"/>
+<div>
+<p class="text-sm font-semibold text-on-surface">Sarah Jenkins</p>
+<p class="text-[10px] text-on-surface-variant font-medium">Editor</p>
+</div>
+</div>
+<button class="text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+<!-- Editor 2 -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<img class="w-9 h-9 rounded-full" data-alt="portrait of a man with glasses and a beard" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCk_g3EPtVEoemSDHpeMtv6a7MiAvs_uao70YRYGkoq2FUW78hfRARbc-vKJiPk7nGRDdAtuHuhr2i85HjhDeCFfo6zZfgd0XoRueowfdyJArTyptEnNm54YYl3Vf2uMpdpRnO1mUcIPQ_LbFxscXQ_hyjNVBGnUv38QRuz_m5z3Aq7ulTHIfivSPpdv7OV_8tU_JpYtcen5Fvf5-pDiuCnk8zfVnoSe9eI_iUr4aWwEkYUgQZdz29P8NjDOr5Wv7ZMDmoLn0Q775k"/>
+<div>
+<p class="text-sm font-semibold text-on-surface">Marcus Lee</p>
+<p class="text-[10px] text-on-surface-variant font-medium">Editor</p>
+</div>
+</div>
+<button class="text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+<!-- Viewer -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-full bg-surface-container-high flex items-center justify-center text-xs font-bold text-on-surface-variant">JD</div>
+<div>
+<p class="text-sm font-semibold text-on-surface">John Doe</p>
+<p class="text-[10px] text-on-surface-variant font-medium">Viewer</p>
+</div>
+</div>
+<button class="text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+</div>
+<button class="w-full mt-6 py-2.5 border border-outline-variant/30 rounded-lg text-xs font-bold text-on-surface-variant hover:bg-white transition-colors">
+                        View All Members
+                    </button>
+</section>
+<!-- Activity Feed Style Section -->
+<section class="space-y-4">
+<h3 class="font-headline font-bold text-on-surface px-1">Recent Activity</h3>
+<div class="space-y-6 relative before:content-[''] before:absolute before:left-[17px] before:top-2 before:bottom-2 before:w-[2px] before:bg-outline-variant/10">
+<div class="flex gap-4 relative">
+<div class="w-9 h-9 rounded-full bg-white flex items-center justify-center border-4 border-surface-container-low z-10">
+<span class="material-symbols-outlined text-sm text-tertiary" data-icon="history_edu">history_edu</span>
+</div>
+<div class="flex-1">
+<p class="text-xs font-bold text-on-surface">Sarah updated Financial Summary</p>
+<p class="text-[10px] text-on-surface-variant">2 hours ago</p>
+</div>
+</div>
+<div class="flex gap-4 relative">
+<div class="w-9 h-9 rounded-full bg-white flex items-center justify-center border-4 border-surface-container-low z-10">
+<span class="material-symbols-outlined text-sm text-primary" data-icon="comment">comment</span>
+</div>
+<div class="flex-1">
+<p class="text-xs font-bold text-on-surface">Marcus left a comment on Market Trends</p>
+<p class="text-[10px] text-on-surface-variant">5 hours ago</p>
+</div>
+</div>
+<div class="flex gap-4 relative">
+<div class="w-9 h-9 rounded-full bg-white flex items-center justify-center border-4 border-surface-container-low z-10">
+<span class="material-symbols-outlined text-sm text-secondary" data-icon="share">share</span>
+</div>
+<div class="flex-1">
+<p class="text-xs font-bold text-on-surface">Elena shared the workspace</p>
+<p class="text-[10px] text-on-surface-variant">Yesterday</p>
+</div>
+</div>
+</div>
+</section>
+</aside>
+</div>
+</main>
+</body></html>

@@ -1,0 +1,106 @@
+@import "tailwindcss";
+
+@theme {
+  /* Core Palette: Sable & Cuivre */
+  --color-primary: #894d0d;
+  --color-primary-container: #a76526;
+  --color-secondary: #79573c;
+  --color-tertiary: #006576;
+  --color-tertiary-container: #008094;
+  
+  --color-surface: #fcf9f5;
+  --color-surface-container-low: #f6f3ef;
+  --color-surface-container-high: #ebe8e4;
+  --color-surface-container-highest: #e5e2de;
+  --color-inverse-surface: #31302e;
+  
+  --color-outline: #857467;
+  --color-outline-variant: #d8c3b4;
+  
+  --font-sans: "Manrope", var(--font-manrope), system-ui, sans-serif;
+  --font-body: "Manrope", var(--font-manrope), sans-serif;
+  --font-display: "Manrope", var(--font-display), serif;
+
+  --animate-fade-in-up: fade-in-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-copper-pulse: copper-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes fade-in-up {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+@keyframes copper-pulse {
+  0%, 100% { opacity: 1; text-shadow: 0 0 10px rgba(137, 77, 13, 0.3); }
+  50% { opacity: 0.8; text-shadow: 0 0 20px rgba(137, 77, 13, 0.6); }
+}
+
+:root {
+  --background: #fcf9f5;
+  --foreground: #1c1c1a;
+  --primary: #894d0d;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 
+ * Strategic Design Pillars (Sable & Cuivre)
+ */
+
+/* 1. Tonal Layering (Vertical stacking without lines) */
+.tonal-layer-low {
+  background-color: #f6f3ef;
+}
+.tonal-layer-high {
+  background-color: #ebe8e4;
+}
+
+/* 2. Glassmorphism & Atmospheric Depth */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border: 1px solid rgba(216, 195, 180, 0.15); /* Ghost Border */
+}
+
+/* 3. Ghost Interfaces & Copper Accents */
+.copper-gradient {
+  background: linear-gradient(45deg, #894d0d 0%, #a76526 100%);
+}
+
+.copper-glow {
+  box-shadow: 0 0 20px rgba(184, 115, 51, 0.4);
+}
+
+.no-line {
+  border: none !important;
+}
+
+.text-gradient-copper {
+  background: linear-gradient(to right, #894d0d, #a76526);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Paper Texture (The Celestial Atelier base) */
+.paper-texture {
+  background-color: #fcf9f5;
+  background-image: radial-gradient(#d8c3b4 0.5px, transparent 0.5px);
+  background-size: 24px 24px;
+}
+

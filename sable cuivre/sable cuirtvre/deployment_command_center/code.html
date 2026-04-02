@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Aether Suite - Deployment Command Center</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "outline-variant": "#d8c3b4",
+              "on-primary-fixed-variant": "#6d3a00",
+              "inverse-surface": "#31302e",
+              "surface-tint": "#8c4f10",
+              "primary": "#894d0d",
+              "surface-container-highest": "#e5e2de",
+              "on-secondary-fixed": "#2d1602",
+              "tertiary": "#006576",
+              "primary-fixed": "#ffdcc2",
+              "on-secondary": "#ffffff",
+              "surface-container-low": "#f6f3ef",
+              "on-tertiary-fixed-variant": "#004e5b",
+              "on-primary-fixed": "#2e1500",
+              "primary-container": "#a76526",
+              "surface-container-high": "#ebe8e4",
+              "on-tertiary-container": "#f9fdff",
+              "inverse-on-surface": "#f3f0ec",
+              "secondary-fixed-dim": "#eabe9c",
+              "tertiary-fixed-dim": "#74d4ea",
+              "tertiary-container": "#008094",
+              "surface": "#fcf9f5",
+              "on-secondary-container": "#79583c",
+              "secondary-container": "#ffd1ae",
+              "on-primary-container": "#fffbff",
+              "on-error-container": "#93000a",
+              "tertiary-fixed": "#a8edff",
+              "on-surface-variant": "#524439",
+              "on-background": "#1c1c1a",
+              "error": "#ba1a1a",
+              "secondary-fixed": "#ffdcc2",
+              "on-secondary-fixed-variant": "#5e4026",
+              "on-tertiary-fixed": "#001f26",
+              "inverse-primary": "#ffb77b",
+              "surface-variant": "#e5e2de",
+              "surface-container": "#f0ede9",
+              "outline": "#857467",
+              "on-primary": "#ffffff",
+              "primary-fixed-dim": "#ffb77b",
+              "background": "#fcf9f5",
+              "on-tertiary": "#ffffff",
+              "error-container": "#ffdad6",
+              "secondary": "#79573c",
+              "surface-bright": "#fcf9f5",
+              "on-error": "#ffffff",
+              "surface-dim": "#dcdad6",
+              "surface-container-lowest": "#ffffff",
+              "on-surface": "#1c1c1a"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Manrope"],
+              "label": ["Manrope"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .copper-gradient {
+            background: linear-gradient(45deg, #894d0d 0%, #a76526 100%);
+        }
+        .glass-panel {
+            backdrop-filter: blur(30px);
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body min-h-screen">
+<!-- SideNavBar Implementation -->
+<aside class="fixed left-0 top-0 bottom-0 w-72 flex flex-col p-6 z-40 bg-[#fcf9f5] dark:bg-[#31302e]">
+<div class="mb-12 flex items-center gap-4">
+<div class="w-10 h-10 rounded-xl copper-gradient flex items-center justify-center shadow-lg">
+<span class="material-symbols-outlined text-white" style="font-variation-settings: 'FILL' 1;">deployed_code</span>
+</div>
+<div>
+<h1 class="text-xl font-black text-[#894d0d] tracking-tighter">Aether</h1>
+<p class="text-[10px] uppercase tracking-widest font-bold opacity-60">Celestial Atelier</p>
+</div>
+</div>
+<nav class="flex-1 space-y-2">
+<a class="flex items-center gap-4 px-4 py-3 bg-gradient-to-tr from-[#894d0d] to-[#a76526] text-white rounded-xl shadow-[0_0_20px_rgba(184,115,51,0.4)] transition-all duration-300 ease-out" href="#">
+<span class="material-symbols-outlined" data-icon="space_dashboard">space_dashboard</span>
+<span class="font-manrope text-sm font-semibold uppercase tracking-widest">Workspace</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 text-stone-500 hover:text-[#894d0d] hover:bg-[#e5e2de] rounded-xl transition-all duration-300 ease-out" href="#">
+<span class="material-symbols-outlined" data-icon="monitoring">monitoring</span>
+<span class="font-manrope text-sm font-semibold uppercase tracking-widest">Analytics</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 text-stone-500 hover:text-[#894d0d] hover:bg-[#e5e2de] rounded-xl transition-all duration-300 ease-out" href="#">
+<span class="material-symbols-outlined" data-icon="account_balance_wallet">account_balance_wallet</span>
+<span class="font-manrope text-sm font-semibold uppercase tracking-widest">Treasury</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 text-stone-500 hover:text-[#894d0d] hover:bg-[#e5e2de] rounded-xl transition-all duration-300 ease-out" href="#">
+<span class="material-symbols-outlined" data-icon="hub">hub</span>
+<span class="font-manrope text-sm font-semibold uppercase tracking-widest">Team</span>
+</a>
+</nav>
+<div class="mt-auto pt-6 border-t border-white/10 space-y-2">
+<button class="w-full flex items-center gap-4 px-4 py-3 text-stone-500 hover:text-[#894d0d] transition-all">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-manrope text-sm font-semibold uppercase tracking-widest">Settings</span>
+</button>
+<button class="w-full flex items-center gap-4 px-4 py-3 text-stone-500 hover:text-[#894d0d] transition-all">
+<span class="material-symbols-outlined" data-icon="help_center">help_center</span>
+<span class="font-manrope text-sm font-semibold uppercase tracking-widest">Support</span>
+</button>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-72 p-8 pt-24 min-h-screen">
+<!-- TopAppBar Implementation -->
+<header class="fixed top-0 left-72 right-0 z-50 flex justify-between items-center px-8 py-4 bg-[#fcf9f5]/80 backdrop-blur-3xl border-b border-white/20">
+<div class="flex items-center gap-6">
+<h2 class="text-2xl font-bold tracking-tighter text-[#894d0d]">Deployment Command Center</h2>
+<div class="flex items-center gap-2 bg-surface-container-low px-3 py-1.5 rounded-full border border-outline-variant/10">
+<span class="w-2 h-2 rounded-full bg-tertiary animate-pulse"></span>
+<span class="text-xs font-bold uppercase tracking-widest text-on-surface-variant">Live Stack: Production</span>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2 bg-surface-container-low px-4 py-2 rounded-xl border border-outline-variant/10">
+<span class="material-symbols-outlined text-stone-400 text-sm">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm w-48 font-medium" placeholder="Search clusters..." type="text"/>
+</div>
+<button class="p-2 text-stone-500 hover:bg-[#f6f3ef] rounded-xl transition-all">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 text-stone-500 hover:bg-[#f6f3ef] rounded-xl transition-all">
+<span class="material-symbols-outlined" data-icon="grid_view">grid_view</span>
+</button>
+<div class="w-10 h-10 rounded-full bg-surface-container-highest overflow-hidden border-2 border-primary/20">
+<img alt="User Avatar" class="w-full h-full object-cover" data-alt="close-up portrait of a professional woman with a confident expression in a clean studio setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB263ffoaEII6enLweuQrhHHOc6Cw3FRHeJGifNaMRHMqs-P-NOOXt6_ENZJoBg8O_uj7vMzMIx-tM0WL3rWn3fcYirp3yfLtO2x0a6vDTJEqX4YrU-sV679oGd8dTzVDLHLxmv2-X0yCA3xdGwIFBDKEFVjDq5UsC6l8EfaxAhdS9qp1E63-xaoziRBXLgM36WPxgf53ep9kObpQF-jUwP0BauvBUt5uVD_osrbE5Y8usoG5_2v0CrYAZlgUsEG8KnJ5uTcuyS-80"/>
+</div>
+</div>
+</header>
+<!-- Page Content -->
+<div class="max-w-7xl mx-auto space-y-10">
+<!-- KPI Cards Section -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Modules API Card -->
+<div class="relative overflow-hidden bg-surface-container-lowest p-6 rounded-3xl shadow-[0_20px_40px_rgba(28,28,26,0.04)] border border-outline-variant/10 group">
+<div class="flex justify-between items-start mb-6">
+<div class="p-3 bg-surface-container-low rounded-2xl group-hover:scale-110 transition-transform duration-300">
+<span class="material-symbols-outlined text-primary text-3xl" style="font-variation-settings: 'FILL' 1;">api</span>
+</div>
+<span class="px-3 py-1 bg-tertiary/10 text-tertiary text-[10px] font-bold uppercase tracking-widest rounded-full">Healthy</span>
+</div>
+<h3 class="text-stone-500 text-sm font-semibold uppercase tracking-widest mb-1">Modules API</h3>
+<div class="flex items-baseline gap-2">
+<span class="text-4xl font-black text-on-surface tracking-tighter">FastAPI</span>
+<span class="text-stone-400 text-xs font-medium">v2.4.1</span>
+</div>
+<div class="mt-6 flex items-center gap-2">
+<div class="flex-1 h-1 bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-tertiary w-[94%]"></div>
+</div>
+<span class="text-[10px] font-bold text-tertiary">94% Uptime</span>
+</div>
+</div>
+<!-- Tables DB Card -->
+<div class="relative overflow-hidden bg-surface-container-lowest p-6 rounded-3xl shadow-[0_20px_40px_rgba(28,28,26,0.04)] border border-outline-variant/10 group">
+<div class="flex justify-between items-start mb-6">
+<div class="p-3 bg-surface-container-low rounded-2xl group-hover:scale-110 transition-transform duration-300">
+<span class="material-symbols-outlined text-primary text-3xl" style="font-variation-settings: 'FILL' 1;">database</span>
+</div>
+<span class="px-3 py-1 bg-tertiary/10 text-tertiary text-[10px] font-bold uppercase tracking-widest rounded-full">Active</span>
+</div>
+<h3 class="text-stone-500 text-sm font-semibold uppercase tracking-widest mb-1">Tables DB</h3>
+<div class="flex items-baseline gap-2">
+<span class="text-4xl font-black text-on-surface tracking-tighter">PostgreSQL</span>
+<span class="text-stone-400 text-xs font-medium">v15.0</span>
+</div>
+<div class="mt-6 flex items-center gap-4">
+<div class="flex flex-col">
+<span class="text-[10px] uppercase font-bold text-stone-400 tracking-tighter">Connections</span>
+<span class="text-sm font-bold text-on-surface">142/500</span>
+</div>
+<div class="flex flex-col">
+<span class="text-[10px] uppercase font-bold text-stone-400 tracking-tighter">Latency</span>
+<span class="text-sm font-bold text-on-surface">12ms</span>
+</div>
+</div>
+</div>
+<!-- Services Docker Card -->
+<div class="relative overflow-hidden bg-inverse-surface p-6 rounded-3xl shadow-2xl group">
+<div class="flex justify-between items-start mb-6">
+<div class="p-3 bg-white/5 rounded-2xl group-hover:scale-110 transition-transform duration-300">
+<span class="material-symbols-outlined text-primary-fixed text-3xl" style="font-variation-settings: 'FILL' 1;">cloud_done</span>
+</div>
+<span class="px-3 py-1 bg-primary/20 text-primary-fixed text-[10px] font-bold uppercase tracking-widest rounded-full border border-primary/30">Stable</span>
+</div>
+<h3 class="text-stone-400 text-sm font-semibold uppercase tracking-widest mb-1">Services Docker</h3>
+<div class="flex items-baseline gap-2">
+<span class="text-4xl font-black text-white tracking-tighter">MinIO</span>
+<span class="text-stone-500 text-xs font-medium">Object Storage</span>
+</div>
+<div class="mt-6 flex flex-wrap gap-2">
+<div class="px-2 py-1 rounded bg-white/5 border border-white/10 text-[9px] font-bold text-primary-fixed">S3_API: PORT 9000</div>
+<div class="px-2 py-1 rounded bg-white/5 border border-white/10 text-[9px] font-bold text-primary-fixed">CONSOLE: PORT 9001</div>
+</div>
+</div>
+</section>
+<!-- Main Workspace Area: Bento Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- Log Stream (Large Panel) -->
+<section class="lg:col-span-8 flex flex-col gap-6">
+<div class="bg-surface-container-lowest p-8 rounded-[2rem] shadow-sm border border-outline-variant/5">
+<div class="flex justify-between items-center mb-8">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary">terminal</span>
+<h4 class="text-lg font-bold tracking-tight">System Event Stream</h4>
+</div>
+<div class="flex gap-2">
+<button class="px-4 py-1.5 rounded-full bg-surface-container-low text-[10px] font-bold uppercase tracking-widest text-on-surface-variant hover:bg-surface-container-high transition-colors">Clear</button>
+<button class="px-4 py-1.5 rounded-full bg-surface-container-low text-[10px] font-bold uppercase tracking-widest text-on-surface-variant hover:bg-surface-container-high transition-colors">Export</button>
+</div>
+</div>
+<!-- Logs Container -->
+<div class="bg-inverse-surface rounded-2xl p-6 font-mono text-sm leading-relaxed h-[400px] overflow-y-auto scrollbar-hide">
+<div class="space-y-2">
+<div class="flex gap-4">
+<span class="text-stone-500 shrink-0">14:20:01</span>
+<span class="text-tertiary-fixed-dim shrink-0">[INFO]</span>
+<span class="text-stone-300">FastAPI Application startup complete.</span>
+</div>
+<div class="flex gap-4">
+<span class="text-stone-500 shrink-0">14:20:05</span>
+<span class="text-primary-fixed-dim shrink-0">[DB]</span>
+<span class="text-[#a76526]">PostgreSQL connection pool established (20 connections).</span>
+</div>
+<div class="flex gap-4">
+<span class="text-stone-500 shrink-0">14:21:12</span>
+<span class="text-tertiary-fixed-dim shrink-0">[INFO]</span>
+<span class="text-stone-300">GET /api/v1/modules/status - 200 OK</span>
+</div>
+<div class="flex gap-4">
+<span class="text-stone-500 shrink-0">14:22:45</span>
+<span class="text-primary-fixed-dim shrink-0">[S3]</span>
+<span class="text-[#a76526]">MinIO bucket 'assets-prod' health check passed.</span>
+</div>
+<div class="flex gap-4">
+<span class="text-stone-500 shrink-0">14:25:00</span>
+<span class="text-tertiary-fixed-dim shrink-0">[CRON]</span>
+<span class="text-stone-300">Starting scheduled database optimization task...</span>
+</div>
+<div class="flex gap-4">
+<span class="text-stone-500 shrink-0">14:25:30</span>
+<span class="text-primary-fixed-dim shrink-0">[DB]</span>
+<span class="text-[#a76526]">Vacuum analyze completed for table 'user_sessions'.</span>
+</div>
+<div class="flex gap-4 animate-pulse">
+<span class="text-stone-500 shrink-0">14:28:10</span>
+<span class="text-tertiary-fixed-dim shrink-0">[INFO]</span>
+<span class="text-stone-300">Processing real-time stream telemetry_delta_v1...</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Action Toolbar -->
+<div class="flex flex-wrap items-center gap-4 bg-surface-container-low p-4 rounded-3xl border border-outline-variant/10">
+<button class="flex-1 min-w-[160px] copper-gradient text-white py-4 rounded-2xl flex items-center justify-center gap-3 font-bold hover:shadow-lg transition-all active:scale-95">
+<span class="material-symbols-outlined">restart_alt</span>
+                            Rebuild Stack
+                        </button>
+<button class="flex-1 min-w-[160px] bg-white border border-outline-variant/20 text-on-surface py-4 rounded-2xl flex items-center justify-center gap-3 font-bold hover:bg-surface-container-highest transition-all active:scale-95">
+<span class="material-symbols-outlined text-error">stop_circle</span>
+                            Stop Services
+                        </button>
+<button class="flex-1 min-w-[160px] bg-white border border-outline-variant/20 text-on-surface py-4 rounded-2xl flex items-center justify-center gap-3 font-bold hover:bg-surface-container-highest transition-all active:scale-95">
+<span class="material-symbols-outlined text-tertiary">description</span>
+                            View Docs
+                        </button>
+</div>
+</section>
+<!-- Health Overview & Side Info -->
+<section class="lg:col-span-4 space-y-8">
+<!-- Container Health Visualizer -->
+<div class="bg-surface-container-lowest p-8 rounded-[2rem] shadow-sm border border-outline-variant/5">
+<h4 class="text-sm font-bold uppercase tracking-widest text-stone-500 mb-6">Container Health</h4>
+<div class="flex justify-center mb-8">
+<div class="relative w-48 h-48 flex items-center justify-center">
+<svg class="w-full h-full transform -rotate-90">
+<circle class="text-surface-container-high" cx="96" cy="96" fill="transparent" r="88" stroke="currentColor" stroke-width="12"></circle>
+<circle class="text-primary" cx="96" cy="96" fill="transparent" r="88" stroke="currentColor" stroke-dasharray="552" stroke-dashoffset="55" stroke-width="12"></circle>
+</svg>
+<div class="absolute flex flex-col items-center">
+<span class="text-4xl font-black tracking-tighter">92%</span>
+<span class="text-[10px] uppercase font-bold text-stone-400">Optimal</span>
+</div>
+</div>
+</div>
+<div class="space-y-4">
+<div class="flex justify-between items-center p-3 bg-surface-container-low rounded-xl">
+<div class="flex items-center gap-3">
+<div class="w-2 h-2 rounded-full bg-tertiary"></div>
+<span class="text-sm font-bold">Postgres-Main</span>
+</div>
+<span class="text-xs text-stone-500">Normal</span>
+</div>
+<div class="flex justify-between items-center p-3 bg-surface-container-low rounded-xl">
+<div class="flex items-center gap-3">
+<div class="w-2 h-2 rounded-full bg-tertiary"></div>
+<span class="text-sm font-bold">FastAPI-Worker</span>
+</div>
+<span class="text-xs text-stone-500">Normal</span>
+</div>
+<div class="flex justify-between items-center p-3 bg-surface-container-low rounded-xl">
+<div class="flex items-center gap-3">
+<div class="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
+<span class="text-sm font-bold">MinIO-Gateway</span>
+</div>
+<span class="text-xs text-primary font-bold">Scaling...</span>
+</div>
+</div>
+</div>
+<!-- Infrastructure Visualization -->
+<div class="bg-inverse-surface rounded-[2rem] p-8 text-white relative overflow-hidden group">
+<div class="absolute -right-10 -bottom-10 w-48 h-48 bg-primary/20 rounded-full blur-3xl group-hover:bg-primary/40 transition-all"></div>
+<h4 class="text-sm font-bold uppercase tracking-widest text-stone-400 mb-6 relative z-10">Cluster Topology</h4>
+<div class="space-y-6 relative z-10">
+<div class="flex items-start gap-4">
+<span class="material-symbols-outlined text-primary-fixed">dns</span>
+<div>
+<p class="text-xs font-bold text-stone-400 uppercase tracking-widest">Network Interface</p>
+<p class="text-sm font-medium">192.168.1.100 (Docker Bridge)</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<span class="material-symbols-outlined text-primary-fixed">storage</span>
+<div>
+<p class="text-xs font-bold text-stone-400 uppercase tracking-widest">Volumes Mounted</p>
+<p class="text-sm font-medium">/var/lib/postgresql/data</p>
+<p class="text-sm font-medium">/data/minio_storage</p>
+</div>
+</div>
+</div>
+<button class="mt-8 w-full py-3 rounded-xl bg-white/10 hover:bg-white/20 border border-white/10 transition-all font-bold text-sm">
+                            Inspect Network
+                        </button>
+</div>
+</section>
+</div>
+</div>
+</main>
+<!-- Contextual FAB for quick logs scroll -->
+<div class="fixed bottom-8 right-8 z-50">
+<button class="w-16 h-16 rounded-full copper-gradient text-white shadow-2xl flex items-center justify-center hover:scale-110 transition-transform active:scale-95 group">
+<span class="material-symbols-outlined text-3xl">keyboard_arrow_down</span>
+<span class="absolute right-full mr-4 bg-inverse-surface text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">Scroll Logs</span>
+</button>
+</div>
+</body></html>

@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Aether Suite | Workspace Overview</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#894d0d",
+              "surface-bright": "#fcf9f5",
+              "primary-fixed": "#ffdcc2",
+              "error-container": "#ffdad6",
+              "primary-container": "#a76526",
+              "background": "#fcf9f5",
+              "tertiary-fixed": "#a8edff",
+              "surface-container-high": "#ebe8e4",
+              "surface-container-lowest": "#ffffff",
+              "error": "#ba1a1a",
+              "on-tertiary-fixed": "#001f26",
+              "on-tertiary-container": "#f9fdff",
+              "on-primary": "#ffffff",
+              "tertiary": "#006576",
+              "on-background": "#1c1c1a",
+              "inverse-primary": "#ffb77b",
+              "on-error-container": "#93000a",
+              "on-secondary-fixed": "#2d1602",
+              "secondary-fixed": "#ffdcc2",
+              "on-primary-fixed": "#2e1500",
+              "outline": "#857467",
+              "on-tertiary": "#ffffff",
+              "inverse-surface": "#31302e",
+              "surface-dim": "#dcdad6",
+              "on-secondary-container": "#79583c",
+              "on-secondary": "#ffffff",
+              "tertiary-fixed-dim": "#74d4ea",
+              "surface": "#fcf9f5",
+              "secondary": "#79573c",
+              "on-secondary-fixed-variant": "#5e4026",
+              "surface-container-low": "#f6f3ef",
+              "surface-container": "#f0ede9",
+              "inverse-on-surface": "#f3f0ec",
+              "on-primary-container": "#fffbff",
+              "surface-tint": "#8c4f10",
+              "on-error": "#ffffff",
+              "secondary-container": "#ffd1ae",
+              "surface-container-highest": "#e5e2de",
+              "surface-variant": "#e5e2de",
+              "tertiary-container": "#008094",
+              "on-surface": "#1c1c1a",
+              "on-surface-variant": "#524439",
+              "primary-fixed-dim": "#ffb77b",
+              "secondary-fixed-dim": "#eabe9c",
+              "outline-variant": "#d8c3b4",
+              "on-tertiary-fixed-variant": "#004e5b",
+              "on-primary-fixed-variant": "#6d3a00"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Manrope"],
+              "label": ["Manrope"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+        }
+        .copper-glow:hover {
+            box-shadow: 0 0 20px rgba(137, 77, 13, 0.2);
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface antialiased overflow-x-hidden">
+<!-- Top Navigation Shell -->
+<nav class="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-3 max-w-7xl mx-auto rounded-2xl mt-4 mx-4 bg-orange-50/60 dark:bg-stone-900/60 backdrop-blur-3xl shadow-2xl shadow-orange-900/5 dark:shadow-black/20 font-manrope antialiased tracking-tight">
+<div class="flex items-center gap-8">
+<span class="text-2xl font-bold tracking-tighter text-orange-900 dark:text-orange-200">Aether Suite</span>
+<div class="hidden md:flex items-center gap-6">
+<a class="text-orange-800 dark:text-orange-300 font-semibold transition-all duration-300" href="#">Workspace</a>
+<a class="text-stone-500 dark:text-stone-400 hover:bg-orange-100/50 dark:hover:bg-stone-800/50 transition-all duration-300 px-3 py-1 rounded-lg" href="#">Analytics</a>
+<a class="text-stone-500 dark:text-stone-400 hover:bg-orange-100/50 dark:hover:bg-stone-800/50 transition-all duration-300 px-3 py-1 rounded-lg" href="#">Team</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-stone-400 text-sm">search</span>
+<input class="bg-surface-container-low border-none rounded-full pl-10 pr-4 py-1.5 text-sm focus:ring-1 focus:ring-primary w-64" placeholder="Search archives..." type="text"/>
+</div>
+<button class="p-2 text-stone-500 hover:bg-orange-100/50 rounded-full transition-all">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant/20">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="Close-up portrait of a professional male designer with soft studio lighting and warm skin tones" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD8nHCdeD9KiIfmyC_VC5nAdlDQk165Db5I9ov04_kHOb6d-kmeYdlwJ6aqYRAX0EoylNfcnrgR3KcKwlMBJ2f_Ikk3yAVAQH5D6PMHdfzMMgQkMXer6LwTClNEd5UycCtu8FoCILk-L4sySnI7eQOe6GM3wln8L8n3NNjchTazoiCQcqUkhmjbkb8QkA6_ClA6B3CSKX7u3-hoBhyH26MfFxvwLBYnHIe2bCKY1RcAxSFhjkhaOYXaslVarPkZ7f-1OseOYnUsMHs"/>
+</div>
+</div>
+</nav>
+<!-- Side Navigation Shell (Desktop Only) -->
+<aside class="fixed left-0 top-0 w-64 flex flex-col p-6 z-40 h-[calc(100vh-2rem)] my-4 ml-4 rounded-3xl bg-orange-50/40 dark:bg-stone-900/40 backdrop-blur-2xl shadow-[20px_0_40px_rgba(28,28,26,0.04)] hidden lg:flex mt-24">
+<div class="mb-10">
+<h2 class="text-xl font-black text-orange-900 dark:text-orange-100">Aether</h2>
+<p class="text-[10px] uppercase tracking-[0.2em] text-stone-500 mt-1 font-medium">The Celestial Atelier</p>
+</div>
+<nav class="flex-1 space-y-2">
+<a class="flex items-center gap-3 px-4 py-3 bg-gradient-to-tr from-orange-800 to-orange-600 text-white shadow-[0_0_15px_rgba(137,77,13,0.3)] rounded-xl group transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="auto_awesome" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<span class="font-manrope text-sm font-medium uppercase tracking-widest">Workspace</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-600 dark:text-stone-400 hover:text-orange-800 dark:hover:text-orange-300 hover:translate-x-1 transition-transform duration-300 group" href="#">
+<span class="material-symbols-outlined" data-icon="insights">insights</span>
+<span class="font-manrope text-sm font-medium uppercase tracking-widest">Analytics</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-600 dark:text-stone-400 hover:text-orange-800 dark:hover:text-orange-300 hover:translate-x-1 transition-transform duration-300 group" href="#">
+<span class="material-symbols-outlined" data-icon="account_balance">account_balance</span>
+<span class="font-manrope text-sm font-medium uppercase tracking-widest">Treasury</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-600 dark:text-stone-400 hover:text-orange-800 dark:hover:text-orange-300 hover:translate-x-1 transition-transform duration-300 group" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span class="font-manrope text-sm font-medium uppercase tracking-widest">Archives</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-600 dark:text-stone-400 hover:text-orange-800 dark:hover:text-orange-300 hover:translate-x-1 transition-transform duration-300 group" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="font-manrope text-sm font-medium uppercase tracking-widest">Team</span>
+</a>
+</nav>
+<button class="mt-auto w-full py-4 bg-inverse-surface text-surface rounded-2xl font-bold tracking-tight hover:shadow-xl transition-all active:scale-95">
+            New Project
+        </button>
+</aside>
+<!-- Main Content Canvas -->
+<main class="lg:ml-72 pt-32 pb-24 px-6 max-w-7xl mx-auto">
+<!-- Welcome Section -->
+<header class="mb-12">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div>
+<span class="label-md text-primary font-bold uppercase tracking-[0.2em] mb-2 block">Good morning, Julian</span>
+<h1 class="text-5xl font-extrabold tracking-tighter text-on-surface leading-tight">Your Celestial <br/><span class="text-primary italic font-serif">Atelier</span> is ready.</h1>
+</div>
+<div class="flex gap-3">
+<button class="px-6 py-3 bg-surface-container-low border border-outline-variant/10 rounded-xl flex items-center gap-2 text-on-surface font-semibold hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined" data-icon="file_upload">file_upload</span>
+                        Import
+                    </button>
+<button class="px-6 py-3 bg-gradient-to-tr from-primary to-primary-container text-white rounded-xl flex items-center gap-2 font-semibold shadow-lg shadow-primary/20 hover:scale-105 transition-transform">
+<span class="material-symbols-outlined" data-icon="add" style="font-variation-settings: 'FILL' 1;">add</span>
+                        Create Canvas
+                    </button>
+</div>
+</div>
+</header>
+<!-- Bento Dashboard Grid -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+<!-- Active Workspaces (Large Hero Card) -->
+<section class="md:col-span-8 flex flex-col gap-6">
+<div class="flex items-center justify-between">
+<h3 class="title-md font-bold text-on-surface flex items-center gap-2">
+<span class="w-1.5 h-6 bg-primary rounded-full"></span>
+                        Active Workspaces
+                    </h3>
+<button class="text-sm font-bold text-primary hover:underline">View All</button>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+<!-- Card 1 -->
+<div class="group relative overflow-hidden glass-panel border border-outline-variant/10 rounded-3xl p-6 transition-all duration-500 hover:-translate-y-2 copper-glow">
+<div class="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full -mr-16 -mt-16 blur-3xl group-hover:bg-primary/10 transition-colors"></div>
+<div class="flex items-start justify-between mb-8">
+<div class="w-12 h-12 bg-primary rounded-2xl flex items-center justify-center text-white shadow-inner">
+<span class="material-symbols-outlined" data-icon="architecture">architecture</span>
+</div>
+<div class="flex -space-x-3">
+<img class="w-8 h-8 rounded-full border-2 border-surface-container-lowest object-cover" data-alt="Close-up of a smiling young woman with natural light and a soft creamy background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuByb5XNhy_HWWOhnsoRIBXzb1ZmYEUnz6sKpVjYeLVWmxzkzAhSccNckzNj14jK1dvysKuFdVF5eHbGilb_Kr61WCzrguCxjsskltbfPBY9BWNgnTwpD_5KJq-J8g2PEmGBrqDu1DOGZrH3DjEt-GfTtZnODfE2GqZbrNJOstMjZ9CpghVXZpf0YrvuSFTjvEF6BOQAVm7nPy9fzu7dRgwf4KylJgORGCDqx_rAeChVQNVYROl76gnETM_Y7nEtQiolAhMI3fPEX7s"/>
+<img class="w-8 h-8 rounded-full border-2 border-surface-container-lowest object-cover" data-alt="Portrait of a woman with vibrant hair color in a minimalist urban setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBcxz12aFtbbP8MzZ995o6J7UmyGq5-SSprUL26r5d7b4NwMgSG0kAHwMJP_j5dh39iUzuERkV_tqP7QFzTahPCzY1l54m_EXeK7w2-ZDcBIsRcBIB2-a2omc5XnIBXmS_ZwEXQW9WvEul5Uq2yiIxvSc3LILydLmSVQwo3EaVupgG0duiNaQsqwvhd4pQ27BJmBPyO-Vt0WQwUh7IMGS0nQcLSuX2MSI5TEOOA0FgB107tHoa_Zav2io7fHGInxhoHbtvGneJGakI"/>
+<div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-[10px] font-bold text-white border-2 border-surface-container-lowest">+4</div>
+</div>
+</div>
+<h4 class="text-xl font-bold mb-2">Copper Valley UI</h4>
+<p class="text-on-surface-variant text-sm line-clamp-2 mb-6">Redefining the digital real estate experience with organic textures and copper-toned aesthetics.</p>
+<div class="flex items-center justify-between pt-4 border-t border-outline-variant/10">
+<span class="text-[10px] uppercase font-bold tracking-widest text-primary">In Progress</span>
+<span class="text-[10px] font-medium text-on-surface-variant">Last edit 2h ago</span>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="group relative overflow-hidden glass-panel border border-outline-variant/10 rounded-3xl p-6 transition-all duration-500 hover:-translate-y-2 copper-glow">
+<div class="absolute top-0 right-0 w-32 h-32 bg-tertiary/5 rounded-full -mr-16 -mt-16 blur-3xl group-hover:bg-tertiary/10 transition-colors"></div>
+<div class="flex items-start justify-between mb-8">
+<div class="w-12 h-12 bg-tertiary rounded-2xl flex items-center justify-center text-white shadow-inner">
+<span class="material-symbols-outlined" data-icon="rocket_launch">rocket_launch</span>
+</div>
+<div class="flex -space-x-3">
+<img class="w-8 h-8 rounded-full border-2 border-surface-container-lowest object-cover" data-alt="Portrait of a bearded man wearing spectacles with warm indoor lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAOKDjrxjgiiEV93k4NHWl-XyBZAaAWBEWgqBzCgeV0hCIBwD-wqxjYJmTO7Oa4A3OJdLS_7st-iTOEsjgDQNS3Wztln70l10Amgn2Op8HnbtqpxM0dtmaeFQVYOdCH7dU_xmYQy7wBXozIbvTu8NQQ47BVOzGrQ6S3FwAN5pcyEBrlrR5FT3wdGFLcBRKpOu6uTMvIwcz9jGZMMC3dWYoKiwILRHF2_mF5HLRuCTD6jHc8C2xQ8UdCi0wiL9-lHZKSU04acECefuA"/>
+<div class="w-8 h-8 rounded-full bg-surface-container-high flex items-center justify-center text-[10px] font-bold text-on-surface border-2 border-surface-container-lowest">+1</div>
+</div>
+</div>
+<h4 class="text-xl font-bold mb-2">Ether Analytics 2.0</h4>
+<p class="text-on-surface-variant text-sm line-clamp-2 mb-6">Developing a high-frequency trading dashboard for decentralized liquidity pools.</p>
+<div class="flex items-center justify-between pt-4 border-t border-outline-variant/10">
+<span class="text-[10px] uppercase font-bold tracking-widest text-tertiary">Reviewing</span>
+<span class="text-[10px] font-medium text-on-surface-variant">Last edit 5h ago</span>
+</div>
+</div>
+</div>
+<!-- Collaborative Indicators (Sub-section) -->
+<div class="mt-4 p-8 bg-inverse-surface text-surface-container-lowest rounded-3xl relative overflow-hidden shadow-2xl">
+<div class="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+<div>
+<h4 class="text-2xl font-bold tracking-tight mb-1">Live Sync Collaboration</h4>
+<p class="text-surface-variant/70 text-sm">4 team members are currently designing in the <span class="text-primary-fixed font-semibold">Stardust Lab</span>.</p>
+</div>
+<button class="px-5 py-2.5 bg-primary rounded-xl text-sm font-bold shadow-lg shadow-black/20 hover:bg-primary-container transition-all self-start sm:self-center">
+                            Join Canvas
+                        </button>
+</div>
+<!-- Decorative abstract visual -->
+<div class="absolute right-0 top-0 bottom-0 w-1/2 opacity-20 pointer-events-none">
+<svg class="h-full w-full" viewbox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+<path d="M44.7,-76.4C58.1,-69.2,69.2,-58.1,77.3,-44.7C85.4,-31.3,90.5,-15.7,89.3,-0.7C88.1,14.3,80.6,28.6,71.2,40.1C61.8,51.6,50.6,60.2,38.1,67.8C25.6,75.4,12.8,81.9,-1.2,83.9C-15.2,85.9,-30.3,83.4,-44,76.5C-57.7,69.5,-69.9,58.1,-77.4,44.5C-84.9,30.9,-87.7,15.4,-86.3,0.8C-84.9,-13.8,-79.3,-27.6,-70.8,-39.5C-62.4,-51.4,-51.1,-61.4,-38.4,-68.9C-25.7,-76.4,-12.8,-81.4,1.1,-83.4C15.1,-85.4,31.3,-83.6,44.7,-76.4Z" fill="#894d0d" transform="translate(100 100)"></path>
+</svg>
+</div>
+</div>
+</section>
+<!-- Side Column: Priority Docs & Quick Actions -->
+<aside class="md:col-span-4 flex flex-col gap-8">
+<!-- Quick Actions -->
+<div class="p-6 bg-surface-container-low rounded-3xl border border-outline-variant/10">
+<h3 class="title-md font-bold mb-6">Quick Actions</h3>
+<div class="grid grid-cols-2 gap-3">
+<button class="flex flex-col items-center justify-center gap-3 p-4 bg-surface rounded-2xl hover:bg-primary/5 hover:text-primary transition-all group">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center group-hover:bg-primary-container group-hover:text-white transition-colors">
+<span class="material-symbols-outlined text-xl" data-icon="person_add">person_add</span>
+</div>
+<span class="text-xs font-bold uppercase tracking-wider">Invite</span>
+</button>
+<button class="flex flex-col items-center justify-center gap-3 p-4 bg-surface rounded-2xl hover:bg-primary/5 hover:text-primary transition-all group">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center group-hover:bg-primary-container group-hover:text-white transition-colors">
+<span class="material-symbols-outlined text-xl" data-icon="cloud_upload">cloud_upload</span>
+</div>
+<span class="text-xs font-bold uppercase tracking-wider">Storage</span>
+</button>
+<button class="flex flex-col items-center justify-center gap-3 p-4 bg-surface rounded-2xl hover:bg-primary/5 hover:text-primary transition-all group">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center group-hover:bg-primary-container group-hover:text-white transition-colors">
+<span class="material-symbols-outlined text-xl" data-icon="palette">palette</span>
+</div>
+<span class="text-xs font-bold uppercase tracking-wider">Theme</span>
+</button>
+<button class="flex flex-col items-center justify-center gap-3 p-4 bg-surface rounded-2xl hover:bg-primary/5 hover:text-primary transition-all group">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center group-hover:bg-primary-container group-hover:text-white transition-colors">
+<span class="material-symbols-outlined text-xl" data-icon="bolt">bolt</span>
+</div>
+<span class="text-xs font-bold uppercase tracking-wider">Shortcuts</span>
+</button>
+</div>
+</div>
+<!-- Priority Documents -->
+<div class="flex-1 p-6 glass-panel border border-outline-variant/10 rounded-3xl flex flex-col shadow-sm">
+<div class="flex items-center justify-between mb-6">
+<h3 class="title-md font-bold">Priority Documents</h3>
+<span class="material-symbols-outlined text-stone-400">more_vert</span>
+</div>
+<div class="space-y-4">
+<div class="flex items-center gap-4 group cursor-pointer">
+<div class="w-10 h-12 bg-orange-100 rounded-lg flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+</div>
+<div class="flex-1">
+<h5 class="text-sm font-bold group-hover:text-primary transition-colors">Project_Brief_V4.pdf</h5>
+<p class="text-[10px] text-on-surface-variant">Shared by Sarah • 10m ago</p>
+</div>
+</div>
+<div class="flex items-center gap-4 group cursor-pointer">
+<div class="w-10 h-12 bg-orange-100 rounded-lg flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all">
+<span class="material-symbols-outlined" data-icon="table_chart">table_chart</span>
+</div>
+<div class="flex-1">
+<h5 class="text-sm font-bold group-hover:text-primary transition-colors">Financial_Forecast_Q3.xlsx</h5>
+<p class="text-[10px] text-on-surface-variant">Shared by Finance • 1h ago</p>
+</div>
+</div>
+<div class="flex items-center gap-4 group cursor-pointer">
+<div class="w-10 h-12 bg-orange-100 rounded-lg flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all">
+<span class="material-symbols-outlined" data-icon="image">image</span>
+</div>
+<div class="flex-1">
+<h5 class="text-sm font-bold group-hover:text-primary transition-colors">Brand_Moodboard_Raw.zip</h5>
+<p class="text-[10px] text-on-surface-variant">Shared by Design • 3h ago</p>
+</div>
+</div>
+<div class="flex items-center gap-4 group cursor-pointer">
+<div class="w-10 h-12 bg-orange-100 rounded-lg flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all">
+<span class="material-symbols-outlined" data-icon="auto_stories">auto_stories</span>
+</div>
+<div class="flex-1">
+<h5 class="text-sm font-bold group-hover:text-primary transition-colors">Style_Guide_Internal.notion</h5>
+<p class="text-[10px] text-on-surface-variant">Shared by Lead • Yesterday</p>
+</div>
+</div>
+</div>
+<button class="mt-auto pt-6 text-sm font-bold text-center text-on-surface-variant hover:text-primary transition-colors">
+                        Explore Archive
+                    </button>
+</div>
+</aside>
+</div>
+<!-- Floating Action Button for Mobile -->
+<button class="md:hidden fixed bottom-24 right-6 w-14 h-14 bg-primary text-white rounded-full shadow-2xl flex items-center justify-center z-50">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+</button>
+</main>
+<!-- Bottom Navigation Shell (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-orange-50/80 backdrop-blur-2xl px-6 py-4 flex items-center justify-between rounded-t-3xl shadow-[0_-10px_30px_rgba(137,77,13,0.1)]">
+<button class="flex flex-col items-center gap-1 text-primary">
+<span class="material-symbols-outlined" data-icon="auto_awesome" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<span class="text-[10px] font-bold uppercase tracking-tighter">Space</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-stone-400">
+<span class="material-symbols-outlined" data-icon="insights">insights</span>
+<span class="text-[10px] font-bold uppercase tracking-tighter">Stats</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-stone-400">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span class="text-[10px] font-bold uppercase tracking-tighter">Vault</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-stone-400">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="text-[10px] font-bold uppercase tracking-tighter">Team</span>
+</button>
+</nav>
+<!-- Decorative Atmospheric Light Leaks -->
+<div class="fixed top-[-20%] right-[-10%] w-[50%] h-[50%] bg-primary/5 rounded-full blur-[120px] pointer-events-none -z-10"></div>
+<div class="fixed bottom-[-10%] left-[-10%] w-[40%] h-[40%] bg-tertiary/5 rounded-full blur-[100px] pointer-events-none -z-10"></div>
+</body></html>

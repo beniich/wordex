@@ -1,0 +1,77 @@
+version: '3.8'
+
+services:
+  wordex-frontend:
+    build:
+      context: ../front/wordex-app
+      dockerfile: Dockerfile.prod
+    ports:
+      - "80:3000"
+      - "443:3000"
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+      - NEXT_PUBLIC_API_URL=https://api.wordex.com
+    networks:
+      - wordex-network
+
+  wordex-backend:
+    build:
+      context: ../back
+      dockerfile: Dockerfile.prod
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+    environment:
+      - ENVIRONMENT=production
+      - LOG_LEVEL=info
+      - DATABASE_URL=postgresql://wordex:${POSTGRES_PASSWORD}@postgres:5432/wordex
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      - redis
+      - postgres
+    networks:
+      - wordex-network
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
+    networks:
+      - wordex-network
+
+  postgres:
+    image: postgres:15-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-wordex}
+      POSTGRES_USER: ${POSTGRES_USER:-wordex}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - wordex-network
+
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./ssl:/etc/nginx/ssl
+    depends_on:
+      - wordex-frontend
+    networks:
+      - wordex-network
+
+networks:
+  wordex-network:
+    driver: bridge
+
+volumes:
+  redis_data:
+  postgres_data:
+  ssl:
