@@ -208,8 +208,9 @@ function WorkspaceEditor({ currentDoc, workspaceId, user }: { currentDoc: DocTyp
     extensions: [
       StarterKit.configure({
         heading: { levels: [1, 2, 3] },
-        // Disable built-in history when collaboration is active
-        history: provider ? false : undefined,
+        // Permanently disable built-in history; Yjs Collaboration handles its own history.
+        // Dynamically toggling this causes catastrophic Tiptap schema rebuilds in production.
+        history: false,
       }),
       ...(provider ? [
         Collaboration.configure({
