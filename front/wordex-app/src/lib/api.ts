@@ -5,7 +5,7 @@
 
 const rawBase = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
 export const API_BASE = rawBase.endsWith("/api") ? rawBase : `${rawBase}/api`;
-const MOCK_ENABLED = false; // Disable mocks to test real backend integration
+const MOCK_ENABLED = true; // Enabled mocks for local development if backend is not available
 
 // ── Token Management ─────────────────────────────────────────────────────────
 

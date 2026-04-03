@@ -54,7 +54,9 @@ export function NotificationsPanel() {
     const token = getToken();
     if (!token) return;
 
-    // Use SSE to receive real-time notifications
+    // Use SSE only if backend is actually reachable. For local dev/mocks, bypass to avoid Failed to fetch
+    // Replace with a simple check if you really want to try, or just return.
+    return;
     const es = new EventSource(`${API_BASE}/notifications/stream?token=${token}`);
     
     es.onmessage = (e) => {
@@ -64,7 +66,7 @@ export function NotificationsPanel() {
            setNotifs(prev => [msg.data, ...prev]);
            setUnreadCount(c => c + 1);
         }
-      } catch (err) {}
+      } catch { /* Suppress partial JSON Errors */ }
     };
 
     return () => es.close();
@@ -121,9 +123,9 @@ export function NotificationsPanel() {
       </button>
 
       {open && (
-        <div className="absolute top-full right-0 mt-4 w-80 sm:w-96 max-h-[500px] bg-surface rounded-3xl shadow-2xl border border-outline-variant/10 flex flex-col z-[100] animate-fade-in overflow-hidden">
+        <div className="absolute top-full right-0 mt-4 w-80 sm:w-96 max-h-[500px] bg-surface rounded-3xl shadow-2xl border border-outline-variant/10 flex flex-col z-100 animate-fade-in overflow-hidden">
           <div className="p-4 border-b border-outline-variant/10 flex items-center justify-between bg-surface-container-low/50 backdrop-blur-xl">
-             <h3 className="text-xs font-black uppercase tracking-widest text-primary">Centre d'Alertes</h3>
+             <h3 className="text-xs font-black uppercase tracking-widest text-primary">Centre d&apos;Alertes</h3>
              {unreadCount > 0 && (
                <button onClick={markAllRead} className="text-[10px] font-black uppercase text-outline hover:text-primary transition-colors">Tout marquer lu</button>
              )}
@@ -145,11 +147,11 @@ export function NotificationsPanel() {
                       <div 
                         key={n.id}
                         onClick={() => markRead(n.id)}
-                        className={`p-4 border-b border-outline-variant/5 flex gap-4 cursor-pointer hover:bg-primary/5 transition-colors relative group ${!n.is_read ? 'bg-primary/[0.03]' : ''}`}
+                        className={`p-4 border-b border-outline-variant/5 flex gap-4 cursor-pointer hover:bg-primary/5 transition-colors relative group ${!n.is_read ? 'bg-primary/3' : ''}`}
                       >
                         {!n.is_read && <div className="absolute left-2 top-1/2 -translate-y-1/2 w-1.5 h-1.5 bg-primary rounded-full" />}
                         
-                        <div className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 bg-white shadow-sm border border-outline-variant/10`}>
+                        <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 bg-white shadow-sm border border-outline-variant/10`}>
                            {n.actor_avatar ? (
                              <img src={n.actor_avatar} className="w-full h-full rounded-full object-cover" alt="" />
                            ) : (

@@ -3,11 +3,22 @@ import { debounce } from 'lodash';
 import { documents as sheets } from '@/lib/api';
 import { HyperFormula } from 'hyperformula';
 
+export interface CellStyle {
+  bold?: boolean;
+  italic?: boolean;
+  underline?: boolean;
+  align?: 'left' | 'center' | 'right';
+  color?: string;
+  bg?: string;
+  fontSize?: number;
+}
+
 export interface CellData {
   value: unknown;
   formula?: string;
   computedValue?: unknown;
   format?: string;
+  style?: CellStyle;
   lastModified: Date;
 }
 
@@ -18,15 +29,16 @@ export interface SheetMetadata {
   createdAt: string;
   lastModified: string;
   version: number;
+  activeSheetIndex?: number;
+  sheetNames?: string[];
   [key: string]: unknown;
 }
 
 export interface SheetData {
-  cells: Record<string, CellData>;
+  cells: Record<string, CellData>; // key format: "sheetIndex!cellId" e.g. "0!A1"
   metadata: SheetMetadata;
 }
 
-// Convert "A1" to [col, row], 0-indexed. Example "B3" -> [1, 2]
 function parseCellId(cellId: string): [number, number] {
   const match = cellId.match(/^([a-zA-Z]+)(\d+)$/);
   if (!match) return [0, 0];
@@ -40,6 +52,7 @@ function parseCellId(cellId: string): [number, number] {
 
 export function useAdvancedSheetEngine(sheetId: string) {
   const [sheetData, setSheetData] = useState<SheetData | null>(null);
+  const [activeSheet, setActiveSheet] = useState(0);
   const [isSaving, setIsSaving] = useState(false);
   const [saveStatus, setSaveStatus] = useState<'saved' | 'saving' | 'unsaved'>('saved');
   const hfInst = useRef<HyperFormula | null>(null);
@@ -47,56 +60,26 @@ export function useAdvancedSheetEngine(sheetId: string) {
   useEffect(() => {
     if (!hfInst.current) {
       hfInst.current = HyperFormula.buildEmpty({ licenseKey: 'gpl-v3' });
-      hfInst.current.addSheet('Sheet1');
     }
   }, []);
 
-  useEffect(() => {
-    if (sheetId && hfInst.current) {
-       loadSheetData(sheetId);
-    }
-     
-  }, [sheetId]);
-
-  // ── Real-time Remote Sync ──────────────────────────────────────────────────
-  useEffect(() => {
-    if (!sheetId || typeof window === 'undefined') return;
-
-    const token = localStorage.getItem("wordex_access_token");
-    if (!token) return;
-
-    const url = `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api'}/notifications/stream?token=${token}`;
-    const es = new EventSource(url);
-
-    es.onerror = () => {
-      console.warn("[SSE] Spreadsheet sync connection failed, retrying...");
-      es.close();
-    };
-
-    es.onmessage = (event) => {
-      try {
-        const payload = JSON.parse(event.data);
-        if (payload.type === 'sheet.updated' && payload.data.document_id === sheetId) {
-          console.log("[SSE] Remote update detected for sheet", sheetId);
-          // Reload the document from server
-          loadSheetData(sheetId);
-        }
-      } catch (err) {
-        // Heartbeats or unknown data
-      }
-    };
-
-    return () => es.close();
-  }, [sheetId]);
-
-  const loadSheetData = async (id: string) => {
+  const loadSheetData = useCallback(async (id: string) => {
     try {
       const doc = await sheets.get(id);
       let sData: SheetData;
       
       const defaultData: SheetData = {
           cells: {}, 
-          metadata: { title: doc?.title || "Untitled", createdAt: new Date().toISOString(), lastModified: new Date().toISOString(), version: 1, columns: 26, rows: 100 }
+          metadata: { 
+            title: doc?.title || "Untitled", 
+            createdAt: new Date().toISOString(), 
+            lastModified: new Date().toISOString(), 
+            version: 1, 
+            columns: 26, 
+            rows: 100, 
+            activeSheetIndex: 0,
+            sheetNames: ["Sheet 1"]
+          }
       };
 
       if (!doc || !doc.content) {
@@ -105,59 +88,62 @@ export function useAdvancedSheetEngine(sheetId: string) {
          sData = doc.content as unknown as SheetData;
          if (!sData.metadata) sData.metadata = defaultData.metadata;
          if (!sData.cells) sData.cells = {};
+         if (!sData.metadata.sheetNames) sData.metadata.sheetNames = ["Sheet 1"];
       }
       
       const hf = hfInst.current!;
-      hf.clearSheet(0);
+      
+      // Ensure at least one sheet exists
+      if (hf.getSheetNames().length === 0) {
+         hf.addSheet("Sheet1");
+      } else {
+         hf.clearSheet(0);
+      }
       
       const data: unknown[][] = [];
-      Object.entries(sData.cells).forEach(([cellId, cell]) => {
+      Object.entries(sData.cells).forEach(([fullId, cell]) => {
+         const [sIdxStr, cellId] = fullId.includes('!') ? fullId.split('!') : ["0", fullId];
+         if (parseInt(sIdxStr) !== 0) return; // currently only handles index 0 formulas for sync
+
          const [c, r] = parseCellId(cellId);
-         while (data.length <= r) {
-            data.push([]);
-         }
-         for (let i = 0; i <= r; i++) {
-            if (!data[i]) data[i] = [];
-         }
-         while (data[r].length <= c) {
-            data[r].push("");
-         }
+         while (data.length <= r) data.push([]);
+         for (let i = 0; i <= r; i++) if (!data[i]) data[i] = [];
+         while (data[r].length <= c) data[r].push("");
          data[r][c] = cell.formula || cell.value?.toString() || "";
       });
       
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      hf.setSheetContent(0, data as any);
+      hf.setSheetContent(0, data as (string | number | null)[][]);
       
-      const newCells = { ...sData.cells };
-      Object.keys(newCells).forEach(cellId => {
-         const [col, row] = parseCellId(cellId);
-         if (newCells[cellId].formula) {
-            newCells[cellId].computedValue = hf.getCellValue({ sheet: 0, col, row });
+      const updatedCells = { ...sData.cells };
+      Object.keys(updatedCells).forEach(fullId => {
+         const [sIdxStr, id] = fullId.includes('!') ? fullId.split('!') : ["0", fullId];
+         const [col, row] = parseCellId(id);
+         if (updatedCells[fullId].formula && parseInt(sIdxStr) === 0) {
+            updatedCells[fullId].computedValue = hf.getCellValue({ sheet: 0, col, row });
          }
       });
       
-      sData.cells = newCells;
-      setSheetData(sData);
+      setSheetData({ ...sData, cells: updatedCells });
+      setActiveSheet(sData.metadata.activeSheetIndex || 0);
     } catch (error) {
       console.error('Failed to load sheet:', error);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    if (sheetId && hfInst.current) {
+       loadSheetData(sheetId);
+    }
+  }, [sheetId, loadSheetData]);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const debouncedSave = useCallback(
-    debounce(async (cells: Record<string, CellData>, currentMetadata: Record<string, unknown>) => {
+    debounce(async (cells: Record<string, CellData>, currentMetadata: SheetMetadata) => {
       setIsSaving(true);
       setSaveStatus('saving');
-      
       try {
         await sheets.update(sheetId, {
-          content: {
-            cells,
-            metadata: {
-              ...currentMetadata,
-              lastModified: new Date().toISOString()
-            }
-          }
+          content: { cells, metadata: { ...currentMetadata, lastModified: new Date().toISOString() } }
         });
         setSaveStatus('saved');
       } catch (error) {
@@ -166,85 +152,81 @@ export function useAdvancedSheetEngine(sheetId: string) {
       } finally {
         setIsSaving(false);
       }
-    }, 2000),
+    }, 1000),
     [sheetId]
   );
 
-  const updateCell = async (cellId: string, newValue: unknown) => {
+  const updateCell = async (cellId: string, newValue: unknown, style?: CellStyle) => {
     if (!sheetData || !hfInst.current) return;
     const hf = hfInst.current;
+    
+    const fullId = `${activeSheet}!${cellId}`;
     const [c, r] = parseCellId(cellId);
 
-    const valToSet = typeof newValue === 'number' ? newValue : (newValue?.toString() || "");
-    hf.setCellContents({ sheet: 0, col: c, row: r }, [[valToSet]]);
-
     const updatedCells = { ...sheetData.cells };
-    const cellToUpdate = updatedCells[cellId] || { value: newValue, lastModified: new Date() };
+    const cellToUpdate = updatedCells[fullId] || { value: newValue, lastModified: new Date() };
 
-    cellToUpdate.value = newValue;
-    cellToUpdate.lastModified = new Date();
-
-    if (typeof newValue === 'string' && newValue.startsWith('=')) {
-      cellToUpdate.formula = newValue;
-      cellToUpdate.computedValue = hf.getCellValue({ sheet: 0, col: c, row: r });
-    } else {
-      delete cellToUpdate.formula;
-      delete cellToUpdate.computedValue;
+    if (newValue !== undefined) {
+      const valToSet = typeof newValue === 'number' ? newValue : (newValue?.toString() || "");
+      if (activeSheet === 0) hf.setCellContents({ sheet: 0, col: c, row: r }, [[valToSet]]);
+      
+      cellToUpdate.value = newValue;
+      if (typeof newValue === 'string' && newValue.startsWith('=')) {
+        cellToUpdate.formula = newValue;
+        if (activeSheet === 0) cellToUpdate.computedValue = hf.getCellValue({ sheet: 0, col: c, row: r });
+      } else {
+        delete cellToUpdate.formula;
+        delete cellToUpdate.computedValue;
+      }
     }
 
-    updatedCells[cellId] = cellToUpdate;
+    if (style) {
+      cellToUpdate.style = { ...(cellToUpdate.style || {}), ...style };
+    }
 
-    // Refresh dependencies
+    cellToUpdate.lastModified = new Date();
+    updatedCells[fullId] = cellToUpdate;
+
+    // Refresh formula dependencies (simplified)
     Object.keys(updatedCells).forEach(id => {
-       if (updatedCells[id].formula && id !== cellId) {
-          const [cc, rr] = parseCellId(id);
-          updatedCells[id].computedValue = hf.getCellValue({ sheet: 0, col: cc, row: rr });
+       if (updatedCells[id].formula) {
+          const [sIdx, cid] = id.includes('!') ? id.split('!') : ["0", id];
+          if (parseInt(sIdx) === 0) {
+             const [cc, rr] = parseCellId(cid);
+             updatedCells[id].computedValue = hf.getCellValue({ sheet: 0, col: cc, row: rr });
+          }
        }
     });
 
-    const newSheetData = {
-      ...sheetData,
-      cells: updatedCells,
-      metadata: {
-        ...sheetData.metadata,
-        lastModified: new Date().toISOString(),
-        version: (sheetData.metadata.version || 0) + 1
-      }
-    };
-
+    const newSheetData = { ...sheetData, cells: updatedCells };
     setSheetData(newSheetData);
     setSaveStatus('unsaved');
     debouncedSave(updatedCells, sheetData.metadata);
   };
 
-  const SaveIndicator = () => (
-    <div className={`save-indicator ${saveStatus} text-sm flex items-center gap-2`}>
-      {saveStatus === 'saving' && (
-        <>
-          <div className="w-4 h-4 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
-          <span className="text-outline font-bold text-xs">Sauvegarde...</span>
-        </>
-      )}
-      {saveStatus === 'saved' && (
-        <>
-          <span className="text-emerald-500 font-bold material-symbols-outlined text-[14px]">check_circle</span>
-          <span className="text-slate-500 font-bold text-xs">Sauvegardé</span>
-        </>
-      )}
-      {saveStatus === 'unsaved' && (
-        <>
-          <span className="text-amber-500 font-bold material-symbols-outlined text-[14px]">warning</span>
-          <span className="text-slate-500 font-bold text-xs">Modifications non sauvegardées</span>
-        </>
-      )}
-    </div>
-  );
+  const addSheet = () => {
+     if (!sheetData) return;
+     const names = [...(sheetData.metadata.sheetNames || ["Sheet 1"])];
+     const nextNum = names.length + 1;
+     names.push(`Sheet ${nextNum}`);
+     const newMetadata = { ...sheetData.metadata, sheetNames: names };
+     setSheetData({ ...sheetData, metadata: newMetadata });
+     setSaveStatus('unsaved');
+     debouncedSave(sheetData.cells, newMetadata);
+  };
 
   return {
     sheetData,
     updateCell,
     saveStatus,
-    SaveIndicator,
-    isSaving
+    activeSheet,
+    setActiveSheet,
+    addSheet,
+    isSaving,
+    SaveIndicator: () => (
+      <div className={`save-indicator ${saveStatus} text-[10px] text-white/80 font-bold uppercase flex items-center gap-1`}>
+         {saveStatus === 'saving' ? 'Saving...' : 'Saved'}
+      </div>
+    )
   };
 }

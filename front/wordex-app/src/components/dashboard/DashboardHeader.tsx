@@ -15,7 +15,7 @@ export function DashboardHeader({ activeView, onViewChange, isEditing, onEditTog
   const handleSeed = async () => {
     const workspaceId = typeof window !== 'undefined' ? (window.location.pathname.split('/')[2] || 'demo-ws') : 'demo-ws';
     try {
-      const res = await dashboard.seedDemo(workspaceId);
+      await dashboard.seedDemo(workspaceId);
       // alert(`${res.machine_count} machines seeded! Please refresh.`);
       window.location.reload();
     } catch (err) {
@@ -23,7 +23,7 @@ export function DashboardHeader({ activeView, onViewChange, isEditing, onEditTog
     }
   };
   return (
-    <header className="bg-white/90 backdrop-blur-3xl border-b border-[#DCC6A0]/40 px-6 py-4 flex items-center justify-between z-50 sticky top-0 shadow-sm relative group">
+    <header className="bg-white/90 backdrop-blur-3xl border-b border-[#DCC6A0]/40 px-6 py-4 flex items-center justify-between z-50 sticky top-0 shadow-sm group">
       <div className="flex items-center gap-10">
         <div className="flex flex-col">
           <span className="text-[10px] font-black uppercase tracking-[0.4em] text-primary leading-none mb-1">Production Suite</span>
