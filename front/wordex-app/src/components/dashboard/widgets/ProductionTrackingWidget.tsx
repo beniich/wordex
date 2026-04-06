@@ -22,7 +22,7 @@ export function ProductionTrackingWidget() {
     const loadProductionData = async () => {
       try {
         const data = await dashboard.getProduction(workspaceId);
-        setProductionData(data?.production || []);
+        setProductionData((data?.production as ProductionData[]) || []);
       } catch (err) {
         console.error(err);
       }
@@ -31,18 +31,18 @@ export function ProductionTrackingWidget() {
   }, [workspaceId]);
 
   return (
-    <div className="production-tracking-widget bg-[#F5F1E6]/40 backdrop-blur-md rounded-2xl p-6 border border-[#A67B5B]/30 shadow-xl">
+    <div className="production-tracking-widget widget-card !p-6">
       <div className="flex items-center justify-between mb-8">
-        <h3 className="text-sm font-black uppercase tracking-[0.2em] text-primary">Suivi de Production</h3>
-        <div className="flex bg-white/40 p-1 rounded-xl border border-[#A67B5B]/10">
+        <h3 className="text-sm font-black uppercase tracking-[0.2em] text-[var(--accent-primary)]">Suivi de Production</h3>
+        <div className="flex bg-[var(--surface-high)] p-1 rounded-xl border border-[var(--border)]">
           <button 
-            className={`px-4 py-1.5 text-[10px] uppercase font-black tracking-widest rounded-lg transition-all ${viewMode === 'lots' ? 'bg-[#A67B5B] text-white shadow-lg' : 'text-outline hover:bg-white/50'}`}
+            className={`px-4 py-1.5 text-[10px] uppercase font-black tracking-widest rounded-lg transition-all ${viewMode === 'lots' ? 'bg-[var(--accent-primary)] text-white shadow-lg shadow-[var(--accent-primary)]/30' : 'text-[var(--text-muted)] hover:bg-[var(--bg-secondary)]'}`}
             onClick={() => setViewMode('lots')}
           >
             Lots Produits
           </button>
           <button 
-            className={`px-4 py-1.5 text-[10px] uppercase font-black tracking-widest rounded-lg transition-all ${viewMode === 'oee' ? 'bg-[#A67B5B] text-white shadow-lg' : 'text-outline hover:bg-white/50'}`}
+            className={`px-4 py-1.5 text-[10px] uppercase font-black tracking-widest rounded-lg transition-all ${viewMode === 'oee' ? 'bg-[var(--accent-primary)] text-white shadow-lg shadow-[var(--accent-primary)]/30' : 'text-[var(--text-muted)] hover:bg-[var(--bg-secondary)]'}`}
             onClick={() => setViewMode('oee')}
           >
             OEE
@@ -53,18 +53,18 @@ export function ProductionTrackingWidget() {
       <div className="h-[300px] w-full">
         <ResponsiveContainer width="100%" height="100%">
           <ComposedChart data={productionData}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#D8C3B4" vertical={false} />
-            <XAxis dataKey="equipe" tick={{ fontSize: 10, fill: '#857467', fontWeight: 900 }} axisLine={false} tickLine={false} />
-            <YAxis tick={{ fontSize: 10, fill: '#857467', fontWeight: 900 }} axisLine={false} tickLine={false} />
+            <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" vertical={false} />
+            <XAxis dataKey="equipe" tick={{ fontSize: 10, fill: 'var(--text-secondary)', fontWeight: 900 }} axisLine={false} tickLine={false} />
+            <YAxis tick={{ fontSize: 10, fill: 'var(--text-secondary)', fontWeight: 900 }} axisLine={false} tickLine={false} />
             <Tooltip 
-              contentStyle={{ border: 'none', background: 'rgba(255,255,255,0.9)', backdropFilter: 'blur(10px)', borderRadius: '16px', boxShadow: '0 10px 40px rgba(0,0,0,0.1)', fontSize: '10px', color: '#1c1c1a' }}
+              contentStyle={{ border: '1px solid var(--border)', background: 'var(--surface)', backdropFilter: 'blur(10px)', borderRadius: '16px', boxShadow: 'var(--shadow-card)', fontSize: '10px', color: 'var(--text-primary)' }}
             />
             <Legend verticalAlign="top" align="right" wrapperStyle={{ paddingBottom: '20px', fontSize: '9px', fontWeight: 'black', textTransform: 'uppercase' }} />
             
             <Bar 
               dataKey={viewMode === 'lots' ? 'lotsProduits' : 'oee'} 
               name={viewMode === 'lots' ? 'Lots Produits' : 'OEE (%)'}
-              fill="url(#copperGradient)"
+              fill="url(#primaryGradient)"
               radius={[10, 10, 0, 0]}
               barSize={40}
             />
@@ -74,17 +74,17 @@ export function ProductionTrackingWidget() {
                 type="monotone" 
                 dataKey="target" 
                 name="Objectif" 
-                stroke="#006576" 
+                stroke="var(--accent-secondary)" 
                 strokeWidth={4}
-                dot={{ fill: '#006576', r: 4 }}
+                dot={{ fill: 'var(--accent-secondary)', r: 4 }}
                 strokeDasharray="5 5"
               />
             )}
 
             <defs>
-               <linearGradient id="copperGradient" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#A67B5B" />
-                  <stop offset="100%" stopColor="#894d0d" />
+               <linearGradient id="primaryGradient" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="var(--accent-primary)" />
+                  <stop offset="100%" stopColor="var(--accent-primary-light)" />
                </linearGradient>
             </defs>
           </ComposedChart>
@@ -93,3 +93,4 @@ export function ProductionTrackingWidget() {
     </div>
   );
 }
+

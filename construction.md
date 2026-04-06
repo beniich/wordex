@@ -388,3 +388,76 @@ gantt
 - `front/.../hooks/usePresentationEngine.ts` ← fix `Date.now()` + supprimer fallback offline
 - `front/.../hooks/useAdvancedSheetEngine.tsx` ← intégrer HyperFormula
 - `front/.../components/layout/AppShell.tsx` ← EventSource SSE notifications
+
+---
+
+## 🚀 MISE À JOUR — Industrialisation SaaS (Sprints 1-3)
+> État d'avancement au 2026-04-03 · Architecture Multi-tenant, Billing et Admin
+
+### ✅ SPRINT 1 — Architecture Multi-tenant (Prisma)
+- **Modèle de données** : Passage à une architecture multi-tenant native via `Organisation`.
+- **Isolation** : Tous les modèles (`User`, `Workspace`, `Document`, `Machine`, `Gantt`, `AI Session`) sont désormais scopés par `organisation_id`.
+- **Outillage** : Installation de `Prisma Client Python` et configuration du schéma (`back/prisma/schema.prisma`).
+- **Migration** : Script `init_tenant.py` créé pour migrer les données existantes vers une organisation par défaut.
+
+### ✅ SPRINT 2 — Intégration Stripe & Billing
+- **Backend Billing** : Router `/api/billing` opérationnel (`stripe_billing.py`).
+- **Flux Stripe** : Gestion des Checkout Sessions, Portail Client, et Webhooks (plan sync, cancel, trial).
+- **Interface Pricing** : Nouvelle page `/admin/billing` avec sélection de plans (Starter, Pro, Enterprise).
+- **Success/Cancel** : Pages de confirmation après paiement intégrées.
+
+### ✅ SPRINT 3 — Dashboard SUPER_ADMIN
+- **Console Globale** : Nouvelle route `/admin/superadmin` réservée aux rôles `SUPER_ADMIN`.
+- **Métriques Plateforme** : Suivi du MRR, ARR, Churn rate, et Croissance MoM.
+- **Gestion des Tenants** : Liste exhaustive des organisations, filtrage par plan, et accès rapide à la facturation.
+
+### 🎨 REFONTE — Landing Page Médicale Premium
+- **Ciblage** : Transformation de la landing générique en page commerciale haute performance pour cliniques.
+- **Design system** : Respect strict du thème "Sable & Cuivre", animations fluides (AnimatedNumber), glassmorphism.
+- **Conversion** : Grille de fonctionnalités cliniques, témoignages, et pricing dynamique intégré.
+
+### 🛠️ Prochaines étapes immédiates :
+1. **Middleware Isolation** : Injecter `organisation_id` dans tous les filtres SQL via FastAPI dependancy injection.
+2. **Setup Stripe Prod** : Configurer les `price_id` réels dans le `.env`.
+3. **Data Residency** : Configurer le stockage S3/MinIO par organisation (buckets séparés).
+
+---
+
+## 📜 Historique des Sessions d'Intervention
+
+### 🏥 Session 2026-04-03 (Dernière) — Industrialisation SaaS
+*   **Objectif** : Transformer Wordex en SaaS multi-tenant.
+*   **Actions** :
+    *   Schéma Prisma avec isolation par `Organisation`.
+    *   Système de facturation Stripe (checkout/portal/webhooks).
+    *   Console `SUPER_ADMIN` pour pilotage global.
+    *   Refonte Landing Page premium pour cliniques.
+
+### 🍱 Session 2026-04-02 — Stabilisation Editor & Nav
+*   **Objectif** : Stabiliser le moteur collaboratif et la navigation.
+*   **Actions** :
+    *   Correctifs sur le moteur TipTap (conflits d'awareness).
+    *   Finalisation de la barre de navigation collapsible "Sable & Cuivre".
+    *   Amélioration de la transition Local/Collaboratif.
+
+### 🏗️ Session 2026-04-01 (Midi) — Persistance & Architecture
+*   **Objectif** : Mise en place de la persistance backend pour les nouveaux modules.
+*   **Actions** :
+    *   Refactorisation de la logique de récupération de données (suppression des mocks).
+    *   Structure backend pour les modules Sheets et Slides.
+    *   Nettoyage du frontend (suppression des constantes inutiles, fix hooks).
+
+### 🚀 Session 2026-04-01 (Matin) — Transition Mocks → Backend
+*   **Objectif** : Connecter le "Spreadsheet" et le "Recent Documents" au backend.
+*   **Actions** :
+    *   Intégration du module Sheets avec JSONB/PostgreSQL.
+    *   Création de l'endpoint global pour les documents récents.
+    *   Base pour la génération AI de slides.
+
+### 🛡️ Session 2026-04-04 (Matin) — Isolation et Sécurisation IA
+*   **Objectif** : Cloisonner les agents IA et renforcer la sécurité éthique.
+*   **Actions** :
+    *   **Privacy Envelope** : Injection d'un prompt système "Sandbox" pour interdire toute communication externe.
+    *   **Multi-tenant Scoping** : Intégration de `get_current_org_id` dans toutes les routes d'agents (isolation par organisation).
+    *   **Garde-fous Éthiques** : Interdiction formelle de contenu Militaire et Sexuel.
+    *   **Network Isolation** : Blocage des tentatives de connexion vers des serveurs tiers via le prompt système.

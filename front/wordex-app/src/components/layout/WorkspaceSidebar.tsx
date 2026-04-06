@@ -45,27 +45,27 @@ export default function WorkspaceSidebar({
 
   return (
     <aside
-      className={`${collapsed ? "w-[72px]" : "w-64"} flex-shrink-0 border-r border-white/10 bg-slate-900/60 backdrop-blur-xl transition-all duration-300 flex flex-col z-20`}
+      className={`${collapsed ? "w-[72px]" : "w-64"} flex-shrink-0 border-r border-[var(--border)] bg-[var(--bg-secondary)] transition-all duration-300 flex flex-col z-20`}
     >
       {/* Header */}
       <div className="h-16 flex items-center justify-between px-4 border-b border-white/10 flex-shrink-0">
         {collapsed ? (
           <Link
             href="/"
-            className="mx-auto w-9 h-9 rounded-xl bg-indigo-600 flex items-center justify-center font-extrabold text-base shadow-lg shadow-indigo-500/30 text-white"
+            className="mx-auto w-9 h-9 rounded-xl bg-[var(--accent-primary)] flex items-center justify-center font-extrabold text-base shadow-lg shadow-[var(--accent-primary)]/30 text-white"
           >
             W
           </Link>
         ) : (
           <Link href="/" className="flex items-center gap-2.5 group">
-            <div className="w-8 h-8 rounded-xl bg-indigo-600 flex items-center justify-center font-extrabold text-sm shadow-lg shadow-indigo-500/30 text-white transition-transform group-hover:scale-105">
+            <div className="w-8 h-8 rounded-xl bg-[var(--accent-primary)] flex items-center justify-center font-extrabold text-sm shadow-lg shadow-[var(--accent-primary)]/30 text-white transition-transform group-hover:scale-105">
               W
             </div>
             <div>
-              <p className="text-white font-semibold text-sm leading-tight truncate max-w-[140px]">
+              <p className="text-[var(--text-primary)] font-semibold text-sm leading-tight truncate max-w-[140px]">
                 {workspaceName}
               </p>
-              <p className="text-slate-500 text-xs">Wordex</p>
+              <p className="text-[var(--text-muted)] text-xs">Wordex</p>
             </div>
           </Link>
         )}
@@ -73,7 +73,7 @@ export default function WorkspaceSidebar({
         <button
           onClick={onToggle}
           aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
-          className="p-1.5 rounded-md hover:bg-white/10 text-slate-400 hover:text-white transition-colors flex-shrink-0"
+          className="p-1.5 rounded-md hover:bg-black/5 dark:hover:bg-white/5 text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors flex-shrink-0"
         >
           <ChevronRight
             size={16}
@@ -96,18 +96,18 @@ export default function WorkspaceSidebar({
                 "w-full flex items-center rounded-lg py-2.5 text-sm font-medium transition-all duration-150",
                 collapsed ? "justify-center px-2" : "justify-start px-3",
                 activeTab === item.id
-                  ? "bg-indigo-600/20 text-indigo-400"
-                  : "text-slate-400 hover:bg-white/5 hover:text-white",
+                  ? "bg-[var(--accent-primary)] text-white dark:bg-[var(--accent-primary)]/20 dark:text-[var(--accent-primary)] dark:border dark:border-[var(--accent-primary)]/30 dark:shadow-[0_0_15px_rgba(0,212,232,0.15)]"
+                  : "text-[var(--text-secondary)] hover:bg-black/5 dark:hover:bg-white/5 hover:text-[var(--text-primary)]",
               ].join(" ")}
             >
-              <span className={activeTab === item.id ? "text-indigo-400" : "text-slate-500"}>
+              <span className={activeTab === item.id ? "text-white dark:text-[var(--accent-primary)]" : "text-[var(--text-muted)]"}>
                 {item.icon}
               </span>
               {!collapsed && (
                 <>
                   <span className="ml-3 flex-1 truncate text-left">{item.label}</span>
                   {item.badge && (
-                    <span className="ml-auto text-xs bg-slate-800 text-slate-300 px-1.5 py-0.5 rounded-full">
+                    <span className="ml-auto text-xs bg-[var(--bg-base)] text-[var(--text-muted)] border border-[var(--border)] px-1.5 py-0.5 rounded-full">
                       {item.badge}
                     </span>
                   )}
@@ -123,17 +123,17 @@ export default function WorkspaceSidebar({
 
             {/* Sub-items for Docs */}
             {item.id === "docs" && !collapsed && docsExpanded && (
-              <div className="ml-6 mt-1 space-y-0.5 border-l border-white/5 pl-3">
+              <div className="ml-6 mt-1 space-y-0.5 border-l border-[var(--border)] pl-3">
                 {["Product PRD", "Meeting Notes", "API Spec"].map((doc) => (
                   <button
                     key={doc}
                     onClick={() => onTabChange?.("editor")}
-                    className="w-full text-left text-xs text-slate-500 hover:text-slate-300 py-1.5 px-2 rounded hover:bg-white/5 transition-colors truncate"
+                    className="w-full text-left text-xs text-[var(--text-muted)] hover:text-[var(--text-primary)] py-1.5 px-2 rounded hover:bg-black/5 dark:hover:bg-white/5 transition-colors truncate"
                   >
                     {doc}
                   </button>
                 ))}
-                <button className="w-full text-left text-xs text-indigo-500 hover:text-indigo-400 py-1.5 px-2 flex items-center gap-1 transition-colors">
+                <button className="w-full text-left text-xs text-[var(--accent-primary)] hover:opacity-80 py-1.5 px-2 flex items-center gap-1 transition-colors">
                   <FolderPlus size={11} /> New document
                 </button>
               </div>
@@ -143,14 +143,14 @@ export default function WorkspaceSidebar({
       </nav>
 
       {/* User */}
-      <div className={`p-4 border-t border-white/10 flex items-center gap-3 ${collapsed ? "justify-center" : ""}`}>
-        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-pink-500 to-indigo-500 flex items-center justify-center font-bold text-xs text-white flex-shrink-0 shadow">
+      <div className={`p-4 border-t border-[var(--border)] flex items-center gap-3 ${collapsed ? "justify-center" : ""}`}>
+        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[var(--accent-primary)] to-[var(--accent-primary-light)] flex items-center justify-center font-bold text-xs text-white flex-shrink-0 shadow">
           {currentUser.initials}
         </div>
         {!collapsed && (
           <div className="overflow-hidden">
-            <p className="text-sm font-medium text-white truncate">{currentUser.username}</p>
-            <p className="text-xs text-slate-500">{currentUser.plan ?? "Free"} Plan</p>
+            <p className="text-sm font-medium text-[var(--text-primary)] truncate">{currentUser.username}</p>
+            <p className="text-xs text-[var(--text-muted)]">{currentUser.plan ?? "Free"} Plan</p>
           </div>
         )}
       </div>

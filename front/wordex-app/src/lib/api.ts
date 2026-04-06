@@ -792,3 +792,70 @@ export const aiSessions = {
 };
 
 
+
+//  Multi-Agent System 
+
+export type AgentKey = "analyst" | "writer" | "designer" | "maintenance" | "quality";
+
+export interface SingleAgentResponse {
+  success: boolean;
+  agent: AgentKey;
+  organisation_id: string;
+  response: string;
+  timestamp: string;
+}
+
+export interface OrchestratePhase {
+  agent: string;
+  output: string;
+  tokens?: number;
+}
+
+export interface IndustrialInsightResult {
+  workspace_id: string;
+  timestamp: string;
+  phases: OrchestratePhase[];
+  summary: { total_tokens: number };
+}
+
+export interface MaintenanceForecastResult {
+  forecast_timestamp: string;
+  predictions: Array<{ agent: string; response: string }>;
+  recommendations: string;
+}
+
+export interface AgentCatalogItem {
+  id: AgentKey;
+  name: string;
+  role: string;
+  specialty: string;
+}
+
+export const agentsApi = {
+  executeSingle: (agentName: AgentKey, task: string, context = "") =>
+    apiFetch<SingleAgentResponse>("/agents/execute/single", {
+      method: "POST",
+      body: JSON.stringify({ agent_name: agentName, task, context }),
+    }),
+
+  orchestrateIndustrial: (workspaceId: string, data: Record<string, unknown>) =>
+    apiFetch<{ success: boolean; result: IndustrialInsightResult }>(
+      "/agents/orchestrate/industrial-insight",
+      { method: "POST", body: JSON.stringify({ workspace_id: workspaceId, data }) }
+    ),
+
+  orchestrateMaintenance: (workspaceId: string, data: Record<string, unknown>) =>
+    apiFetch<{ success: boolean; result: MaintenanceForecastResult }>(
+      "/agents/orchestrate/maintenance-forecast",
+      { method: "POST", body: JSON.stringify({ workspace_id: workspaceId, data }) }
+    ),
+
+  listAgents: () =>
+    apiFetch<{ agents: AgentCatalogItem[] }>("/agents/list-agents"),
+
+  chat: (agentName: AgentKey, message: string, context = "") =>
+    apiFetch<{ agent: AgentKey; response: string; timestamp: string }>(
+      "/agents/chat",
+      { method: "POST", body: JSON.stringify({ agent_name: agentName, message, context }) }
+    ),
+};

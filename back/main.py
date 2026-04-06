@@ -1,9 +1,10 @@
+import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 
 from app.database import init_db
-from app.routers import auth, users, documents, workspaces, files, folders, search, notifications, comments, ai, exports, webhooks, audio, sheets, slides, dashboard, gantt, analytics, agents
+from app.routers import auth, users, documents, workspaces, files, folders, search, notifications, comments, ai, exports, webhooks, audio, sheets, slides, dashboard, gantt, analytics, agents, organisations, stripe_billing
 from app.services.event_bus import event_bus
 from app.services.webhook_service import webhook_service
 import asyncio
@@ -43,7 +44,10 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=[
+        "http://localhost:3000",
+        os.getenv("FRONTEND_URL", "http://localhost:3000"),
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -69,6 +73,8 @@ app.include_router(dashboard.router,       prefix="/api/dashboard",       tags=[
 app.include_router(gantt.router,           prefix="/api/gantt",           tags=["Gantt"])
 app.include_router(analytics.router,       prefix="/api/analytics",       tags=["Analytics"])
 app.include_router(agents.router,                                         tags=["Multi-Agent Crew"])
+app.include_router(organisations.router,   prefix="/api/organisations",   tags=["Organisations"])
+app.include_router(stripe_billing.router,  prefix="/api/billing",         tags=["Billing & Stripe"])
 
 @app.on_event("startup")
 async def check_ollama_availability():

@@ -1,21 +1,18 @@
 @import "tailwindcss";
 
 @theme {
-  /* Core Palette: Sable & Cuivre */
-  --color-primary: #894d0d;
-  --color-primary-container: #a76526;
-  --color-secondary: #79573c;
-  --color-tertiary: #006576;
-  --color-tertiary-container: #008094;
+  /* Core Palette: Violet & Cyan (Premium Glassmorphism) */
+  --color-primary: var(--accent-primary);
+  --color-primary-foreground: #ffffff;
   
-  --color-surface: #fcf9f5;
-  --color-surface-container-low: #f6f3ef;
-  --color-surface-container-high: #ebe8e4;
-  --color-surface-container-highest: #e5e2de;
-  --color-inverse-surface: #31302e;
+  --color-secondary: var(--accent-secondary);
+  --color-success: var(--accent-success);
+  --color-warning: var(--accent-warning);
   
-  --color-outline: #857467;
-  --color-outline-variant: #d8c3b4;
+  --color-background: var(--bg-base);
+  --color-foreground: var(--text-primary);
+  
+  --color-border: var(--border);
   
   --font-sans: "Manrope", var(--font-manrope), system-ui, sans-serif;
   --font-body: "Manrope", var(--font-manrope), sans-serif;
@@ -23,7 +20,7 @@
 
   --animate-fade-in-up: fade-in-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   --animate-float: float 6s ease-in-out infinite;
-  --animate-copper-pulse: copper-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  --animate-neon-pulse: neon-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
 @keyframes fade-in-up {
@@ -37,15 +34,61 @@
   100% { transform: translateY(0px); }
 }
 
-@keyframes copper-pulse {
-  0%, 100% { opacity: 1; text-shadow: 0 0 10px rgba(137, 77, 13, 0.3); }
-  50% { opacity: 0.8; text-shadow: 0 0 20px rgba(137, 77, 13, 0.6); }
+@keyframes neon-pulse {
+  0%, 100% { opacity: 1; filter: drop-shadow(0 0 5px var(--accent-primary)); }
+  50% { opacity: 0.8; filter: drop-shadow(0 0 15px var(--accent-primary)); }
 }
 
 :root {
-  --background: #fcf9f5;
-  --foreground: #1c1c1a;
-  --primary: #894d0d;
+  /* Mode Light */
+  --bg-base: #FAF7FF;
+  --bg-secondary: #F0E8FF;
+  --surface: #FFFFFF;
+  --surface-high: #F5F0FF;
+  --border: #E5D9F2;
+  --border-strong: #C4B5FD;
+
+  --accent-primary: #7C3AED;
+  --accent-primary-light: #8B5CF6;
+  --accent-secondary: #F97316;
+  --accent-success: #10B981;
+  --accent-warning: #F59E0B;
+
+  --text-primary: #1A0A3D;
+  --text-secondary: #6B7280;
+  --text-muted: #9CA3AF;
+
+  --shadow-card: 0 4px 24px rgba(124, 58, 237, 0.08);
+  --shadow-hover: 0 8px 32px rgba(124, 58, 237, 0.16);
+  
+  --background: var(--bg-base);
+  --foreground: var(--text-primary);
+}
+
+.dark {
+  /* Mode Dark */
+  --bg-base: #130B2E;
+  --bg-secondary: #1E1045;
+  --surface: rgba(45, 25, 90, 0.60);
+  --surface-high: rgba(60, 35, 110, 0.70);
+  --border: rgba(130, 80, 220, 0.25);
+  --border-strong: rgba(0, 212, 232, 0.30);
+
+  --accent-primary: #00D4E8; /* Cyan électrique */
+  --accent-primary-light: #67E8F9;
+  --accent-secondary: #FF6B35; /* Orange vif */
+  --accent-success: #00E676;
+  --accent-warning: #FFB020;
+
+  --text-primary: #FFFFFF;
+  --text-secondary: #A89CC8;
+  --text-muted: #6B5B95;
+
+  --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.4);
+  --shadow-hover: 0 8px 32px rgba(0, 0, 0, 0.6);
+  
+  --background: var(--bg-base);
+  --foreground: var(--text-primary);
 }
 
 body {
@@ -55,52 +98,94 @@ body {
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* 
- * Strategic Design Pillars (Sable & Cuivre)
+ * Strategic Design Pillars (Premium Glassmorphism)
  */
 
-/* 1. Tonal Layering (Vertical stacking without lines) */
+/* 1. Tonal Layering */
 .tonal-layer-low {
-  background-color: #f6f3ef;
+  background-color: var(--bg-secondary);
 }
 .tonal-layer-high {
-  background-color: #ebe8e4;
+  background-color: var(--surface-high);
 }
 
-/* 2. Glassmorphism & Atmospheric Depth */
+/* 2. Card & Widget UI */
+.widget-card {
+  background: var(--surface);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border);
+  border-radius: 1.5rem;
+  box-shadow: var(--shadow-card);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+}
+
+.widget-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-hover);
+}
+
+.dark .widget-card {
+  background: rgba(45, 25, 90, 0.4);
+  border: 1px solid rgba(130, 80, 220, 0.2);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+}
+
+.dark .widget-card:hover {
+  border-color: rgba(130, 80, 220, 0.4);
+  background: rgba(45, 25, 90, 0.5);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+}
+
+/* 3. Glassmorphism & Atmospheric Depth */
 .glass-panel {
-  background: rgba(255, 255, 255, 0.6);
-  backdrop-filter: blur(30px);
-  -webkit-backdrop-filter: blur(30px);
-  border: 1px solid rgba(216, 195, 180, 0.15); /* Ghost Border */
+  background: var(--surface);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border);
 }
 
-/* 3. Ghost Interfaces & Copper Accents */
-.copper-gradient {
-  background: linear-gradient(45deg, #894d0d 0%, #a76526 100%);
+.dark .glass-panel {
+  background: rgba(45, 25, 90, 0.4);
+  border: 1px solid rgba(130, 80, 220, 0.2);
 }
 
-.copper-glow {
-  box-shadow: 0 0 20px rgba(184, 115, 51, 0.4);
+/* 4. Neon & Accents */
+.neon-glow {
+  box-shadow: 0 0 15px var(--accent-primary);
+}
+
+.text-gradient {
+  background: linear-gradient(to right, var(--accent-primary), var(--accent-primary-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.accent-gradient {
+  background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-primary-light) 100%);
 }
 
 .no-line {
   border: none !important;
 }
 
-.text-gradient-copper {
-  background: linear-gradient(to right, #894d0d, #a76526);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+/* Soft Radial Gradient for Background */
+.bg-mesh {
+  background-image: radial-gradient(at 0% 0%, rgba(124, 58, 237, 0.05) 0px, transparent 50%),
+                    radial-gradient(at 100% 100%, rgba(0, 212, 232, 0.05) 0px, transparent 50%);
 }
 
-/* Paper Texture (The Celestial Atelier base) */
-.paper-texture {
-  background-color: #fcf9f5;
-  background-image: radial-gradient(#d8c3b4 0.5px, transparent 0.5px);
-  background-size: 24px 24px;
+.dark .bg-mesh {
+  background-image: radial-gradient(at 0% 0%, rgba(30, 16, 69, 1) 0px, transparent 50%),
+                    radial-gradient(at 100% 100%, rgba(19, 11, 46, 1) 0px, transparent 50%);
 }
+
+
 

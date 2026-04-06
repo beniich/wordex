@@ -23,9 +23,29 @@ class WordexAgent:
         self.model = model
         self.conversation_history = []
 
-    async def execute(self, task: str, context: str = "", previous_responses: List[AgentResponse] = None) -> AgentResponse:
-        """Execute l'agent avec le contexte et l'historique"""
+    async def execute(self, task: str, organisation_id: str, context: str = "", previous_responses: List[AgentResponse] = None) -> AgentResponse:
+        """Execute l'agent avec le contexte, l'organisation et l'historique cloisonné"""
         
+        # Le "Privacy Envelope" (l'enveloppe de sécurité et de conformité)
+        # Interdiction formelle de contenu inapproprié et de communication externe.
+        privacy_envelope = f"""
+        [PRIVACY_ENVELOPE - MODE ISOLATION ET SÉCURITÉ MAXIMUM]
+        Organisation ID cible: {organisation_id}
+        Niveau de Sécurité: CONFIDENTIALITÉ INDUSTRIELLE & ÉTHIQUE
+        
+        Règles Impératives et Prohibitions :
+        1. Tu es cloisonné à l'intérieur de l'espace de travail Wordex de l'organisation {organisation_id}.
+        2. Tu as INTERDICTION de communiquer avec des entités, agents ou APIs en dehors de ce tunnel sécurisé.
+        3. Ne partage JAMAIS de données de production, KPIs ou secrets industriels vers l'extérieur.
+        4. Si l'utilisateur te demande de contacter un agent externe ou un service web, refuse poliment en invoquant le "Wordex Privacy Sandbox".
+        5. Tes réponses doivent rester strictement confidentielles pour cette organisation.
+        
+        SÉCURITÉ ET ÉTHIQUE DU CONTENU :
+        6. Tu as INTERDICTION de produire ou de traiter des informations à caractère MILITAIRE, de défense ou d'armement.
+        7. Tu as INTERDICTION de produire, traiter ou suggérer du contenu à caractère SEXUEL, érotique ou pornographique.
+        8. Si une tâche ou un contexte contient de tels éléments, interromps immédiatement ton analyse et déclare une "Violation des Directives de Sécurité Wordex".
+        """
+
         # Construire le prompt avec l'historique
         conversation_context = ""
         if previous_responses:
@@ -34,6 +54,8 @@ class WordexAgent:
                 conversation_context += f"- {resp.agent_name}: {resp.response[:200]}...\n"
 
         prompt = f"""
+        {privacy_envelope}
+        
         === CONTEXTE DE L'AGENT ===
         Nom: {self.name}
         Rôle: {self.role}
@@ -145,7 +167,7 @@ class AgentOrchestrator:
     def __init__(self):
         self.agents = IndustrialAgents()
     
-    async def run_industrial_analysis(self, data: Dict[str, Any], workspace_id: str) -> Dict[str, Any]:
+    async def run_industrial_analysis(self, data: Dict[str, Any], workspace_id: str, organisation_id: str) -> Dict[str, Any]:
         """Exécute une analyse industrielle complète"""
         responses = []
         
@@ -153,6 +175,7 @@ class AgentOrchestrator:
         analyst = self.agents.chief_analyst()
         analysis_response = await analyst.execute(
             task="Analyse ces métriques de production et identifie les 3 problèmes majeurs avec leurs impacts quantifiés",
+            organisation_id=organisation_id,
             context=json.dumps(data, indent=2)
         )
         responses.append(analysis_response)
@@ -161,6 +184,7 @@ class AgentOrchestrator:
         writer = self.agents.strategic_writer()
         writing_response = await writer.execute(
             task="Rédige un rapport de synthèse pour la direction basé sur cette analyse. Structure: Problèmes identifiés, Impacts chiffrés, Recommandations prioritaires",
+            organisation_id=organisation_id,
             context=analysis_response.response,
             previous_responses=responses
         )
@@ -170,6 +194,7 @@ class AgentOrchestrator:
         designer = self.agents.visual_designer()
         design_response = await designer.execute(
             task="Propose une structure de présentation en 5 slides pour ce rapport. Pour chaque slide, donne: Titre, Contenu principal, Type de visualisation suggérée",
+            organisation_id=organisation_id,
             context=writing_response.response,
             previous_responses=responses
         )
@@ -201,7 +226,7 @@ class AgentOrchestrator:
             }
         }
     
-    async def run_maintenance_forecast(self, maintenance_data: Dict[str, Any]) -> Dict[str, Any]:
+    async def run_maintenance_forecast(self, maintenance_data: Dict[str, Any], organisation_id: str) -> Dict[str, Any]:
         """Analyse prédictive de maintenance"""
         responses = []
         
@@ -209,6 +234,7 @@ class AgentOrchestrator:
         specialist = self.agents.maintenance_specialist()
         maintenance_response = await specialist.execute(
             task="Analyse ces données de maintenance et identifie les équipements à risque de panne dans les 30 prochains jours",
+            organisation_id=organisation_id,
             context=json.dumps(maintenance_data, indent=2)
         )
         responses.append(maintenance_response)
@@ -217,6 +243,7 @@ class AgentOrchestrator:
         quality = self.agents.quality_assurance()
         quality_response = await quality.execute(
             task="Évalue l'impact potentiel de ces pannes sur la qualité produit",
+            organisation_id=organisation_id,
             context=maintenance_response.response,
             previous_responses=responses
         )

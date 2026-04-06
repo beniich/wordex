@@ -33,13 +33,13 @@ export function TRSOEEWidget() {
   }, [workspaceId, selectedTimeframe]);
 
   return (
-    <div className="trs-oee-widget bg-[#F5F1E6]/40 backdrop-blur-md rounded-2xl p-6 border border-[#A67B5B]/30 shadow-xl">
+    <div className="trs-oee-widget widget-card !p-6">
       <div className="flex items-center justify-between mb-6">
-        <h3 className="text-sm font-black uppercase tracking-[0.2em] text-primary">TRS/OEE par Machine</h3>
+        <h3 className="text-sm font-black uppercase tracking-[0.2em] text-[var(--accent-primary)]">TRS/OEE par Machine</h3>
         <select 
           value={selectedTimeframe} 
           onChange={(e) => setSelectedTimeframe(e.target.value)}
-          className="bg-white/50 border border-[#A67B5B]/20 rounded-lg px-3 py-1.5 text-xs font-bold text-[#524439] outline-none"
+          className="bg-[var(--surface-high)] border border-[var(--border)] rounded-lg px-3 py-1.5 text-xs font-bold text-[var(--text-primary)] outline-none"
           title="Timeframe"
         >
           <option value="1h">1 heure</option>
@@ -51,10 +51,10 @@ export function TRSOEEWidget() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {machinesData.map((machine) => (
-          <div key={machine.machine} className="bg-white/60 p-4 rounded-xl border border-[#DCC6A0]/30 shadow-sm hover:shadow-md transition-all group">
+          <div key={machine.machine} className="bg-[var(--bg-secondary)]/50 p-4 rounded-xl border border-[var(--border)] shadow-sm hover:shadow-md transition-all group">
             <div className="flex items-center justify-between mb-4">
-              <span className="text-xs font-black text-[#1c1c1a] uppercase">{machine.machine}</span>
-              <span className="text-lg font-black text-[#A67B5B] italic">{machine.oee}%</span>
+              <span className="text-xs font-black text-[var(--text-primary)] uppercase">{machine.machine}</span>
+              <span className="text-lg font-black text-[var(--accent-primary)] italic">{machine.oee}%</span>
             </div>
             
             <div className="flex gap-2 mb-4">
@@ -69,13 +69,13 @@ export function TRSOEEWidget() {
                   <Line 
                     type="monotone" 
                     dataKey="value" 
-                    stroke="#A67B5B" 
+                    stroke="var(--accent-primary)" 
                     strokeWidth={3}
                     dot={false}
                     className="drop-shadow-sm"
                   />
                   <Tooltip 
-                    contentStyle={{ borderRadius: '12px', border: '1px solid #DCC6A0', background: 'rgba(255,255,255,0.9)', fontSize: '10px' }}
+                    contentStyle={{ borderRadius: '12px', border: '1px solid var(--border)', background: 'var(--surface)', fontSize: '10px' }}
                   />
                 </LineChart>
               </ResponsiveContainer>
@@ -89,9 +89,9 @@ export function TRSOEEWidget() {
 
 function KPIBadge({ label, value, suffix = '' }: { label: string; value: number; suffix?: string }) {
   const getColor = () => {
-    if (value >= 85) return 'text-emerald-600 bg-emerald-50 border-emerald-100';
-    if (value >= 70) return 'text-amber-600 bg-amber-50 border-amber-100';
-    return 'text-red-600 bg-red-50 border-red-100';
+    if (value >= 85) return 'text-[var(--accent-success)] bg-[var(--accent-success)]/10 border-[var(--accent-success)]/20';
+    if (value >= 70) return 'text-[var(--accent-warning)] bg-[var(--accent-warning)]/10 border-[var(--accent-warning)]/20';
+    return 'text-[var(--accent-secondary)] bg-[var(--accent-secondary)]/10 border-[var(--accent-secondary)]/20';
   };
 
   return (
@@ -101,3 +101,4 @@ function KPIBadge({ label, value, suffix = '' }: { label: string; value: number;
     </div>
   );
 }
+

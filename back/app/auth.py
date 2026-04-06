@@ -58,3 +58,16 @@ async def get_current_user_id(
     if payload.get("kind") != "access":
         raise HTTPException(status_code=401, detail="Access token required")
     return payload["sub"]
+
+async def get_current_org_id(user_id: str = Depends(get_current_user_id)) -> str:
+    """Récupère l'organisation_id de l'utilisateur actuel"""
+    from prisma import Prisma
+    db = Prisma()
+    await db.connect()
+    try:
+        user = await db.user.find_unique(where={"id": user_id})
+        if not user or not user.organisation_id:
+            raise HTTPException(status_code=403, detail="L'utilisateur n'appartient à aucune organisation")
+        return user.organisation_id
+    finally:
+        await db.disconnect()
