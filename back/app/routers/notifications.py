@@ -7,6 +7,7 @@ routers/notifications.py — Notifications in-app
 """
 import asyncio
 import json
+import uuid
 from datetime import datetime
 from typing import Optional
 
@@ -17,6 +18,7 @@ from pydantic import BaseModel
 
 from app.database import get_db
 from app.auth import get_current_user_id
+from app.models import NotificationCreate, NotificationOut
 
 router = APIRouter()
 
@@ -39,19 +41,11 @@ async def push_to_workspace(db: asyncpg.Connection, workspace_id: str, payload: 
             await _push_to_user(uid, payload)
 
 # ── Modèles ───────────────────────────────────────────────────────────────────
-
-class NotifCreate(BaseModel):
-    recipient_id:  str
-    actor_id:      str
-    notif_type:    str      # mention | share | comment | version_restore | member_added
-    entity_type:   str      # document | workspace | file
-    entity_id:     str
-    entity_title:  Optional[str] = None
-    message:       Optional[str] = None
+# (Les modèles NotificationCreate et NotificationOut sont importés de app.models)
 
 # ── Fonction utilitaire (appelée par d'autres routers) ───────────────────────
 
-async def create_notification(db: asyncpg.Connection, data: NotifCreate) -> dict:
+async def create_notification(db: asyncpg.Connection, data: NotificationCreate) -> dict:
     if data.recipient_id == data.actor_id:
         return {}   # pas de notif à soi-même
 
@@ -90,12 +84,12 @@ async def handle_notification_event(event_type: str, payload: dict):
             # Notify document owner
             doc = await db.fetchrow("SELECT created_by, title FROM documents WHERE id=$1", doc_id)
             if doc and doc["created_by"] and str(doc["created_by"]) != author_id:
-                notif_data = NotifCreate(
-                    recipient_id=str(doc["created_by"]),
-                    actor_id=author_id,
+                notif_data = NotificationCreate(
+                    recipient_id=uuid.UUID(str(doc["created_by"])),
+                    actor_id=uuid.UUID(author_id),
                     notif_type="comment",
                     entity_type="document",
-                    entity_id=doc_id,
+                    entity_id=uuid.UUID(doc_id),
                     entity_title=doc["title"],
                     message="New comment on your document"
                 )
@@ -143,7 +137,7 @@ async def sse_stream(
         },
     )
 
-@router.get("/")
+@router.get("/", response_model=list[NotificationOut])
 async def list_notifications(
     unread_only: bool = Query(False),
     limit: int        = Query(30, le=100),
@@ -152,7 +146,7 @@ async def list_notifications(
 ):
     filter_sql = "AND is_read = false" if unread_only else ""
     rows = await db.fetch(
-        f"""SELECT n.id, n.notif_type, n.entity_type, n.entity_id,
+        f"""SELECT n.id, n.recipient_id, n.actor_id, n.notif_type, n.entity_type, n.entity_id,
                    n.entity_title, n.message, n.is_read, n.created_at,
                    u.username AS actor_name, u.avatar_url AS actor_avatar
             FROM notifications n

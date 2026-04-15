@@ -9,7 +9,7 @@ from app.database import get_db
 
 from app.models import MachineCreate, MachineMetricCreate, ProductionRunCreate, AmdecFailureCreate
 
-# ... (previous GET endpoints) ...
+router = APIRouter()
 
 # ── Write Endpoints ───────────────────────────────────────────────────────────
 

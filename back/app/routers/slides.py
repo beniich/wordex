@@ -1,17 +1,16 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Body
+from fastapi.responses import StreamingResponse
 import asyncpg
 from typing import Dict, Any
+import json
+import uuid
+import io
 
 from app.database import get_db
 from app.auth import get_current_user_id
 from app.routers.documents import update_document, get_document, list_versions, restore_version
 from app.models import DocumentUpdate
 from app.routers.ai import ollama_generate, SYSTEM_PROMPTS
-import json
-import uuid
-import io
-from fastapi import APIRouter, Depends, HTTPException, Body
-from fastapi.responses import StreamingResponse
 
 router = APIRouter()
 

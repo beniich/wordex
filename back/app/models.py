@@ -76,6 +76,17 @@ class DocumentOut(BaseModel):
     created_at: datetime
     updated_at: datetime
 
+class DocumentDetailOut(DocumentOut):
+    content: Optional[dict] = None
+    content_text: Optional[str] = None
+
+class DocumentSearchOut(DocumentOut):
+    snippet: Optional[str] = None
+    rank: Optional[float] = None
+
+class RoleOut(BaseModel):
+    role: str
+
 class DocumentVersionOut(BaseModel):
     id: uuid.UUID
     document_id: uuid.UUID
@@ -185,32 +196,58 @@ class AIChatMessageRequest(BaseModel):
     context: Optional[str] = None
 
 
-#  Dashboard 
+
+#  Dashboard
 
 class MachineCreate(BaseModel):
     name: str
-    machine_type: str = " press\
- location: Optional[str] = None
- status: str = \online\
+    machine_type: str = "press"
+    location: Optional[str] = None
+    status: str = "online"
 
 class MachineMetricCreate(BaseModel):
- machine_id: uuid.UUID
- availability: int = Field(ge=0, le=100)
- performance: int = Field(ge=0, le=100)
- quality: int = Field(ge=0, le=100)
- shift: str = \morning\
+    machine_id: uuid.UUID
+    availability: int = Field(ge=0, le=100)
+    performance: int = Field(ge=0, le=100)
+    quality: int = Field(ge=0, le=100)
+    shift: str = "morning"
 
 class ProductionRunCreate(BaseModel):
- machine_id: uuid.UUID
- shift: str
- target_lots: int = 250
- actual_lots: int = 0
- date: Optional[str] = None
+    machine_id: uuid.UUID
+    shift: str
+    target_lots: int = 250
+    actual_lots: int = 0
+    date: Optional[str] = None
 
 class AmdecFailureCreate(BaseModel):
- machine_id: uuid.UUID
- mode: str
- severity: int = Field(ge=1, le=10)
- occurrence: int = Field(ge=1, le=10)
- detection: int = Field(ge=1, le=10)
- status: str = \open\
+    machine_id: uuid.UUID
+    mode: str
+    severity: int = Field(ge=1, le=10)
+    occurrence: int = Field(ge=1, le=10)
+    detection: int = Field(ge=1, le=10)
+    status: str = "open"
+
+# ── Notifications ─────────────────────────────────────────────────────────────
+
+class NotificationCreate(BaseModel):
+    recipient_id: uuid.UUID
+    actor_id: uuid.UUID
+    notif_type: str      # mention | share | comment | version_restore | member_added
+    entity_type: str      # document | workspace | file
+    entity_id: uuid.UUID
+    entity_title: Optional[str] = None
+    message: Optional[str] = None
+
+class NotificationOut(BaseModel):
+    id: uuid.UUID
+    recipient_id: uuid.UUID
+    actor_id: uuid.UUID
+    notif_type: str
+    entity_type: str
+    entity_id: uuid.UUID
+    entity_title: Optional[str]
+    message: Optional[str]
+    is_read: bool
+    created_at: datetime
+    actor_name: Optional[str] = None
+    actor_avatar: Optional[str] = None

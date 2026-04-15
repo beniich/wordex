@@ -1,0 +1,55 @@
+{
+  "name": "Wordex Backend Dev",
+  "dockerComposeFile": "../docker-compose.dev.yml",
+  "service": "backend",
+  "workspaceFolder": "/app",
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "ms-python.debugpy",
+        "charliermarsh.ruff",
+        "ms-azuretools.vscode-docker",
+        "humao.rest-client",
+        "redhat.vscode-yaml",
+        "ms-vsliveshare.vsliveshare",
+        "GitHub.copilot"
+      ],
+      "settings": {
+        "python.defaultInterpreterPath": "/usr/local/bin/python",
+        "python.linting.enabled": true,
+        "editor.formatOnSave": true,
+        "python.formatting.provider": "none",
+        "[python]": {
+          "editor.defaultFormatter": "charliermarsh.ruff"
+        },
+        "terminal.integrated.defaultProfile.linux": "bash"
+      }
+    }
+  },
+
+  "forwardPorts": [8000, 11434, 5432, 6379, 9000, 9001, 1234],
+
+  "portsAttributes": {
+    "8000": { "label": "🐍 FastAPI Backend", "onAutoForward": "notify" },
+    "11434": { "label": "🤖 Ollama LLM", "onAutoForward": "silent" },
+    "5432": { "label": "🐘 PostgreSQL", "onAutoForward": "silent" },
+    "6379": { "label": "⚡ Redis", "onAutoForward": "silent" },
+    "9000": { "label": "📦 MinIO S3", "onAutoForward": "silent" }
+  },
+
+  "postCreateCommand": "pip install -r /app/requirements.txt",
+
+  "postStartCommand": "echo '✅ Wordex Backend Dev Container ready!'",
+
+  "remoteEnv": {
+    "OLLAMA_BASE_URL": "http://ollama:11434",
+    "LLM_STUDIO_URL": "http://ollama:11434/v1",
+    "OLLAMA_MODEL": "llama3.2:3b",
+    "REDIS_URL": "redis://redis:6379",
+    "DATABASE_URL": "postgresql://collab:collab@db:5432/collabdb",
+    "ENVIRONMENT": "development"
+  }
+}

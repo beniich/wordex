@@ -1,6 +1,6 @@
 from fastapi import APIRouter, UploadFile, File, Form, Depends, HTTPException, status
 from app.services.audio_ai import AudioAIService
-from app.auth import get_current_user
+from app.auth import get_current_user_id
 from typing import Dict, Any
 
 router = APIRouter(prefix="/audio", tags=["Audio Intelligence"])
@@ -9,7 +9,7 @@ router = APIRouter(prefix="/audio", tags=["Audio Intelligence"])
 async def process_audio_command(
     audio_file: UploadFile = File(...),
     action: str = Form("summarize"),
-    current_user: dict = Depends(get_current_user)
+    user_id: str = Depends(get_current_user_id)
 ) -> Dict[str, Any]:
     """
     Process an audio recording: Transcribe with Whisper (local) and Analyze with Ollama (local).
@@ -27,7 +27,7 @@ async def process_audio_command(
         return {
             "success": True,
             "data": result,
-            "user": current_user.get("username")
+            "user_id": user_id
         }
     except Exception as e:
         raise HTTPException(
