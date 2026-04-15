@@ -1,0 +1,8 @@
+{
+  "name": "wordex-root",
+  "private": true,
+  "scripts": {
+    "build": "npm run build --prefix front/wordex-lit-app",
+    "install": "npm install --prefix front/wordex-lit-app"
+  }
+}
