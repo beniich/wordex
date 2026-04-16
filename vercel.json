@@ -1,0 +1,6 @@
+{
+  "buildCommand": "npm run build --prefix front/wordex-lit-app",
+  "outputDirectory": "front/wordex-lit-app/dist",
+  "installCommand": "npm install --prefix front/wordex-lit-app",
+  "framework": null
+}

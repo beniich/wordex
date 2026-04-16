@@ -15,7 +15,8 @@ from app.routers import (
     auth, users, documents, workspaces, files, folders, 
     search, notifications, comments, ai, exports, webhooks, 
     audio, sheets, slides, dashboard, gantt, analytics, 
-    agents, organisations, stripe_billing, proxy
+    agents, organisations, stripe_billing, proxy,
+    office_hub
 )
 from app.services.event_bus import event_bus
 from app.services.webhook_service import webhook_service
@@ -118,6 +119,7 @@ app.include_router(analytics.router,       prefix="/api/analytics",       tags=[
 app.include_router(agents.router,                                         tags=["🤖 Multi-Agent Crew"])
 app.include_router(organisations.router,   prefix="/api/organisations",   tags=["🏢 Organisations"])
 app.include_router(stripe_billing.router,  prefix="/api/billing",         tags=["💳 Billing & Stripe"])
+app.include_router(office_hub.router,      prefix="/api/office",          tags=["🏢 Office Hub & SOC2"])
 app.include_router(proxy.router)
 
 # --- Health Check ---
