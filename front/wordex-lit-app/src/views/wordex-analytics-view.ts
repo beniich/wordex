@@ -1,7 +1,7 @@
 import { LitElement, html, css } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
-import { apiFetch } from '../services/api-client';
 import { workspaceService } from '../services/workspace-service';
+import { analyticsService } from '../services/analytics-service';
 
 @customElement('wordex-analytics-view')
 export class WordexAnalyticsView extends LitElement {
@@ -48,13 +48,10 @@ export class WordexAnalyticsView extends LitElement {
       const workspaces = await workspaceService.getWorkspaces();
       if (workspaces.length > 0) {
         const wsId = workspaces[0].id;
-        const [resA, resV] = await Promise.all([
-          apiFetch(`/analytics/${wsId}`),
-          apiFetch(`/analytics/${wsId}/variables`)
+        const [dataA, dataV] = await Promise.all([
+          analyticsService.getAnalytics(wsId),
+          analyticsService.getVariables(wsId)
         ]);
-
-        const dataA = await resA.json();
-        const dataV = await resV.json();
         
         this.valuation = dataA.data?.valuation || 12500000;
         this.irr = dataA.data?.irr || 14.8;
