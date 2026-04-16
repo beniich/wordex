@@ -1,6 +1,7 @@
 import { LitElement, html, css } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
-import { sheetsService, SpreadsheetContent } from '../services/sheets-service';
+import { sheetsService } from '../services/sheets-service';
+import type { SpreadsheetContent } from '../services/sheets-service';
 
 @customElement('wordex-sheet-view')
 export class WordexSheetView extends LitElement {
@@ -59,7 +60,7 @@ export class WordexSheetView extends LitElement {
 
   @state() private docId: string | null = null;
   @state() private content: SpreadsheetContent = { cells: {}, metadata: { version: 1 } };
-  @state() private loading = false;
+  @state() private _loading = false;
   @state() private rows = 30;
   @state() private cols = 15;
 
@@ -74,13 +75,13 @@ export class WordexSheetView extends LitElement {
 
   async fetchSheet() {
     if (!this.docId) return;
-    this.loading = true;
+    this._loading = true;
     try {
       this.content = await sheetsService.getSheet(this.docId);
     } catch (e) {
       console.warn("Sheet service unavailable, using empty grid.");
     } finally {
-      this.loading = false;
+      this._loading = false;
     }
   }
 
@@ -92,13 +93,13 @@ export class WordexSheetView extends LitElement {
 
   async save() {
     if (!this.docId) return;
-    this.loading = true;
+    this._loading = true;
     try {
       await sheetsService.updateSheet(this.docId, this.content);
     } catch (e) {
       alert("Erreur lors de la sauvegarde.");
     } finally {
-      this.loading = false;
+      this._loading = false;
     }
   }
 
@@ -110,9 +111,13 @@ export class WordexSheetView extends LitElement {
       </header>
 
       <div class="toolbar">
-        <button class="btn btn-primary" @click=${this.save}>Sauvegarder</button>
+        <button class="btn btn-primary" @click=${this.save} ?disabled=${this._loading}>
+          ${this._loading ? 'Sauvegarde...' : 'Sauvegarder'}
+        </button>
         <button class="btn" @click=${() => window.print()}>Imprimer</button>
-        <div style="flex: 1;"></div>
+        <div style="flex: 1; display:flex; align-items:center; gap: 10px;">
+          ${this._loading ? html`<div class="spinner" style="width:16px; height:16px; border-width:2px; margin:0;"></div>` : ''}
+        </div>
         <span style="font-size: 0.75rem; color: #857467; font-weight: 600;">ISO 27001 PROTECTED LAYER</span>
       </div>
 

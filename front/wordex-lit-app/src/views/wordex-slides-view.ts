@@ -1,6 +1,7 @@
 import { LitElement, html, css } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
-import { slidesService, Presentation } from '../services/slides-service';
+import { slidesService } from '../services/slides-service';
+import type { Presentation } from '../services/slides-service';
 
 @customElement('wordex-slides-view')
 export class WordexSlidesView extends LitElement {

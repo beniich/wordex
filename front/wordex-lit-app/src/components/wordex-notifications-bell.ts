@@ -1,6 +1,7 @@
 import { LitElement, html, css } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
-import { notificationsService, AppNotification } from '../services/notifications-service';
+import { notificationsService } from '../services/notifications-service';
+import type { AppNotification } from '../services/notifications-service';
 
 @customElement('wordex-notifications-bell')
 export class WordexNotificationsBell extends LitElement {

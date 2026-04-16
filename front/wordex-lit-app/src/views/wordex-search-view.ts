@@ -1,6 +1,7 @@
 import { LitElement, html, css } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
-import { searchService, SearchResult } from '../services/search-service';
+import { searchService } from '../services/search-service';
+import type { SearchResult } from '../services/search-service';
 import { workspaceService } from '../services/workspace-service';
 
 @customElement('wordex-search-view')
@@ -159,6 +160,7 @@ export class WordexSearchView extends LitElement {
               title: doc.title,
               doc_type: doc.doc_type,
               updated_at: doc.updated_at,
+              created_by: 'system',
               result_type: 'document',
               rank: 1
             }))}

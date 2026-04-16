@@ -1,6 +1,7 @@
 import { LitElement, html, css } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
-import { organisationService, Organisation } from '../services/organisation-service';
+import { organisationService } from '../services/organisation-service';
+import type { Organisation } from '../services/organisation-service';
 
 @customElement('wordex-organisations-view')
 export class WordexOrganisationsView extends LitElement {
