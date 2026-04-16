@@ -1,0 +1,56 @@
+name: Build & Release Wordex (Electron + LLM Studio)
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+
+      # ---------- 1️⃣  Install Node + Yarn ----------
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20"
+
+      # ---------- 2️⃣  Install Rust ----------
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      # ---------- 3️⃣  Install LLM Studio binary ----------
+      - name: Install LLM Studio
+        run: |
+          chmod +x ./scripts/install-llmstudio.sh
+          ./scripts/install-llmstudio.sh
+
+      # ---------- 4️⃣  Build Front (Lit) ----------
+      - name: Build Front
+        working-directory: ./front/wordex-lit-app
+        run: |
+          npm install
+          npm run build
+
+      # ---------- 5️⃣  Build Electron + package ----------
+      - name: Build Electron
+        working-directory: ./electron
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          npm install
+          npm run build          # lance electron-builder
+          # le binaire .exe/.dmg/.AppImage sera dans electron/dist/
+
+      # ---------- 6️⃣  Upload Artifacts ----------
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: wordex-${{ matrix.os }}
+          path: ./electron/dist/*

@@ -1,0 +1,104 @@
+version: '3.8'
+
+services:
+  # ─── Ollama AI Agent ────────────────────────────────────────────
+  ollama:
+    image: ollama/ollama:latest
+    container_name: wordex_ollama_dev
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    environment:
+      - OLLAMA_HOST=0.0.0.0
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:11434/api/tags"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    networks:
+      - wordex_net
+
+  # ─── Redis Cache ──────────────────────────────────────────────────
+  redis:
+    image: redis:7-alpine
+    container_name: wordex_redis_dev
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    restart: unless-stopped
+    networks:
+      - wordex_net
+
+  # ─── PostgreSQL Database ──────────────────────────────────────────
+  db:
+    image: postgres:16-alpine
+    container_name: wordex_db_dev
+    environment:
+      POSTGRES_USER: collab
+      POSTGRES_PASSWORD: collab
+      POSTGRES_DB: collabdb
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U collab"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - wordex_net
+
+  # ─── MinIO Object Storage ─────────────────────────────────────────
+  minio:
+    image: minio/minio:latest
+    container_name: wordex_minio_dev
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - minio_data:/data
+    networks:
+      - wordex_net
+
+  # ─── Backend (FastAPI) ────────────────────────────────────────────
+  backend:
+    build:
+      context: ./back
+      dockerfile: Dockerfile
+    container_name: wordex_backend_dev
+    environment:
+      - OLLAMA_BASE_URL=http://ollama:11434
+      - OLLAMA_MODEL=llama3.2:3b
+      - REDIS_URL=redis://redis:6379
+      - DATABASE_URL=postgresql://collab:collab@db:5432/collabdb
+      - MINIO_ENDPOINT=minio:9000
+      - MINIO_ACCESS_KEY=minioadmin
+      - MINIO_SECRET_KEY=minioadmin
+      - MINIO_SECURE=false
+      - ENVIRONMENT=development
+    depends_on:
+      - ollama
+      - redis
+      - db
+    volumes:
+      - ./back:/app
+    networks:
+      - wordex_net
+
+volumes:
+  ollama_data:
+  redis_data:
+  pg_data:
+  minio_data:
+
+networks:
+  wordex_net:
+    driver: bridge

@@ -1,0 +1,50 @@
+{
+  "name": "wordex",
+  "version": "1.0.0",
+  "main": "dist/main.js",
+  "scripts": {
+    "dev": "concurrently \"npm:start-react\" \"npm:start-electron\"",
+    "start-react": "cd ../front/wordex-lit-app && npm run dev",
+    "start-electron": "wait-on http://localhost:3000 && electron .",
+    "build": "npm run build-react && npm run build-electron",
+    "build-react": "cd ../front/wordex-lit-app && npm run build",
+    "build-electron": "electron-builder",
+    "postinstall": "node scripts/copy-llmstudio.js"
+  },
+  "devDependencies": {
+    "electron": "^28.0.0",
+    "electron-builder": "^24.6.0",
+    "concurrently": "^8.2.0",
+    "wait-on": "^7.2.0",
+    "cross-env": "^7.0.3"
+  },
+  "build": {
+    "appId": "com.wordex.app",
+    "productName": "Wordex",
+    "files": [
+      "dist/**/*",
+      "external/**/*",
+      "renderer/**/*"
+    ],
+    "extraFiles": [
+      {
+        "from": "external/llm-studio/lm-studio",
+        "to": "lm-studio",
+        "filter": ["**/*"]
+      },
+      {
+        "from": "external/models",
+        "to": "models"
+      }
+    ],
+    "mac": {
+      "target": "dmg"
+    },
+    "win": {
+      "target": "nsis"
+    },
+    "linux": {
+      "target": "AppImage"
+    }
+  }
+}

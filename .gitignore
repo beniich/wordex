@@ -17,3 +17,5 @@ pg_data/
 redis_data/
 ollama_data/
 minio_data/
+ia_office_hub_copy/
+ia_office_hub/

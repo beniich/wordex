@@ -20,7 +20,7 @@ def get_db_pool() -> asyncpg.Pool:
 
 async def _create_tables():
     async with _pool.acquire() as conn:
-        await conn.execute("""
+        query = """
             CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
             CREATE EXTENSION IF NOT EXISTS "pgcrypto";
 
@@ -74,7 +74,7 @@ async def _create_tables():
                 updated_at   TIMESTAMPTZ DEFAULT now(),
                 search_vec   TSVECTOR
                     GENERATED ALWAYS AS (
-                        to_tsvector('french', coalesce(title, '') || ' ' || coalesce(content_text, ''))
+                        to_tsvector('__FTS_LANG__', coalesce(title, '') || ' ' || coalesce(content_text, ''))
                     ) STORED
             );
 
@@ -196,7 +196,7 @@ async def _create_tables():
                 availability INT CHECK (availability BETWEEN 0 AND 100),
                 performance  INT CHECK (performance BETWEEN 0 AND 100),
                 quality      INT CHECK (quality BETWEEN 0 AND 100),
-                oee          INT GENERATED ALWAYS AS (availability * performance * quality / 10000) STORED,
+                oee          NUMERIC(5,2) GENERATED ALWAYS AS (availability * performance * quality / 10000.0) STORED,
                 shift        TEXT DEFAULT 'morning'
             );
 
@@ -277,4 +277,6 @@ async def _create_tables():
                 response    TEXT,
                 delivered_at TIMESTAMPTZ DEFAULT now()
             );
-        """)
+        """
+        query = query.replace("__FTS_LANG__", os.getenv("FTS_LANGUAGE", "french"))
+        await conn.execute(query)

@@ -25,13 +25,13 @@ services:
   ollama:
     image: ollama/ollama:latest
     container_name: wordex_ollama
-    ports:
-      - "11434:11434"
+    # ports:
+    #  - "127.0.0.1:11434:11434"
     volumes:
       - ollama_data:/root/.ollama
     environment:
       - OLLAMA_HOST=0.0.0.0
-      - OLLAMA_ORIGINS=*
+      - OLLAMA_ORIGINS=${OLLAMA_ORIGINS:-http://localhost:3000,http://localhost:5173}
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:11434/api/tags"]
@@ -92,9 +92,9 @@ services:
     image: postgres:16-alpine
     container_name: wordex_db
     environment:
-      POSTGRES_USER:     collab
-      POSTGRES_PASSWORD: collab
-      POSTGRES_DB:       collabdb
+      POSTGRES_USER:     ${POSTGRES_USER:-collab}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-collab}
+      POSTGRES_DB:       ${POSTGRES_DB:-collabdb}
     ports:
       - "5432:5432"
     volumes:
@@ -113,8 +113,8 @@ services:
     container_name: wordex_minio
     command: server /data --console-address ":9001"
     environment:
-      MINIO_ROOT_USER:     minioadmin
-      MINIO_ROOT_PASSWORD: minioadmin
+      MINIO_ROOT_USER:     ${MINIO_ROOT_USER:-minioadmin}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-minioadmin}
     ports:
       - "9000:9000"
       - "9001:9001"
@@ -135,7 +135,7 @@ services:
       - OLLAMA_BASE_URL=http://ollama:11434
       - OLLAMA_MODEL=llama3.2:3b
       - REDIS_URL=redis://redis:6379
-      - SECRET_KEY=${SECRET_KEY:-wordex-super-secret-key-change-in-prod}
+      - JWT_SECRET=${JWT_SECRET:-wordex-super-secret-key-change-in-prod}
       - DATABASE_URL=postgresql://collab:collab@db:5432/collabdb
       - MINIO_ENDPOINT=minio:9000
       - MINIO_ACCESS_KEY=minioadmin
@@ -182,24 +182,16 @@ services:
     networks:
       - wordex_net
 
-  # ─── Frontend (Next.js) ───────────────────────────────────────────
+  # ─── Frontend (Lit) ───────────────────────────────────────────────
   frontend:
     build:
-      context: ./front/wordex-app
+      context: ./front/wordex-lit-app
       dockerfile: Dockerfile
     container_name: wordex_frontend
     ports:
       - "3000:3000"
-    environment:
-      - NEXT_PUBLIC_API_URL=http://localhost:8000
-      - NEXT_PUBLIC_OLLAMA_URL=http://localhost:11434
-      - NEXT_PUBLIC_WS_URL=ws://localhost:1234
     depends_on:
       - backend
-    volumes:
-      - ./front/wordex-app:/app
-      - /app/node_modules
-      - /app/.next
     restart: unless-stopped
     networks:
       - wordex_net

@@ -6,6 +6,7 @@ from datetime import datetime
 from pydantic import BaseModel
 
 OLLAMA_BASE_URL = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
+LLM_STUDIO_URL = os.getenv("LLM_STUDIO_URL", "http://localhost:11434/v1")
 DEFAULT_MODEL = os.getenv("OLLAMA_MODEL", "llama3.2:3b")
 
 class AgentResponse(BaseModel):
@@ -86,14 +87,27 @@ class WordexAgent:
 
         try:
             async with httpx.AsyncClient(timeout=120.0) as client:
-                resp = await client.post(f"{OLLAMA_BASE_URL}/api/generate", json=payload)
+                # Use OpenAI-compatible endpoint
+                payload_openai = {
+                    "model": self.model,
+                    "messages": [
+                        {"role": "system", "content": f"{self.role}. {self.goal}. {self.backstory}"},
+                        {"role": "user", "content": prompt}
+                    ],
+                    "temperature": 0.7,
+                    "max_tokens": 1024,
+                    "stream": False
+                }
+                resp = await client.post(f"{LLM_STUDIO_URL}/chat/completions", json=payload_openai)
                 response_data = resp.json()
+                
+                content = response_data.get("choices", [{}])[0].get("message", {}).get("content", "")
                 
                 agent_response = AgentResponse(
                     agent_name=self.name,
-                    response=response_data.get("response", ""),
+                    response=content,
                     timestamp=datetime.now(),
-                    tokens_used=response_data.get("eval_count", 0)
+                    tokens_used=response_data.get("usage", {}).get("total_tokens", 0)
                 )
                 
                 # Stocker dans l'historique

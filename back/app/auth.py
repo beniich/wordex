@@ -8,6 +8,8 @@ import jwt
 from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 
+from app.database import get_db_pool
+
 SECRET_KEY     = os.getenv("JWT_SECRET", "change-me-in-production-please")
 ALGORITHM      = "HS256"
 ACCESS_EXPIRE  = int(os.getenv("JWT_ACCESS_MINUTES",  "30"))
@@ -59,15 +61,37 @@ async def get_current_user_id(
         raise HTTPException(status_code=401, detail="Access token required")
     return payload["sub"]
 
+async def get_current_user(
+    user_id: str = Depends(get_current_user_id)
+) -> dict:
+    pool = get_db_pool()
+    if not pool:
+        raise HTTPException(status_code=500, detail="Database non initialisée")
+    
+    async with pool.acquire() as conn:
+        user = await conn.fetchrow(
+            "SELECT id, email, username, role, provider, created_at FROM users WHERE id = $1", 
+            user_id
+        )
+        if not user:
+            raise HTTPException(status_code=404, detail="User not found")
+        # Ensure we return a dict with 'sub' and 'email' for compatibility with older code
+        u = dict(user)
+        u["sub"] = str(u["id"])
+        return u
+
+
+
 async def get_current_org_id(user_id: str = Depends(get_current_user_id)) -> str:
-    """Récupère l'organisation_id de l'utilisateur actuel"""
-    from prisma import Prisma
-    db = Prisma()
-    await db.connect()
-    try:
-        user = await db.user.find_unique(where={"id": user_id})
-        if not user or not user.organisation_id:
-            raise HTTPException(status_code=403, detail="L'utilisateur n'appartient à aucune organisation")
-        return user.organisation_id
-    finally:
-        await db.disconnect()
+    """Récupère un ID d'organisation isolé (actuellement basé sur le user_id)."""
+    pool = get_db_pool()
+    if not pool:
+        raise HTTPException(status_code=500, detail="Database non initialisée")
+    
+    async with pool.acquire() as conn:
+        # Prisma was deprecated and removed. We simulate the org isolation by using the user_id
+        # until the workspaces / org logic is properly extracted.
+        user = await conn.fetchrow("SELECT id FROM users WHERE id = $1", user_id)
+        if not user:
+            raise HTTPException(status_code=403, detail="Utilisateur introuvable")
+        return str(user["id"])
