@@ -36,5 +36,18 @@ export const AgentService = {
       if (done) break;
       yield decoder.decode(value, { stream: true });
     }
+  },
+
+  async chat(agentName: string, message: string, context: string = ""): Promise<{ response: string, timestamp: string }> {
+    const res = await fetch(`${API_BASE}/chat`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('wordex_token')}`
+      },
+      body: JSON.stringify({ agent_name: agentName, message, context })
+    });
+    const data = await res.json();
+    return data;
   }
 };

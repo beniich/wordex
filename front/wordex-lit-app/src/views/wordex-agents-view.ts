@@ -176,31 +176,13 @@ export class WordexAgentsView extends LitElement {
     this.msgInput = "";
     this.isGenerating = true;
 
-    // Simulate Agent response (or real fetch if backend stream is fixed)
-    // FastAPI endpoint is JSON currently, not event-stream, so we simulate streaming locally for effect.
-    this.chatLog = [...this.chatLog, { role: 'agent', content: '' }];
-    
-    const responses = [
-      "Je traite votre demande...",
-      "Analyse des paramètres de l'atelier céleste en cours.",
-      "J'ai examiné la documentation. Voici ce qu'il en ressort : ",
-      "L'efficacité synthétique est en deçà du potentiel nominal.",
-      "Je génère immédiatement les slides demandées pour votre rapport."
-    ];
-    let fullText = responses[Math.floor(Math.random() * responses.length)] + " " + prompt.substring(0, 50) + "...";
-    
     try {
-      // Si FastAPI était en vrai stream, on utiliserait le iterator.
-      for (let i = 0; i < fullText.length; i++) {
-        await new Promise(r => setTimeout(r, 20)); // Typing effect
-        const currentMsgs = [...this.chatLog];
-        currentMsgs[currentMsgs.length - 1].content += fullText[i];
-        this.chatLog = currentMsgs;
-      }
+      // Appel API Réel vers le backend LLM via FastAPI
+      const result = await AgentService.chat(this.selectedAgent.id, prompt);
+      this.chatLog = [...this.chatLog, { role: 'agent', content: result.response }];
+      
     } catch(e) {
-      const currentMsgs = [...this.chatLog];
-      currentMsgs[currentMsgs.length - 1].content = "Erreur de connexion à l'Agent.";
-      this.chatLog = currentMsgs;
+      this.chatLog = [...this.chatLog, { role: 'agent', content: "Erreur de connexion à l'Agent LLM (Backend non atteignable)." }];
     } finally {
       this.isGenerating = false;
     }

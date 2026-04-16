@@ -14,6 +14,7 @@ import './views/wordex-webhooks-view';
 import './views/wordex-tracer-view';
 import './views/wordex-gantt-view';
 import './views/wordex-settings-view';
+import './components/wordex-notifications-bell';
 
 @customElement('wordex-app')
 export class WordexApp extends LitElement {
@@ -197,6 +198,10 @@ export class WordexApp extends LitElement {
 
         <div style="flex-grow: 1;"></div>
         
+        <a href="/billing" class="nav-link ${this.isActive('/billing') ? 'active' : ''}" title="Abonnements & Facturation">
+          <svg viewBox="0 0 24 24"><path d="M21 10V8a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-5"/><path d="M3 10h18"/><path d="M7 15h.01"/><path d="M11 15h2"/><path d="M16 19h4"/></svg>
+        </a>
+
         <a href="/settings" class="nav-link ${this.isActive('/settings') ? 'active' : ''}" title="Settings">
           <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09a1.65 1.65 0 00-1-1.51l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09a1.65 1.65 0 001.51-1l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33h.09a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
         </a>
@@ -207,6 +212,7 @@ export class WordexApp extends LitElement {
           <div class="brand-title">Aether Local OS</div>
         </div>
         <div style="display: flex; gap: 1rem; align-items: center;">
+          <wordex-notifications-bell></wordex-notifications-bell>
           <div style="display: flex; flex-direction: column; align-items: flex-end; justify-content: center; margin-right: 10px;">
             <span style="font-size: 0.7rem; font-weight: 800; color: #22c55e;">LOCAL GPU ACTIVE</span>
             <span style="font-size: 0.65rem; color: #857467; font-weight: 600;">0ms Latency</span>
