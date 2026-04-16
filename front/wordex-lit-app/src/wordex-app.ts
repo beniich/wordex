@@ -196,6 +196,10 @@ export class WordexApp extends LitElement {
           <svg viewBox="0 0 24 24"><path d="M3 10h18M7 10v10M11 10v10M15 10v10"/><path d="M3 6h18a2 2 0 012 2v2H3V8a2 2 0 012-2z"/></svg>
         </a>
 
+        <a href="/search" class="nav-link ${this.isActive('/search') ? 'active' : ''}" title="Recherche Globale">
+          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </a>
+
         <div style="flex-grow: 1;"></div>
         
         <a href="/billing" class="nav-link ${this.isActive('/billing') ? 'active' : ''}" title="Abonnements & Facturation">
