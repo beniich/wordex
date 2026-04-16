@@ -200,6 +200,10 @@ export class WordexApp extends LitElement {
           <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
         </a>
 
+        <a href="/organisations" class="nav-link ${this.isActive('/organisations') ? 'active' : ''}" title="Console Admin">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </a>
+
         <div style="flex-grow: 1;"></div>
         
         <a href="/billing" class="nav-link ${this.isActive('/billing') ? 'active' : ''}" title="Abonnements & Facturation">
