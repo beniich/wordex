@@ -50,6 +50,27 @@ class AuthService extends EventTarget {
     return await res.json();
   }
 
+  async refresh(): Promise<boolean> {
+    const refreshToken = this.refreshToken;
+    if (!refreshToken) return false;
+    try {
+      const res = await fetch(`${API_BASE}/auth/refresh`, {
+        method: 'POST',
+        headers: { 'Authorization': `Bearer ${refreshToken}` }
+      });
+      if (res.ok) {
+        const data = await res.json();
+        this._token = data.access_token;
+        localStorage.setItem('wordex_token', this._token!);
+        if (data.refresh_token) localStorage.setItem('wordex_refresh', data.refresh_token);
+        return true;
+      }
+    } catch (e) {
+      console.warn("Refresh failed", e);
+    }
+    return false;
+  }
+
   logout() {
     this._token = null;
     this._user = null;

@@ -15,7 +15,6 @@ interface RegistryItem {
 @customElement('wordex-registry-view')
 export class WordexRegistryView extends LitElement {
   @state() private items: RegistryItem[] = [];
-  @state() private loading = true;
   @state() private viewTitle = "";
 
   async connectedCallback() {
@@ -25,7 +24,6 @@ export class WordexRegistryView extends LitElement {
   }
 
   async fetchData() {
-    this.loading = true;
     try {
       const workspaces = await workspaceService.getWorkspaces();
       if (workspaces.length === 0) return;
@@ -49,8 +47,6 @@ export class WordexRegistryView extends LitElement {
     } catch (e) {
       console.warn("Registry sync unavailable:", e);
       this.items = [];
-    } finally {
-      this.loading = false;
     }
   }
 

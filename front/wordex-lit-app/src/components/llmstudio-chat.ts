@@ -105,7 +105,6 @@ export class LLMStudioChat extends LitElement {
 
     const userMsg: ChatMessage = { role: 'user', content: this.input };
     this.messages = [...this.messages, userMsg];
-    const currentInput = this.input;
     this.input = "";
     this.loading = true;
     this.error = "";
