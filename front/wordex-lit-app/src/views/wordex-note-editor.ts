@@ -1,19 +1,17 @@
 import { LitElement, html, css } from 'lit';
-import { customElement, state, query } from 'lit/decorators.js';
+import { customElement, state } from 'lit/decorators.js';
 import { TranslationMixin } from '../services/translation-service';
 import { markdownService } from '../services/markdown-service';
 import { apiFetch } from '../services/api-client';
-import { workspaceService } from '../services/workspace-service';
 
 @customElement('wordex-note-editor')
 export class WordexNoteEditor extends TranslationMixin(LitElement) {
   @state() private docId: string | null = null;
-  @state() private title = "Untitled Note";
+  @state() private docTitle = "Untitled Note";
   @state() private content = "";
   @state() private backlinks: any[] = [];
   @state() private saving = false;
   @state() private showPreview = true;
-  @query('textarea') private textareaEl!: HTMLTextAreaElement;
 
   static styles = css`
     :host {
@@ -182,7 +180,7 @@ export class WordexNoteEditor extends TranslationMixin(LitElement) {
     try {
       const res = await apiFetch(`/documents/${this.docId}`);
       const data = await res.json();
-      this.title = data.title;
+      this.docTitle = data.title;
       this.content = data.content_text || "";
     } catch (e) {
       console.error("Failed to load document", e);
@@ -204,7 +202,7 @@ export class WordexNoteEditor extends TranslationMixin(LitElement) {
       await apiFetch(`/documents/${this.docId}`, {
         method: 'PATCH',
         body: JSON.stringify({
-          title: this.title,
+          title: this.docTitle,
           content_text: this.content
         })
       });
@@ -231,8 +229,8 @@ export class WordexNoteEditor extends TranslationMixin(LitElement) {
         <header>
           <input 
             class="title-input" 
-            .value=${this.title} 
-            @input=${(e: any) => this.title = e.target.value}
+            .value=${this.docTitle} 
+            @input=${(e: any) => this.docTitle = e.target.value}
             placeholder="Note Title"
           />
           <div style="display: flex; gap: 1rem;">
