@@ -24,6 +24,7 @@ import './views/wordex-office-clone-view';
 import './views/wordex-billing-view';
 import './views/wordex-search-view';
 import './views/wordex-organisations-view';
+import './views/wordex-note-editor';
 
 // Initialize router on the root element
 const initRouter = () => {
@@ -67,6 +68,7 @@ const initRouter = () => {
         { path: 'billing', component: 'wordex-billing-view' },
         { path: 'search', component: 'wordex-search-view' },
         { path: 'organisations', component: 'wordex-organisations-view' },
+        { path: 'editor', component: 'wordex-note-editor' },
         // Fallback for all other paths
         { path: '(.*)', component: 'wordex-service-view' },
       ]

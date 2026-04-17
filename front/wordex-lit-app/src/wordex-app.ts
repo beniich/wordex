@@ -1,8 +1,10 @@
 import { LitElement, html, css } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 import { authService } from './services/auth-service';
+import { TranslationMixin, translationService } from './services/translation-service';
 
 import './views/wordex-home';
+// ... rest of imports stay the same
 import './views/wordex-dashboard-view';
 import './views/wordex-agents-view';
 import './views/wordex-slides-view';
@@ -17,20 +19,39 @@ import './views/wordex-settings-view';
 import './components/wordex-notifications-bell';
 
 @customElement('wordex-app')
-export class WordexApp extends LitElement {
+export class WordexApp extends TranslationMixin(LitElement) {
   @state() private currentPath = window.location.pathname;
+  @state() private showCommandPalette = false;
 
   connectedCallback() {
     super.connectedCallback();
     window.addEventListener('vaadin-router-location-changed', (e: any) => {
       this.currentPath = e.detail.location.pathname;
     });
+    window.addEventListener('keydown', this.handleGlobalKeyDown.bind(this));
+  }
+
+  disconnectedCallback() {
+    window.removeEventListener('keydown', this.handleGlobalKeyDown.bind(this));
+    super.disconnectedCallback();
+  }
+
+  private handleGlobalKeyDown(e: KeyboardEvent) {
+    if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+      e.preventDefault();
+      this.showCommandPalette = !this.showCommandPalette;
+    }
   }
 
   private isActive(path: string) {
     if (path === '/' && this.currentPath === '/') return true;
     if (path !== '/' && this.currentPath.startsWith(path)) return true;
     return false;
+  }
+
+  private toggleLanguage() {
+    const newLocale = translationService.locale === 'en' ? 'fr' : 'en';
+    translationService.setLocale(newLocale);
   }
 
   static styles = css`
@@ -127,6 +148,31 @@ export class WordexApp extends LitElement {
       font-size: 0.55rem; padding: 1px 4px; font-weight: 900;
     }
 
+    .lang-toggle {
+      background: rgba(137, 77, 13, 0.1);
+      color: var(--primary);
+      border: 1px solid rgba(137, 77, 13, 0.2);
+      border-radius: 8px;
+      padding: 4px 8px;
+      font-size: 0.75rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .lang-toggle:hover {
+      background: rgba(137, 77, 13, 0.2);
+    }
+
+    .shortcut-hint {
+      font-size: 0.65rem;
+      color: var(--on-surface-variant);
+      opacity: 0.6;
+      background: rgba(0,0,0,0.05);
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-left: 8px;
+    }
+
     main {
       position: absolute; left: calc(84px + 1.5rem); right: 0;
       top: calc(64px + 1.5rem); bottom: 0; padding: 2rem 3rem;
@@ -146,71 +192,71 @@ export class WordexApp extends LitElement {
           <svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16" stroke-width="2" stroke-linecap="round"/></svg>
         </div>
 
-        <a href="/" class="nav-link ${this.isActive('/') ? 'active' : ''}" title="Home">
+        <a href="/" class="nav-link ${this.isActive('/') ? 'active' : ''}" title="${this.t('nav.home')}">
           <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
         </a>
 
-        <a href="/dashboard" class="nav-link ${this.isActive('/dashboard') ? 'active' : ''}" title="Agent Stats">
+        <a href="/dashboard" class="nav-link ${this.isActive('/dashboard') ? 'active' : ''}" title="${this.t('nav.dashboard')}">
           <svg viewBox="0 0 24 24"><path d="M3 3v18h18M18 17l-5-5-3 3-4-4"/></svg>
         </a>
         
-        <a href="/registry" class="nav-link ${this.isActive('/registry') ? 'active' : ''}" title="Registry">
+        <a href="/registry" class="nav-link ${this.isActive('/registry') ? 'active' : ''}" title="${this.t('nav.registry')}">
           <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8zM14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
         </a>
 
-        <a href="/agents" class="nav-link ${this.isActive('/agents') ? 'active' : ''}" title="AI Agents">
+        <a href="/agents" class="nav-link ${this.isActive('/agents') ? 'active' : ''}" title="${this.t('nav.agents')}">
           <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
           <div class="badge">AI</div>
         </a>
         
-        <a href="/office" class="nav-link ${this.isActive('/office') ? 'active' : ''}" title="Wordex Enterprise (Office Clone)">
+        <a href="/office" class="nav-link ${this.isActive('/office') ? 'active' : ''}" title="${this.t('nav.office')}">
           <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
           <div class="badge" style="background:var(--primary); color:white;">PRO</div>
         </a>
 
         <div class="separator"></div>
 
-        <a href="/analytics" class="nav-link ${this.isActive('/analytics') ? 'active' : ''}" title="Analytics">
+        <a href="/analytics" class="nav-link ${this.isActive('/analytics') ? 'active' : ''}" title="${this.t('nav.analytics')}">
           <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="2"/></svg>
         </a>
 
-        <a href="/sheets" class="nav-link ${this.isActive('/sheets') ? 'active' : ''}" title="Ledgers">
+        <a href="/sheets" class="nav-link ${this.isActive('/sheets') ? 'active' : ''}" title="${this.t('nav.sheets')}">
           <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></svg>
         </a>
 
-        <a href="/slides" class="nav-link ${this.isActive('/slides') ? 'active' : ''}" title="Slides">
+        <a href="/slides" class="nav-link ${this.isActive('/slides') ? 'active' : ''}" title="${this.t('nav.slides')}">
           <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
         </a>
 
         <div class="separator"></div>
 
-        <a href="/audio" class="nav-link ${this.isActive('/audio') ? 'active' : ''}" title="Voice">
+        <a href="/audio" class="nav-link ${this.isActive('/audio') ? 'active' : ''}" title="${this.t('nav.audio')}">
           <svg viewBox="0 0 24 24"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2"/></svg>
         </a>
 
-        <a href="/tracer" class="nav-link ${this.isActive('/tracer') ? 'active' : ''}" title="GPU Engine">
+        <a href="/tracer" class="nav-link ${this.isActive('/tracer') ? 'active' : ''}" title="${this.t('nav.tracer')}">
           <svg viewBox="0 0 24 24"><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M2 12h2M4.93 19.07l1.41-1.41"/><circle cx="12" cy="12" r="4"/></svg>
         </a>
 
-        <a href="/gantt" class="nav-link ${this.isActive('/gantt') ? 'active' : ''}" title="Planning">
+        <a href="/gantt" class="nav-link ${this.isActive('/gantt') ? 'active' : ''}" title="${this.t('nav.gantt')}">
           <svg viewBox="0 0 24 24"><path d="M3 10h18M7 10v10M11 10v10M15 10v10"/><path d="M3 6h18a2 2 0 012 2v2H3V8a2 2 0 012-2z"/></svg>
         </a>
 
-        <a href="/search" class="nav-link ${this.isActive('/search') ? 'active' : ''}" title="Recherche Globale">
+        <a href="/search" class="nav-link ${this.isActive('/search') ? 'active' : ''}" title="${this.t('nav.search')}">
           <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
         </a>
 
-        <a href="/organisations" class="nav-link ${this.isActive('/organisations') ? 'active' : ''}" title="Console Admin">
+        <a href="/organisations" class="nav-link ${this.isActive('/organisations') ? 'active' : ''}" title="${this.t('nav.admin')}">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
         </a>
 
         <div style="flex-grow: 1;"></div>
         
-        <a href="/billing" class="nav-link ${this.isActive('/billing') ? 'active' : ''}" title="Abonnements & Facturation">
+        <a href="/billing" class="nav-link ${this.isActive('/billing') ? 'active' : ''}" title="${this.t('nav.billing')}">
           <svg viewBox="0 0 24 24"><path d="M21 10V8a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-5"/><path d="M3 10h18"/><path d="M7 15h.01"/><path d="M11 15h2"/><path d="M16 19h4"/></svg>
         </a>
 
-        <a href="/settings" class="nav-link ${this.isActive('/settings') ? 'active' : ''}" title="Settings">
+        <a href="/settings" class="nav-link ${this.isActive('/settings') ? 'active' : ''}" title="${this.t('nav.settings')}">
           <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09a1.65 1.65 0 00-1-1.51l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09a1.65 1.65 0 001.51-1l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33h.09a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
         </a>
       </aside>
@@ -218,11 +264,15 @@ export class WordexApp extends LitElement {
       <nav class="top-nav glass-panel">
         <div style="display: flex; align-items: center; gap: 2rem;">
           <div class="brand-title">Aether Local OS</div>
+          <button class="lang-toggle" @click=${this.toggleLanguage}>
+            ${translationService.locale.toUpperCase()}
+          </button>
+          <span class="shortcut-hint">Cmd + K</span>
         </div>
         <div style="display: flex; gap: 1rem; align-items: center;">
           <wordex-notifications-bell></wordex-notifications-bell>
           <div style="display: flex; flex-direction: column; align-items: flex-end; justify-content: center; margin-right: 10px;">
-            <span style="font-size: 0.7rem; font-weight: 800; color: #22c55e;">LOCAL GPU ACTIVE</span>
+            <span style="font-size: 0.7rem; font-weight: 800; color: #22c55e;">${this.t('dashboard.local')} GPU ACTIVE</span>
             <span style="font-size: 0.65rem; color: #857467; font-weight: 600;">0ms Latency</span>
           </div>
           <div style="width: 36px; height: 36px; background: var(--primary); border-radius: 50%; color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; cursor: pointer;" @click=${() => authService.logout()}>
@@ -234,6 +284,8 @@ export class WordexApp extends LitElement {
       <main>
         <slot></slot>
       </main>
+
+      ${this.showCommandPalette ? html`<wordex-command-palette @close=${() => this.showCommandPalette = false}></wordex-command-palette>` : ''}
     `;
   }
 }

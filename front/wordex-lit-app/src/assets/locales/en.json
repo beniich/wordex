@@ -1,0 +1,102 @@
+{
+  "nav": {
+    "home": "Home",
+    "dashboard": "AI Studio",
+    "registry": "Vault",
+    "agents": "Intelligence Cell",
+    "office": "Office PRO",
+    "analytics": "Analytics",
+    "sheets": "Ledgers",
+    "slides": "Slides",
+    "audio": "Voice",
+    "tracer": "GPU Engine",
+    "gantt": "Planning",
+    "search": "Global Search",
+    "admin": "Admin Console",
+    "billing": "Billing",
+    "settings": "Settings"
+  },
+  "home": {
+    "greeting": "Good morning",
+    "titlePrefix": "Your Celestial",
+    "titleSuffix": "is ready.",
+    "atelier": "Atelier",
+    "active": "Active",
+    "online": "Online",
+    "collabTitle": "Live Sync Collaboration",
+    "collabMembers": "{count} team members are currently designing.",
+    "joinCanvas": "Join Canvas",
+    "office": "Office PRO",
+    "analytics": "Analytics",
+    "sheets": "Ledgers",
+    "slides": "Presentations",
+    "settings": "Settings",
+    "search": "Search"
+  },
+  "common": {
+    "error": "Error",
+    "loading": "Loading...",
+    "save": "Save",
+    "cancel": "Cancel"
+  },
+  "dashboard": {
+    "title": "Studio Monitor",
+    "subtitle": "AI Operations Management • Local Server",
+    "deployModel": "Deploy a Model",
+    "activeModels": "Active Models & Pipelines",
+    "latency": "Avg Latency",
+    "success": "Success",
+    "processing": "Processing",
+    "waiting": "Waiting",
+    "globalAnalytics": "Global Analytics",
+    "savings": "Estimated savings compared to Cloud hosting.",
+    "growth": "+15% this month",
+    "resources": "System Resources",
+    "vram": "Allocated VRAM",
+    "cpu": "Host CPU",
+    "tdp": "TDP Power",
+    "ram": "System RAM",
+    "computeNodes": "Compute Nodes",
+    "local": "Local",
+    "remote": "Remote",
+    "addNode": "Add a Node"
+  },
+  "agents": {
+    "title": "Intelligence Cell",
+    "subtitle": "Deploy your celestial agents to analyze your data.",
+    "loading": "Connecting to the Intelligence Workshop...",
+    "activeLink": "Active Link: {name}",
+    "assignTask": "Assign a task to the agent...",
+    "execute": "Execute",
+    "computing": "Computing..."
+  },
+  "registry": {
+    "title": "Registry",
+    "vault": "Vault",
+    "digitalVault": "Digital Vault",
+    "newFolder": "New Folder",
+    "uploadDoc": "Upload Document",
+    "directory": "Directory",
+    "document": "Document",
+    "syncError": "Registry sync unavailable."
+  },
+  "search": {
+    "title": "Omni Search",
+    "subtitle": "Instantly search across all your documents, folders, and files.",
+    "placeholder": "Search a report, a budget, a slide...",
+    "recent": "Recent Documents",
+    "searching": "Searching...",
+    "noResults": "No results found for \"{query}\"",
+    "noRecent": "No recent documents."
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "delete": "Delete",
+    "save": "Save",
+    "cancel": "Cancel",
+    "active": "Active",
+    "idle": "Idle"
+  }
+}

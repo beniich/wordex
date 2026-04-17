@@ -1,0 +1,91 @@
+{
+  "nav": {
+    "home": "Accueil",
+    "dashboard": "Studio IA",
+    "registry": "Registre",
+    "agents": "Cellule IA",
+    "office": "Bureau PRO",
+    "analytics": "Analytique",
+    "sheets": "Grilles",
+    "slides": "Présentations",
+    "audio": "Audio",
+    "tracer": "GPU Engine",
+    "gantt": "Planning",
+    "search": "Recherche",
+    "admin": "Console Admin",
+    "billing": "Facturation",
+    "settings": "Paramètres"
+  },
+  "home": {
+    "greeting": "Bonjour",
+    "titlePrefix": "Votre Atelier",
+    "titleSuffix": "est prêt.",
+    "atelier": "Céleste",
+    "active": "Actif",
+    "online": "En ligne",
+    "collabTitle": "Collaboration Temps Réel",
+    "collabMembers": "{count} membres collaborent actuellement.",
+    "joinCanvas": "Rejoindre"
+  },
+  "dashboard": {
+    "title": "Moniteur Studio",
+    "subtitle": "Gestion des Opérations IA • Serveur Local",
+    "deployModel": "Déployer un Modèle",
+    "activeModels": "Modèles Actifs & Pipelines",
+    "success": "Succès",
+    "latency": "Latence",
+    "processing": "En traitement",
+    "waiting": "En attente",
+    "globalAnalytics": "Analytique Globale",
+    "savings": "Économies estimées par rapport au cloud.",
+    "savingsLabel": "Économies Estimées",
+    "growth": "+15% ce mois-ci",
+    "resources": "Ressources Système",
+    "vram": "VRAM Allouée",
+    "cpu": "CPU Host",
+    "tdp": "Puissance TDP",
+    "ram": "RAM Système",
+    "computeNodes": "Nœuds de Calcul",
+    "addNode": "Ajouter un Nœud",
+    "local": "Local",
+    "remote": "Distant"
+  },
+  "agents": {
+    "title": "Cellule d'Intelligence",
+    "subtitle": "Déployez vos agents pour analyser vos données.",
+    "activeLink": "Liaison active : {name}",
+    "loading": "Connexion à l'Atelier d'Intelligence...",
+    "assignTask": "Confiez une tâche à l'agent...",
+    "execute": "Exécuter",
+    "computing": "Calcul..."
+  },
+  "registry": {
+    "title": "Registre",
+    "vault": "Coffre-fort",
+    "digitalVault": "Coffre-fort Numérique",
+    "newFolder": "Nouveau Dossier",
+    "uploadDoc": "Téléverser Document",
+    "directory": "Dossier",
+    "document": "Document",
+    "syncError": "Synchronisation du Registre indisponible."
+  },
+  "search": {
+    "title": "Omni Search",
+    "subtitle": "Recherchez dans tous vos documents, dossiers et fichiers.",
+    "placeholder": "Rechercher un rapport, un budget, une slide...",
+    "recent": "Documents Récents",
+    "searching": "Recherche...",
+    "noResults": "Aucun résultat pour \"{query}\"",
+    "noRecent": "Aucun document récent."
+  },
+  "common": {
+    "loading": "Chargement...",
+    "error": "Erreur",
+    "success": "Succès",
+    "delete": "Supprimer",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "active": "Actif",
+    "idle": "Inactif"
+  }
+}

@@ -10,7 +10,8 @@
   },
   "dependencies": {
     "@vaadin/router": "^2.0.1",
-    "lit": "^3.3.2"
+    "lit": "^3.3.2",
+    "marked": "^18.0.1"
   },
   "devDependencies": {
     "typescript": "~6.0.2",

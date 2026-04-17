@@ -9,6 +9,7 @@ from app.models import (
     DocumentSearchOut, RoleOut, DocumentCreate, DocumentUpdate
 )
 from app.services.event_bus import event_bus
+from app.services.link_service import link_service
 import json
 
 router = APIRouter()
@@ -147,6 +148,14 @@ async def update_document(
         )
     
     res = dict(updated)
+    
+    # Trigger Link Intelligence (WikiLinks)
+    if body.content_text:
+        try:
+            await link_service.extract_and_sync_links(db, doc_id, body.content_text, str(res["workspace_id"]))
+        except Exception as e:
+            print(f"Error extracting links: {e}")
+
     await event_bus.publish(
         "document.updated",
         payload={"id": str(res["id"]), "title": res["title"]},
@@ -243,6 +252,18 @@ async def restore_version(
         doc_id, v["content"], user_id
     )
     return dict(restored)
+
+# ── Link Intelligence ────────────────────────────────────────────────────────
+
+@router.get("/{doc_id}/backlinks")
+async def get_document_backlinks(
+    doc_id: str,
+    user_id: str = Depends(get_current_user_id),
+    db: asyncpg.Connection = Depends(get_db),
+):
+    row = await _get_doc_or_404(db, doc_id)
+    await _require_workspace_access(db, str(row["workspace_id"]), user_id)
+    return await link_service.get_backlinks(db, doc_id)
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
 

@@ -1,9 +1,11 @@
 import { LitElement, html, css } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
+import { TranslationMixin } from '../services/translation-service';
 
 @customElement('wordex-dashboard-view')
-export class WordexDashboardView extends LitElement {
+export class WordexDashboardView extends TranslationMixin(LitElement) {
   @state() private agentData: any[] = [];
+  // systemMetrics stay the same
   @state() private systemMetrics = { vram: 14.2, cpu: 34, ram: 68, power: 254 };
 
   connectedCallback() {
@@ -294,11 +296,11 @@ export class WordexDashboardView extends LitElement {
     return html`
       <div class="studio-header">
         <div>
-          <h1>Studio Monitor</h1>
-          <div class="subtitle">Gestion des Opérations IA • Serveur Local</div>
+          <h1>${this.t('dashboard.title')}</h1>
+          <div class="subtitle">${this.t('dashboard.subtitle')}</div>
         </div>
         <div class="header-actions">
-          <button>+ Déployer un Modèle</button>
+          <button>+ ${this.t('dashboard.deployModel')}</button>
         </div>
       </div>
 
@@ -308,7 +310,7 @@ export class WordexDashboardView extends LitElement {
           <div class="panel-card" style="flex: 1;">
             <div class="panel-title">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h4l3-9 5 18 3-9h5"/></svg>
-              Modèles Actifs & Pipelines
+              ${this.t('dashboard.activeModels')}
             </div>
             
             <div class="model-list">
@@ -321,13 +323,13 @@ export class WordexDashboardView extends LitElement {
                     <span class="model-badge">${agent.model}</span>
                     <h4>${agent.name}</h4>
                     <div class="model-meta">
-                      Latence moy: <strong>${agent.latency}ms</strong> • Succès: <strong>${agent.success}%</strong>
+                      ${this.t('dashboard.latency')}: <strong>${agent.latency}ms</strong> • ${this.t('dashboard.success')}: <strong>${agent.success}%</strong>
                     </div>
                   </div>
                   <div class="model-stats">
                     <div style="font-size: 0.85rem; font-weight: 600; color: #1a1612;">
                       <span class="status-dot ${agent.status === 'active' ? 'status-active' : 'status-idle'}"></span>
-                      ${agent.status === 'active' ? 'En traitement' : 'En attente'}
+                      ${agent.status === 'active' ? this.t('dashboard.processing') : this.t('dashboard.waiting')}
                     </div>
                     <div class="sparkline">
                       ${agent.timeline.map((val: number) => html`
@@ -342,12 +344,12 @@ export class WordexDashboardView extends LitElement {
           
           <div class="panel-card" style="padding: 2rem; display: flex; justify-content: space-between; align-items: center; background: linear-gradient(135deg, white, #fdfaf4);">
             <div>
-              <h3 style="margin: 0 0 0.5rem 0; color: #1a1612;">Analytique Globale</h3>
-              <p style="margin: 0; color: #7a6b5d; font-size: 0.9rem;">Économies estimées par rapport à un hébergement Cloud.</p>
+              <h3 style="margin: 0 0 0.5rem 0; color: #1a1612;">${this.t('dashboard.globalAnalytics')}</h3>
+              <p style="margin: 0; color: #7a6b5d; font-size: 0.9rem;">${this.t('dashboard.savings')}</p>
             </div>
             <div style="text-align: right;">
               <div style="font-weight: 800; font-size: 2.5rem; color: #894d0d;">2,450 €</div>
-              <div style="color: #10b981; font-weight: 600; font-size: 0.85rem;">▲ +15% ce mois-ci</div>
+              <div style="color: #10b981; font-weight: 600; font-size: 0.85rem;">▲ ${this.t('dashboard.growth')}</div>
             </div>
           </div>
         </div>
@@ -358,12 +360,12 @@ export class WordexDashboardView extends LitElement {
             <div class="bg-decorator"></div>
             <div class="panel-title">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg>
-              Ressources Système
+              ${this.t('dashboard.resources')}
             </div>
             
             <div class="metrics-grid">
               <div class="metric-box">
-                <span class="metric-label">VRAM Allouée</span>
+                <span class="metric-label">${this.t('dashboard.vram')}</span>
                 <span class="metric-value">${this.systemMetrics.vram} <span class="metric-unit">GB</span></span>
                 <div style="margin-top: 8px; height: 4px; background: rgba(184, 115, 51, 0.2); border-radius: 2px; overflow: hidden;">
                   <div style="height: 100%; width: ${(this.systemMetrics.vram / 24) * 100}%; background: #b87333; transition: width 0.5s;"></div>
@@ -371,7 +373,7 @@ export class WordexDashboardView extends LitElement {
               </div>
               
               <div class="metric-box">
-                <span class="metric-label">CPU Host</span>
+                <span class="metric-label">${this.t('dashboard.cpu')}</span>
                 <span class="metric-value">${this.systemMetrics.cpu} <span class="metric-unit">%</span></span>
                 <div style="margin-top: 8px; height: 4px; background: rgba(184, 115, 51, 0.2); border-radius: 2px; overflow: hidden;">
                   <div style="height: 100%; width: ${this.systemMetrics.cpu}%; background: ${this.systemMetrics.cpu > 80 ? '#e74c3c' : '#b87333'}; transition: width 0.5s;"></div>
@@ -379,19 +381,19 @@ export class WordexDashboardView extends LitElement {
               </div>
 
               <div class="metric-box">
-                <span class="metric-label">TDP Power</span>
+                <span class="metric-label">${this.t('dashboard.tdp')}</span>
                 <span class="metric-value">${this.systemMetrics.power} <span class="metric-unit">W</span></span>
               </div>
               
               <div class="metric-box">
-                <span class="metric-label">RAM Système</span>
+                <span class="metric-label">${this.t('dashboard.ram')}</span>
                 <span class="metric-value">${this.systemMetrics.ram} <span class="metric-unit">%</span></span>
               </div>
             </div>
           </div>
 
           <div class="panel-card">
-            <div class="panel-title">Nœuds de Calcul</div>
+            <div class="panel-title">${this.t('dashboard.computeNodes')}</div>
             
             <div style="display: flex; flex-direction: column; gap: 12px;">
               <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 12px; border-bottom: 1px solid rgba(184, 115, 51, 0.1);">
@@ -399,7 +401,7 @@ export class WordexDashboardView extends LitElement {
                   <div style="width: 32px; height: 32px; border-radius: 8px; background: #1a1612; color: white; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 700;">N1</div>
                   <div>
                     <div style="font-weight: 700; color: #1a1612; font-size: 0.9rem;">RTX 4090</div>
-                    <div style="font-size: 0.75rem; color: #7a6b5d;">Local • IDLE</div>
+                    <div style="font-size: 0.75rem; color: #7a6b5d;">${this.t('dashboard.local')} • IDLE</div>
                   </div>
                 </div>
                 <div style="color: #10b981; font-weight: 700; font-size: 0.8rem;">32°C</div>
@@ -410,7 +412,7 @@ export class WordexDashboardView extends LitElement {
                   <div style="width: 32px; height: 32px; border-radius: 8px; background: #635345; color: white; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 700;">N2</div>
                   <div>
                     <div style="font-weight: 700; color: #1a1612; font-size: 0.9rem;">A100 Cluster</div>
-                    <div style="font-size: 0.75rem; color: #7a6b5d;">Distant • ACTIVE</div>
+                    <div style="font-size: 0.75rem; color: #7a6b5d;">${this.t('dashboard.remote')} • ACTIVE</div>
                   </div>
                 </div>
                 <div style="color: #f59e0b; font-weight: 700; font-size: 0.8rem;">68°C</div>
@@ -418,7 +420,7 @@ export class WordexDashboardView extends LitElement {
             </div>
             
             <button style="width: 100%; margin-top: 1.5rem; padding: 12px; border: 1px dashed rgba(184, 115, 51, 0.4); background: transparent; border-radius: 8px; color: #b87333; font-weight: 600; cursor: pointer; transition: all 0.2s;">
-              + Ajouter un Nœud
+              + ${this.t('dashboard.addNode')}
             </button>
           </div>
         </div>

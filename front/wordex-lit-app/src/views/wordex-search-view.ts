@@ -3,9 +3,10 @@ import { customElement, state } from 'lit/decorators.js';
 import { searchService } from '../services/search-service';
 import type { SearchResult } from '../services/search-service';
 import { workspaceService } from '../services/workspace-service';
+import { TranslationMixin } from '../services/translation-service';
 
 @customElement('wordex-search-view')
-export class WordexSearchView extends LitElement {
+export class WordexSearchView extends TranslationMixin(LitElement) {
   static styles = css`
     :host { display: block; animation: fadeIn 0.5s; padding-bottom: 4rem; color: #1c1c1a; }
     .header { margin-bottom: 2rem; }
@@ -135,8 +136,8 @@ export class WordexSearchView extends LitElement {
   render() {
     return html`
       <div class="header">
-        <h1>Omni Search</h1>
-        <p style="color: #857467;">Recherchez instantanément dans tous vos documents, dossiers et fichiers.</p>
+        <h1>${this.t('search.title')}</h1>
+        <p style="color: #857467;">${this.t('search.subtitle')}</p>
       </div>
 
       <div class="search-container">
@@ -144,7 +145,7 @@ export class WordexSearchView extends LitElement {
           <svg style="width: 24px; height: 24px; color: #857467; align-self: center;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
           <input 
             type="text" 
-            placeholder="Rechercher un rapport, un budget, une slide..." 
+            placeholder="${this.t('search.placeholder')}" 
             .value=${this.query}
             @input=${this.handleSearch}
             autofocus
@@ -153,9 +154,9 @@ export class WordexSearchView extends LitElement {
         </div>
 
         ${this.query.length < 2 ? html`
-          <div class="section-title" style="margin-bottom: 1.5rem; font-weight: 800; color: #857467; font-size: 0.9rem; text-transform: uppercase;">Documents Récents</div>
+          <div class="section-title" style="margin-bottom: 1.5rem; font-weight: 800; color: #857467; font-size: 0.9rem; text-transform: uppercase;">${this.t('search.recent')}</div>
           <div class="results-list">
-            ${this.recentDocs.length === 0 ? html`<div class="empty-state">Aucun document récent.</div>` : this.recentDocs.map(doc => this.renderResultItem({
+            ${this.recentDocs.length === 0 ? html`<div class="empty-state">${this.t('search.noRecent')}</div>` : this.recentDocs.map(doc => this.renderResultItem({
               id: doc.id,
               title: doc.title,
               doc_type: doc.doc_type,
@@ -169,7 +170,7 @@ export class WordexSearchView extends LitElement {
           <div class="results-list">
             ${this.results.length === 0 ? html`
               <div class="empty-state">
-                ${this.searching ? 'Recherche en cours...' : 'Aucun résultat trouvé pour "' + this.query + '"'}
+                ${this.searching ? this.t('search.searching') : this.t('search.noResults', { query: this.query })}
               </div>
             ` : this.results.map(res => this.renderResultItem(res))}
           </div>
@@ -188,7 +189,7 @@ export class WordexSearchView extends LitElement {
         <div class="result-info">
           <div class="result-meta">
             <span class="result-type">${res.doc_type}</span>
-            <span class="result-date">${new Date(res.updated_at).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
+            <span class="result-date">${new Date(res.updated_at).toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' })}</span>
           </div>
           <div class="result-title">${res.title}</div>
           ${res.excerpt ? html`<div class="result-excerpt">${res.excerpt}</div>` : ''}

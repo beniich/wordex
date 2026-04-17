@@ -2,6 +2,7 @@ import { LitElement, html, css } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 import { apiFetch } from '../services/api-client';
 import { workspaceService } from '../services/workspace-service';
+import { TranslationMixin } from '../services/translation-service';
 
 interface RegistryItem {
   id: string;
@@ -13,14 +14,66 @@ interface RegistryItem {
 }
 
 @customElement('wordex-registry-view')
-export class WordexRegistryView extends LitElement {
+export class WordexRegistryView extends TranslationMixin(LitElement) {
   @state() private items: RegistryItem[] = [];
-  @state() private viewTitle = "";
+  @state() private viewTitleKey = "registry.vault";
 
   async connectedCallback() {
     super.connectedCallback();
-    this.viewTitle = window.location.pathname.includes('documents') ? 'Registry' : 'Vault';
+    this.viewTitleKey = window.location.pathname.includes('documents') ? 'registry.title' : 'registry.vault';
+    
+    // Check for WikiLink resolution or specific document opening
+    const params = new URLSearchParams(window.location.search);
+    const docId = params.get('id');
+    const searchTitle = params.get('search');
+
+    if (docId) {
+      this.navigateToEditor(docId);
+      return;
+    }
+
+    if (searchTitle) {
+      await this.resolveWikiLink(searchTitle);
+      return;
+    }
+
     await this.fetchData();
+  }
+
+  async resolveWikiLink(title: string) {
+    try {
+      const workspaces = await workspaceService.getWorkspaces();
+      if (workspaces.length === 0) return;
+      const wsId = workspaces[0].id;
+
+      // 1. Try to find existing doc
+      const res = await apiFetch(`/documents/search?workspace_id=${wsId}&q=${encodeURIComponent(title)}`);
+      const results = await res.json();
+      const exactMatch = results.find((r: any) => r.title.toLowerCase() === title.toLowerCase());
+
+      if (exactMatch) {
+        this.navigateToEditor(exactMatch.id);
+      } else {
+        // 2. Ghost Note: Automatic Creation requirement
+        const createRes = await apiFetch(`/documents`, {
+          method: 'POST',
+          body: JSON.stringify({
+            workspace_id: wsId,
+            title: title,
+            doc_type: 'note'
+          })
+        });
+        const newDoc = await createRes.json();
+        this.navigateToEditor(newDoc.id);
+      }
+    } catch (e) {
+      console.error("WikiLink resolution failed", e);
+      await this.fetchData();
+    }
+  }
+
+  private navigateToEditor(id: string) {
+    window.location.href = `/editor?id=${id}`;
   }
 
   async fetchData() {
@@ -47,6 +100,12 @@ export class WordexRegistryView extends LitElement {
     } catch (e) {
       console.warn("Registry sync unavailable:", e);
       this.items = [];
+    }
+  }
+
+  private handleItemClick(item: RegistryItem) {
+    if (item.type === 'document' && (item.doc_type === 'note' || item.name?.endsWith('.md') || !item.doc_type)) {
+      this.navigateToEditor(item.id);
     }
   }
 
@@ -91,40 +150,39 @@ export class WordexRegistryView extends LitElement {
   `;
 
   render() {
-    const displayItems = this.items.length > 0 ? this.items : [
-      { id: '1', name: 'Projets Stratégiques', type: 'folder', updated_at: new Date().toISOString() },
-      { id: '2', name: 'Architecture_Systeme_v4.pdf', type: 'document', doc_type: 'PDF', updated_at: new Date().toISOString() },
-      { id: '3', name: 'Analyses_Industrielles', type: 'folder', updated_at: new Date().toISOString() },
-      { id: '4', name: 'Notes_AI_Core.md', type: 'document', doc_type: 'Markdown', updated_at: new Date().toISOString() },
-      { id: '5', name: 'Contrats_Fournisseurs', type: 'folder', updated_at: new Date().toISOString() },
-      { id: '6', name: 'Logo_Aether_Vector.svg', type: 'document', doc_type: 'Image', updated_at: new Date().toISOString() },
-    ];
+    const displayItems = this.items.length > 0 ? this.items : [];
 
     return html`
       <header>
         <div>
-          <p style="margin: 0; color: #894d0d; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.75rem;">Digital Vault</p>
-          <h1>${this.viewTitle}</h1>
+          <p style="margin: 0; color: #894d0d; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.75rem;">${this.t('registry.digitalVault')}</p>
+          <h1>${this.t(this.viewTitleKey)}</h1>
         </div>
         <div class="actions">
-          <button class="btn">+ New Folder</button>
-          <button class="btn btn-primary">+ Upload Document</button>
+          <button class="btn">+ ${this.t('registry.newFolder')}</button>
+          <button class="btn btn-primary" @click=${() => this.resolveWikiLink("New Note")}>+ ${this.t('registry.uploadDoc')}</button>
         </div>
       </header>
 
       <div class="registry-grid">
         ${displayItems.map(item => html`
-          <div class="item-card">
+          <div class="item-card" @click=${() => this.handleItemClick(item)}>
             <div class="icon-wrapper ${item.type === 'folder' ? 'folder-icon' : 'doc-icon'}">
               ${item.type === 'folder' ? '📁' : '📄'}
             </div>
             <div class="name">${item.name}</div>
-            <div class="meta">${item.type === 'folder' ? 'Directory' : (item as any).doc_type || 'Document'}</div>
+            <div class="meta">${item.type === 'folder' ? this.t('registry.directory') : (item as any).doc_type || this.t('registry.document')}</div>
             <div class="meta" style="margin-top: 0.5rem; opacity: 0.6;">
               ${new Date(item.updated_at).toLocaleDateString()}
             </div>
           </div>
         `)}
+
+        ${displayItems.length === 0 ? html`
+          <div style="grid-column: 1/-1; text-align: center; padding: 4rem; color: #857467; font-style: italic;">
+             No items found. Click "+ Upload Document" to create your first networked note.
+          </div>
+        ` : ''}
       </div>
     `;
   }

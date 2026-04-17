@@ -3,9 +3,10 @@ import { customElement, state } from 'lit/decorators.js';
 import { Router } from '@vaadin/router';
 import { workspaceService } from '../services/workspace-service';
 import type { Workspace } from '../services/workspace-service';
+import { TranslationMixin } from '../services/translation-service';
 
 @customElement('wordex-home')
-export class WordexHome extends LitElement {
+export class WordexHome extends TranslationMixin(LitElement) {
   @state() private workspaces: Workspace[] = [];
 
   @state() private showJoinConfetti = false;
@@ -81,8 +82,8 @@ export class WordexHome extends LitElement {
   render() {
     return html`
       <div class="header-section">
-        <div class="greeting">Good morning</div>
-        <h1>Your Celestial<br><span>Atelier</span> is ready.</h1>
+        <div class="greeting">${this.t('home.greeting')}</div>
+        <h1>${this.t('home.titlePrefix')}<br><span>${this.t('home.atelier')}</span> ${this.t('home.titleSuffix')}</h1>
       </div>
 
       <div class="grid-container">
@@ -90,10 +91,10 @@ export class WordexHome extends LitElement {
           <div class="bento-card" @click=${() => Router.go('/dashboard')}>
             <div class="card-icon ${i % 2 !== 0 ? 'teal' : 'copper'}">${ws.icon || '🏗️'}</div>
             <h4 class="card-title">${ws.name}</h4>
-            <p class="card-desc">${ws.description || "Un bel espace collaboratif dans l'atelier céleste."}</p>
+            <p class="card-desc">${ws.description || this.t('home.collabMembers', { count: 0 })}</p>
             <div class="status-bar">
-               <span style="color: ${i % 2 !== 0 ? '#006576' : '#894d0d'};">Actif</span>
-               <span style="color: #857467;">En ligne</span>
+               <span style="color: ${i % 2 !== 0 ? '#006576' : '#894d0d'};">${this.t('home.active')}</span>
+               <span style="color: #857467;">${this.t('home.online')}</span>
             </div>
           </div>
         `)}
@@ -101,13 +102,13 @@ export class WordexHome extends LitElement {
       
       <div class="collaboration-banner">
         <div>
-          <h4 style="margin: 0 0 0.5rem 0; font-size: 1.5rem; font-weight: 800;">Live Sync Collaboration</h4>
+          <h4 style="margin: 0 0 0.5rem 0; font-size: 1.5rem; font-weight: 800;">${this.t('home.collabTitle')}</h4>
           <p style="margin:0; font-size: 0.9rem; color: rgba(255,255,255,0.7);">
-            <strong style="color:white; font-size: 1.1rem;">${this.collaborators}</strong> team members are currently designing.
+            ${this.t('home.collabMembers', { count: this.collaborators })}
           </p>
         </div>
         <button class="btn-join" @click=${this.handleJoin}>
-          Join Canvas ${this.showJoinConfetti ? '✨' : ''}
+          ${this.t('home.joinCanvas')} ${this.showJoinConfetti ? '✨' : ''}
         </button>
       </div>
     `;

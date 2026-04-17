@@ -2,6 +2,7 @@ import { LitElement, html, css } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 import { AgentService } from '../services/agent-api';
 import type { Agent } from '../services/agent-api';
+import { TranslationMixin } from '../services/translation-service';
 
 interface ChatMessage {
   role: 'user' | 'agent';
@@ -9,7 +10,7 @@ interface ChatMessage {
 }
 
 @customElement('wordex-agents-view')
-export class WordexAgentsView extends LitElement {
+export class WordexAgentsView extends TranslationMixin(LitElement) {
   static styles = css`
     :host {
       display: block;
@@ -182,7 +183,7 @@ export class WordexAgentsView extends LitElement {
       this.chatLog = [...this.chatLog, { role: 'agent', content: result.response }];
       
     } catch(e) {
-      this.chatLog = [...this.chatLog, { role: 'agent', content: "Erreur de connexion à l'Agent LLM (Backend non atteignable)." }];
+      this.chatLog = [...this.chatLog, { role: 'agent', content: this.t('common.error') + " (Backend non atteignable)." }];
     } finally {
       this.isGenerating = false;
     }
@@ -190,16 +191,16 @@ export class WordexAgentsView extends LitElement {
 
   private selectAgent(agent: Agent) {
     this.selectedAgent = agent;
-    this.chatLog = [{ role: 'agent', content: "Bonjour, je suis le " + agent.name + ". Comment puis-je vous assister aujourd'hui ?" }];
+    this.chatLog = [{ role: 'agent', content: "Bonjour, je suis " + agent.name + ". Comment puis-je vous assister aujourd'hui ?" }];
   }
 
   render() {
-    if (this.loading) return html`<div style="padding: 2rem;">Connexion à l'Atelier d'Intelligence...</div>`;
+    if (this.loading) return html`<div style="padding: 2rem;">${this.t('agents.loading')}</div>`;
 
     return html`
       <div class="header">
-        <h1>Intelligence Cell</h1>
-        <p style="color: var(--on-surface-variant); font-weight: 600;">Déployez vos agents célestes pour analyser vos données.</p>
+        <h1>${this.t('agents.title')}</h1>
+        <p style="color: var(--on-surface-variant); font-weight: 600;">${this.t('agents.subtitle')}</p>
       </div>
 
       <div class="grid">
@@ -220,7 +221,7 @@ export class WordexAgentsView extends LitElement {
         <div class="lab-area">
           <h3 style="margin-top: 0; color: #894d0d; display:flex; align-items:center; gap: 8px;">
             <span style="display:inline-block; width:8px; height:8px; background:#894d0d; border-radius:50%;"></span>
-            Liaison active : ${this.selectedAgent.name}
+            ${this.t('agents.activeLink', { name: this.selectedAgent.name })}
           </h3>
           
           <div class="chat-history">
@@ -231,13 +232,13 @@ export class WordexAgentsView extends LitElement {
 
           <div class="input-area">
             <input 
-              placeholder="Confiez une tâche à l'agent..." 
+              placeholder="${this.t('agents.assignTask')}" 
               .value=${this.msgInput}
               @input=${(e:any) => this.msgInput = e.target.value}
               @keyup=${(e:KeyboardEvent) => e.key === 'Enter' && this.sendMessage()}
             />
             <button @click=${this.sendMessage} ?disabled=${this.isGenerating || !this.msgInput.trim()}>
-              ${this.isGenerating ? 'Calcul...' : 'Exécuter'}
+              ${this.isGenerating ? this.t('agents.computing') : this.t('agents.execute')}
             </button>
           </div>
         </div>
